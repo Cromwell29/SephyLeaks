@@ -1,8 +1,16 @@
-// Une fois l'en-tête chargé, activer le sticky + shadow dynamique
 function activateStickyEffect() {
   const nav = document.querySelector('.main-nav');
-  if (!nav) return;
+  if (!nav) {
+    console.warn("Pas de .main-nav trouvé pour sticky");
+    return;
+  }
 
+  // Appliquer la classe immédiatement si déjà scrollé
+  if (window.scrollY > 20) {
+    nav.classList.add('scrolled');
+  }
+
+  // Ajouter le scroll listener
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
       nav.classList.add('scrolled');
@@ -25,9 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(html => {
         el.innerHTML = html;
 
-        // ⬇️ ATTENTION : appel différé à sticky après injection réussie
-        if (file.includes("header")) {
-          activateStickyEffect();
+        // ✅ Important : attendre que le HTML soit bien injecté avant d’activer le sticky
+        if (html.includes("main-nav")) {
+          requestAnimationFrame(activateStickyEffect);
         }
       })
       .catch(err => console.error("Erreur d'inclusion:", file, err));
