@@ -27,21 +27,22 @@ document.addEventListener("DOMContentLoaded", () => {
         uniqueTags.add(article.tag);
       });
 
-      // Créer les boutons
-      const createButton = (label, isActive = false) => {
-        const btn = document.createElement("button");
-        btn.textContent = label;
-        btn.dataset.filter = label;
-        btn.className = "filter-btn";
-        if (isActive) btn.classList.add("active");
-        filtersContainer.appendChild(btn);
-      };
+// Créer les boutons
+const createButton = (label, isActive = false) => {
+  const btn = document.createElement("button");
+  btn.textContent = label.charAt(0).toUpperCase() + label.slice(1); // Capitaliser pour affichage
+  btn.dataset.filter = label.toLowerCase().trim(); // Filtrage basé sur version standardisée
+  btn.className = "filter-btn";
+  if (isActive) btn.classList.add("active");
+  filtersContainer.appendChild(btn);
+};
 
-      // Bouton "Tous"
-      createButton("Tous", true);
+// Bouton "Tous"
+createButton("tous", true);
 
-      // Boutons dynamiques depuis les tags
-      [...uniqueTags].forEach(tag => createButton(tag));
+// Boutons dynamiques depuis les tags
+[...uniqueTags].forEach(tag => createButton(tag));
+
 
       // Gérer le clic sur les boutons
       const buttons = document.querySelectorAll(".filter-btn");
