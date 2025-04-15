@@ -5,11 +5,11 @@
   <title>SephyLeaks – L’information libre d’Éorzéa</title>
   <link rel="stylesheet" href="css/style.css">
   <script>
-  const timestamp = Date.now();
-  const script = document.createElement('script');
-  script.src = `js/main.js?v=${timestamp}`;
-  script.defer = true;
-  document.head.appendChild(script);
+    const timestamp = Date.now();
+    const script = document.createElement('script');
+    script.src = `js/main.js?v=${timestamp}`;
+    script.defer = true;
+    document.head.appendChild(script);
   </script>
 </head>
 <body>
@@ -19,20 +19,15 @@
     <div class="subtitle">L’information libre d’Éorzéa</div>
   </header>
 
-<main>
+  <main>
+    <section id="filters" class="filters">
+      <!-- Boutons générés dynamiquement ici -->
+    </section>
 
-  <!-- Filtres par catégories -->
-  <section id="filters" class="filters">
-    <!-- Boutons générés dynamiquement ici -->
-  </section>
-
-  <!-- Conteneur des articles dynamiques -->
-  <section id="articles-container">
-    <!-- Articles chargés dynamiquement ici -->
-  </section>
-
-</main>
-
+    <section id="articles-container">
+      <!-- Articles chargés dynamiquement ici -->
+    </section>
+  </main>
 
   <footer>
     SephyLeaks – Projet communautaire non officiel. Soutenez-nous sur Ko-fi ✧

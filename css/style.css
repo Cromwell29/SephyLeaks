@@ -1,7 +1,5 @@
-/* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Cormorant+Garamond&family=EB+Garamond&family=IM+Fell+English+SC&display=swap');
 
-/* === Variables === */
 :root {
   --color-bg-main: #2b223f;
   --color-bg-alt: #1c1a2a;
@@ -14,7 +12,6 @@
   --color-footer: #777;
 }
 
-/* === Reset minimal === */
 * {
   margin: 0;
   padding: 0;
@@ -29,7 +26,6 @@ body {
   line-height: 1.6;
 }
 
-/* === Header === */
 header {
   background-color: var(--color-header);
   padding: 2rem;
@@ -51,14 +47,11 @@ h1 {
   color: var(--color-subtitle);
 }
 
-/* === Main layout === */
 main {
   padding: 2rem;
   max-width: 800px;
   margin: auto;
 }
-
-/* === Filtres === */
 
 .filters {
   text-align: center;
@@ -84,8 +77,6 @@ main {
   border-color: #9c83ff;
 }
 
-
-/* === Articles === */
 .article {
   background: var(--color-article);
   padding: 1.5rem;
@@ -120,7 +111,6 @@ main {
   letter-spacing: 0.05em;
 }
 
-/* === Footer === */
 footer {
   margin-top: 4rem;
   padding: 2rem;

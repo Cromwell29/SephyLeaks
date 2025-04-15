@@ -1,20 +1,18 @@
 // === SephyLeaks - JS de base ===
-
 document.addEventListener("DOMContentLoaded", () => {
   console.log("SephyLeaks ready.");
 
   const container = document.getElementById("articles-container");
   const filtersContainer = document.getElementById("filters");
-  const uniqueTags = new Set(); // Pour stocker les tags uniques
+  const uniqueTags = new Set();
 
   fetch("data/articles.json")
     .then(res => res.json())
     .then(articles => {
-      // Générer les articles + récupérer les tags uniques
       articles.forEach(article => {
         const section = document.createElement("section");
         section.classList.add("article");
-        section.setAttribute("data-tag", article.tag);
+        section.setAttribute("data-tag", article.tag.toLowerCase().trim());
 
         section.innerHTML = `
           <div class="tag">${article.tag}</div>
@@ -22,29 +20,21 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>${article.content}</p>
         `;
         container.appendChild(section);
-
-        // Ajouter tag à l'ensemble
-        uniqueTags.add(article.tag);
+        uniqueTags.add(article.tag.toLowerCase().trim());
       });
 
-// Créer les boutons
-const createButton = (label, isActive = false) => {
-  const btn = document.createElement("button");
-  btn.textContent = label.charAt(0).toUpperCase() + label.slice(1); // Capitaliser pour affichage
-  btn.dataset.filter = label.toLowerCase().trim(); // Filtrage basé sur version standardisée
-  btn.className = "filter-btn";
-  if (isActive) btn.classList.add("active");
-  filtersContainer.appendChild(btn);
-};
+      const createButton = (label, isActive = false) => {
+        const btn = document.createElement("button");
+        btn.textContent = label.charAt(0).toUpperCase() + label.slice(1);
+        btn.dataset.filter = label;
+        btn.className = "filter-btn";
+        if (isActive) btn.classList.add("active");
+        filtersContainer.appendChild(btn);
+      };
 
-// Bouton "Tous"
-createButton("tous", true);
+      createButton("tous", true);
+      [...uniqueTags].forEach(tag => createButton(tag));
 
-// Boutons dynamiques depuis les tags
-[...uniqueTags].forEach(tag => createButton(tag));
-
-
-      // Gérer le clic sur les boutons
       const buttons = document.querySelectorAll(".filter-btn");
       buttons.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -62,4 +52,3 @@ createButton("tous", true);
       });
     });
 });
-
