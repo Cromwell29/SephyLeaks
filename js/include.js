@@ -1,24 +1,21 @@
 function activateStickyEffect() {
-  const nav = document.querySelector('.main-nav');
-  if (!nav) {
-    console.warn("Pas de .main-nav trouvé pour sticky");
-    return;
-  }
+  const headerBlock = document.querySelector('.sticky-header');
+  if (!headerBlock) return;
 
-  // Appliquer la classe immédiatement si déjà scrollé
+  // Appliquer directement au chargement si scrollé
   if (window.scrollY > 20) {
-    nav.classList.add('scrolled');
+    headerBlock.classList.add('scrolled');
   }
 
-  // Ajouter le scroll listener
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
-      nav.classList.add('scrolled');
+      headerBlock.classList.add('scrolled');
     } else {
-      nav.classList.remove('scrolled');
+      headerBlock.classList.remove('scrolled');
     }
   });
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const targets = document.querySelectorAll('[data-include]');
