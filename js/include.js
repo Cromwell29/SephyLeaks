@@ -16,12 +16,12 @@ function activateStickyEffect() {
   });
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const targets = document.querySelectorAll('[data-include]');
 
   targets.forEach(el => {
     const file = el.getAttribute("data-include");
+
     fetch(file)
       .then(res => {
         if (!res.ok) throw new Error(`Erreur HTTP ${res.status}`);
@@ -30,9 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(html => {
         el.innerHTML = html;
 
-        // ✅ Important : attendre que le HTML soit bien injecté avant d’activer le sticky
+        // ✅ Astuce : on force une "repaint" une fois l’élément injecté
         if (html.includes("main-nav")) {
-          requestAnimationFrame(activateStickyEffect);
+          const nav = document.querySelector(".main-nav");
+          if (nav) {
+            nav.style.position = "sticky";
+            nav.offsetHeight; // force repaint
+          }
         }
       })
       .catch(err => console.error("Erreur d'inclusion:", file, err));
