@@ -122,15 +122,16 @@ footer {
 
 /* === Barre de navigation === */
 .main-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #3a2e5f;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #3a2e5f;
-  padding: 1rem 2rem;
   border-bottom: 2px solid #6c59a0;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  transition: box-shadow 0.3s ease;
 }
 
 .main-nav .logo {
@@ -153,6 +154,10 @@ footer {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.1rem;
   transition: color 0.2s ease;
+}
+
+.main-nav.scrolled {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .nav-links li a:hover {
