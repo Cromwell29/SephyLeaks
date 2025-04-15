@@ -32,13 +32,15 @@ document.addEventListener("DOMContentLoaded", () => {
 	section.classList.add("article-card");
 
 	section.innerHTML = `
+        <div class="tag-badge">${article.tag}</div>
   	<div class="card-image" style="background-image: url('${article.image}');"></div>
   	<div class="card-content">
    	 <div class="tag">${article.tag}</div>
    	 <h2>${article.title}</h2>
    	 <p>${article.content}</p>
-    	<div class="date">${article.date}</div>
-  	</div>
+         <div class="date">${article.date}</div>
+         <a href="#" class="read-more">→ Lire l’article</a>
+        </div>
 	`;
 
 

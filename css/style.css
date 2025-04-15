@@ -123,10 +123,11 @@ main {
 }
 
 .filter-btn:hover,
-.filter-btn.active {
-  background: #9c83ff22;
-  border-color: #9c83ff;
+.filter-btn:focus-visible {
+  outline: 2px solid #9c83ff;
+  background-color: #9c83ff22;
 }
+
 
 /* === Articles === */
 #articles-container {
@@ -137,17 +138,19 @@ main {
 }
 
 .article-card {
+  position: relative;
   background-color: #2d2443;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0 10px #00000055;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .article-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
 }
 
 .card-image {
@@ -180,6 +183,37 @@ main {
   color: #aaa;
   margin-top: auto;
   text-align: right;
+}
+
+.tag-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #9c83ff;
+  color: #1c1a2a;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+.article-card:hover .card-image {
+  filter: brightness(1.1) contrast(1.05);
+}
+
+.read-more {
+  font-size: 0.85rem;
+  color: #c9b3ff;
+  text-align: right;
+  margin-top: 0.8rem;
+  align-self: flex-end;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.read-more:hover {
+  color: white;
 }
 
 /* === Footer === */
