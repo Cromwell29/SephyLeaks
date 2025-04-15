@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
    	 <h2>${article.title}</h2>
    	 <p>${article.content}</p>
          <div class="date">${article.date}</div>
-         <a href="#" class="read-more">→ Lire l’article</a>
+         <a href="article.html?id=${article.id}" class="read-more" title="${article.title}">→ Lire l’article</a>
         </div>
 	`;
 
