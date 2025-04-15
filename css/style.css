@@ -141,7 +141,6 @@ main {
   position: relative;
   background-color: #2d2443;
   border-radius: 8px;
-  overflow: hidden;
   box-shadow: 0 0 10px #00000055;
   display: flex;
   flex-direction: column;
@@ -197,6 +196,7 @@ main {
   border-radius: 3px;
   text-transform: uppercase;
   box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  z-index: 2; 
 }
 .article-card:hover .card-image {
   filter: brightness(1.1) contrast(1.05);
