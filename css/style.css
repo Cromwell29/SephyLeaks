@@ -31,19 +31,6 @@ body {
   overflow-x: hidden;
 }
 
-/* === Sticky Header Container === */
-.sticky-header {
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  background-color: var(--color-header);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  transition: box-shadow 0.3s ease;
-}
-
-.sticky-header.scrolled {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-}
 
 /* === Header === */
 header {
@@ -69,14 +56,17 @@ h1 {
 
 /* === Navigation === */
 .main-nav {
-  position: static;
-  background-color: transparent;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #3a2e5f;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-top: 2px solid #6c59a0;
   border-bottom: 2px solid #6c59a0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .main-nav .logo {
