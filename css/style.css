@@ -226,3 +226,38 @@ footer {
   border-top: 1px solid #444;
 }
 
+.article-full {
+  max-width: 700px;
+  margin: auto;
+  padding: 2rem;
+  background-color: #2d2443;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00000055;
+}
+
+.article-full h2 {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 2rem;
+  color: #e4d0ff;
+  margin-bottom: 0.5rem;
+}
+
+.article-full .date {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-bottom: 1rem;
+}
+
+.article-full .cover-image {
+  width: 100%;
+  height: 240px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.article-full p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
