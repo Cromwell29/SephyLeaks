@@ -29,12 +29,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const section = document.createElement("section");
         section.classList.add("article");
         section.setAttribute("data-tag", tag);
+	section.classList.add("article-card");
 
-        section.innerHTML = `
-          <div class="tag">${article.tag}</div>
-          <h2>« ${article.title} »</h2>
-          <p>${article.content}</p>
-        `;
+	section.innerHTML = `
+  	<div class="card-image" style="background-image: url('${article.image}');"></div>
+  	<div class="card-content">
+   	 <div class="tag">${article.tag}</div>
+   	 <h2>${article.title}</h2>
+   	 <p>${article.content}</p>
+    	<div class="date">${article.date}</div>
+  	</div>
+	`;
+
 
         container.appendChild(section);
         uniqueTags.add(tag);
