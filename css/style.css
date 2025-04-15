@@ -58,6 +58,33 @@ main {
   margin: auto;
 }
 
+/* === Filtres === */
+
+.filters {
+  text-align: center;
+  margin: 2rem 0 1rem 0;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid #9c83ff55;
+  color: #c9b3ff;
+  padding: 0.4rem 1rem;
+  margin: 0 0.3rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: #9c83ff22;
+  border-color: #9c83ff;
+}
+
+
 /* === Articles === */
 .article {
   background: var(--color-article);

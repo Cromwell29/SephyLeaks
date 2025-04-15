@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <title>SephyLeaks – L’information libre d’Éorzéa</title>
   <link rel="stylesheet" href="css/style.css">
-  <script defer src="js/main.js"></script>
+  <script>
+  const timestamp = Date.now();
+  const script = document.createElement('script');
+  script.src = `js/main.js?v=${timestamp}`;
+  script.defer = true;
+  document.head.appendChild(script);
+  </script>
 </head>
 <body>
 
@@ -12,6 +18,14 @@
     <h1>SephyLeaks</h1>
     <div class="subtitle">L’information libre d’Éorzéa</div>
   </header>
+
+<section id="filters" class="filters">
+  <button class="filter-btn active" data-filter="All">Tous</button>
+  <button class="filter-btn" data-filter="Guide">Guides</button>
+  <button class="filter-btn" data-filter="Astuces">Astuces</button>
+  <button class="filter-btn" data-filter="Chronique">Chroniques</button>
+  <button class="filter-btn" data-filter="Make a Gils">Make a Gils 💸</button>
+</section>
 
   <main id="articles-container">
      <!-- Articles chargés dynamiquement ici -->
