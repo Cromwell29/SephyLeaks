@@ -19,14 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      container.innerHTML = `
-        <article class="article-full">
-          <h2>${article.title}</h2>
-          <p class="date">${article.date}</p>
-          <div class="tag-badge">${article.tag}</div>
-          <div class="cover-image" style="background-image: url('${article.image}');"></div>
-          <p>${article.content}</p>
-        </article>
+	container.innerHTML = `
+ 	<article class="article-page-wrapper">
+    	<div class="article-cover" style="background-image: url('${article.image}');"></div>
+    	<div class="article-meta">
+      	<span class="tag-badge">${article.tag}</span>
+      	<span class="date">${article.date}</span>
+    	</div>
+        <h1 class="article-title">${article.title}</h1>
+    <div class="article-content">
+      <p>${article.content}</p>
+    </div>
+  </article>
       `;
     })
     .catch(err => {
