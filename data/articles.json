@@ -2,11 +2,19 @@
   {
     "id": "001",
     "title": "Le secret des tomates thanalaniennes",
-    "content": "Selon nos sources, le prix des tomates ne cesse d’augmenter à cause d’un mystérieux cartel de Namazu. Une enquête est en cours."
+    "content": "Selon nos sources, le prix des tomates ne cesse d’augmenter à cause d’un mystérieux cartel de Namazu.",
+    "tag": "Chronique"
   },
   {
     "id": "002",
     "title": "Mandats de pêche : arnaque ou opportunité ?",
-    "content": "Nos envoyés spéciaux à Limsa Lominsa nous rapportent que le taux de retour des poissons rares serait en baisse de 20% depuis la dernière mise à jour."
+    "content": "Nos envoyés spéciaux à Limsa Lominsa nous rapportent que le taux de retour des poissons rares serait en baisse.",
+    "tag": "Make a Gils"
+  },
+  {
+    "id": "003",
+    "title": "Comment level une classe secondaire rapidement ?",
+    "content": "Utilisez les rouleaux de compagnie libre, les tenues bonus, et mangez bien vos buff-foods !",
+    "tag": "Guide"
   }
 ]

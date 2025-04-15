@@ -10,7 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
       articles.forEach(article => {
         const section = document.createElement("section");
         section.classList.add("article");
+
         section.innerHTML = `
+          <div class="tag">${article.tag}</div>
           <h2>« ${article.title} »</h2>
           <p>${article.content}</p>
         `;
