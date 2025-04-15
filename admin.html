@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>SephyLeaks – Éditeur d'article</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <script src="js/admin/admin.js" defer></script>
+ </head>
+<body>
+  <div class="editor-container">
+    <div class="editor-form">
+      <h2>Nouvel article</h2>
+      <label for="title">Titre</label>
+      <input type="text" id="title">
+
+      <label for="tag">Tag (Guide, Astuce, etc.)</label>
+      <input type="text" id="tag">
+
+      <label for="date">Date</label>
+      <input type="date" id="date">
+
+      <label for="image">Image (URL)</label>
+      <input type="text" id="image">
+
+      <label for="content">Contenu HTML</label>
+      <textarea id="content"></textarea>
+    </div>
+
+    <div class="preview">
+      <h2>Aperçu</h2>
+      <div id="preview-content">
+        <h1>Titre de l'article</h1>
+        <div>
+          <span class="tag-badge">TAG</span>
+          <span class="date">2025-04-15</span>
+        </div>
+        <div class="cover-image" style="background-image: url('https://via.placeholder.com/800x200');"></div>
+        <p>Contenu de l'article...</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
