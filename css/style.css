@@ -119,3 +119,41 @@ footer {
   color: var(--color-footer);
   border-top: 1px solid #444;
 }
+
+/* === Barre de navigation === */
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3a2e5f;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid #6c59a0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.main-nav .logo {
+  font-family: 'Cinzel', serif;
+  color: #c9b3ff;
+  font-size: 1.8rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links li a {
+  color: #e0d8ff;
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+}
+
+.nav-links li a:hover {
+  color: #ffffff;
+}
