@@ -216,15 +216,7 @@ main {
   color: white;
 }
 
-/* === Footer === */
-footer {
-  margin-top: 4rem;
-  padding: 2rem;
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--color-footer);
-  border-top: 1px solid #444;
-}
+
 
 .article-full {
   max-width: 700px;
@@ -303,4 +295,24 @@ footer {
 
 .article-content p + p {
   margin-top: 1.2rem;
+}
+
+/* === Footer === */
+footer {
+  margin-top: 4rem;
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-footer);
+  border-top: 1px solid #444;
+}
+.rss-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #c9b3ff;
+  text-decoration: none;
+}
+.rss-link:hover {
+  color: white;
 }

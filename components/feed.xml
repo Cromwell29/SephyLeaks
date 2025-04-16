@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>SephyLeaks - L’information libre d’Éorzéa</title>
+    <link>https://cromwell29.github.io/SephyLeaks/</link>
+    <description>Articles, guides et chroniques autour de Final Fantasy XIV</description>
+    <language>fr</language>
+    <lastBuildDate>Tue, 16 Apr 2025 12:00:00 +0000</lastBuildDate>
+
+    <item>
+      <title>Le secret des tomates thanalaniennes</title>
+      <link>https://cromwell29.github.io/SephyLeaks/article.html?id=001</link>
+      <guid isPermaLink="true">https://cromwell29.github.io/SephyLeaks/article.html?id=001</guid>
+      <pubDate>Mon, 07 Apr 2025 00:00:00 +0000</pubDate>
+      <description>Le prix des tomates explose à cause d’un cartel de Namazu. Une analyse surprenante.</description>
+    </item>
+
+    <item>
+      <title>Mandats de pêche : arnaque ou opportunité ?</title>
+      <link>https://cromwell29.github.io/SephyLeaks/article.html?id=002</link>
+      <guid isPermaLink="true">https://cromwell29.github.io/SephyLeaks/article.html?id=002</guid>
+      <pubDate>Mon, 04 Apr 2025 00:00:00 +0000</pubDate>
+      <description>Nos envoyés à Limsa rapportent une baisse de rendement sur les mandats de pêche.</description>
+    </item>
+
+    <item>
+      <title>Comment level une classe secondaire rapidement ?</title>
+      <link>https://cromwell29.github.io/SephyLeaks/article.html?id=003</link>
+      <guid isPermaLink="true">https://cromwell29.github.io/SephyLeaks/article.html?id=003</guid>
+      <pubDate>Wed, 02 Apr 2025 00:00:00 +0000</pubDate>
+      <description>Buff-foods, rouleaux, équipements bonus : tous les tips pour XP vite.</description>
+    </item>
+
+  </channel>
+</rss>
