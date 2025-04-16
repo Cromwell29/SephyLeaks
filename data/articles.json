@@ -18,9 +18,9 @@
   {
     "id": "003",
     "title": "Comment level une classe secondaire rapidement ?",
-    "content": "Utilisez les rouleaux de compagnie libre, les tenues bonus, et mangez bien vos buff-foods !",
     "tag": "Guide",
-    "image": "assets/test.png",
-    "date": "2 avr. 2025"
+    "date": "2025-04-21",
+    "image": "images/articles/guide-xp.webp",
+    "content": "<p>Utilisez les rouleaux de compagnie libre, les tenues bonus, et mangez bien vos buff-foods ! Voici un guide rapide :</p>\n<ul>\n  <li>⚡ Faites vos aléas (FATEs) en zone bonus</li>\n  <li>📘 Utilisez les journaux de chasse pour booster vos gains</li>\n  <li>🍽️ Mangez de la nourriture avec bonus d’EXP</li>\n</ul>\n<img src=\"images/xp-guide.webp\" alt=\"Guide d’EXP\" style=\"width:100%; border-radius:8px; margin:1rem 0;\" />\n<p>Et surtout, profitez de la roulette mentor si vous l’avez débloquée !</p>"
   }
 ]
