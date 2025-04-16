@@ -2,25 +2,29 @@
   {
     "id": "001",
     "title": "Le secret des tomates thanalaniennes",
-    "content": "Selon nos sources, le prix des tomates ne cesse d’augmenter à cause d’un mystérieux cartel de Namazu.",
     "tag": "Chronique",
+    "date": "7 avr. 2025",
     "image": "assets/test.png",
-    "date": "7 avr. 2025"
+    "resume": "Un mystérieux cartel Namazu bouleverse le marché des tomates à Thanalan.",
+    "content": "<p>Selon nos sources, le prix des tomates ne cesse d’augmenter à cause d’un mystérieux cartel de Namazu.</p>"
   },
   {
     "id": "002",
     "title": "Mandats de pêche : arnaque ou opportunité ?",
-    "content": "Nos envoyés spéciaux à Limsa Lominsa nous rapportent que le taux de retour des poissons rares serait en baisse.",
     "tag": "Make a Gils",
+    "date": "4 avr. 2025",
     "image": "assets/test.png",
-    "date": "4 avr. 2025"
+    "resume": "Les mandats de pêche valent-ils encore le coup en 2025 ? Nos experts enquêtent.",
+    "content": "<p>Nos envoyés spéciaux à Limsa Lominsa nous rapportent que le taux de retour des poissons rares serait en baisse.</p>"
   },
   {
     "id": "003",
     "title": "Comment level une classe secondaire rapidement ?",
     "tag": "Guide",
     "date": "2025-04-21",
-    "image": "images/articles/guide-xp.webp",
-    "content": "<p>Utilisez les rouleaux de compagnie libre, les tenues bonus, et mangez bien vos buff-foods ! Voici un guide rapide :</p>\n<ul>\n  <li>⚡ Faites vos aléas (FATEs) en zone bonus</li>\n  <li>📘 Utilisez les journaux de chasse pour booster vos gains</li>\n  <li>🍽️ Mangez de la nourriture avec bonus d’EXP</li>\n</ul>\n<img src=\"images/xp-guide.webp\" alt=\"Guide d’EXP\" style=\"width:100%; border-radius:8px; margin:1rem 0;\" />\n<p>Et surtout, profitez de la roulette mentor si vous l’avez débloquée !</p>"
+    "image": "assets/test.png",
+    "resume": "Utilisez les rouleaux de compagnie, les bonus EXP et la nourriture pour optimiser vos gains.",
+    "content": "<p>Utilisez les rouleaux de compagnie libre, les tenues bonus, et mangez bien vos buff-foods ! Voici un guide rapide :</p><ul><li>⚡ Faites vos aléas (FATEs) en zone bonus</li><li>📘 Utilisez les journaux de chasse pour booster vos gains</li><li>🍽️ Mangez de la nourriture avec bonus d’EXP</li></ul><img src='images/xp-guide.webp' alt='Guide d’EXP' style='width:100%; border-radius:8px; margin:1rem 0;'/><p>Et surtout, profitez de la roulette mentor si vous l’avez débloquée !</p>"
   }
 ]
+

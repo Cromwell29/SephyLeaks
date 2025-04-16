@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   	<div class="card-content">
    	 <div class="tag">${article.tag}</div>
    	 <h2>${article.title}</h2>
-   	 <p>${article.content}</p>
+   	 <p>${article.resume}</p>
          <div class="date">${article.date}</div>
          <a href="article.html?id=${article.id}" class="read-more" title="${article.title}">→ Lire l’article</a>
         </div>
