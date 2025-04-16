@@ -27,6 +27,9 @@
     </nav>
   </header>
 
+ <!-- CONTENU PRINCIPAL + SIDEBAR -->
+<div class="article-layout">
+
   <!-- CONTENU DE L'ARTICLE -->
   <main class="article-page">
     <div id="article-container">
@@ -39,6 +42,32 @@
       <article id="article-content">Chargement...</article>
     </div>
   </main>
+
+  <!-- 🧱 SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- 🔍 Barre de recherche -->
+    <section class="search-box">
+      <input type="text" placeholder="Rechercher..." />
+    </section>
+
+    <!-- 🎥 Vidéo intégrée -->
+    <section class="video-box">
+      <iframe width="100%" src="https://www.youtube.com/embed/2gHg9THD-ls" title="Vidéo FFXIV" frameborder="0" allowfullscreen></iframe>
+    </section>
+
+    <!-- 📰 Articles récents -->
+    <section class="recent-articles">
+      <h3>Articles récents</h3>
+      <ul id="recent-articles-list">
+        <!-- Liens injectés dynamiquement via JS -->
+      </ul>
+    </section>
+
+  </aside>
+</div>
+
+
 
   <!-- FOOTER -->
   <div data-include="components/footer.html"></div>
