@@ -1,98 +1,5 @@
-/* === Style de la page article SephyLeaks === */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Cormorant+Garamond&family=EB+Garamond&display=swap');
-
-:root {
-  --color-bg: #1c1a2a;
-  --color-bg-alt: #2b223f;
-  --color-text: #e6e3f0;
-  --color-title: #c9b3ff;
-  --color-accent: #9c83ff;
-  --color-border: #444;
-}
-
-body {
-  background: linear-gradient(to bottom right, var(--color-bg-alt), var(--color-bg));
-  color: var(--color-text);
-  font-family: 'EB Garamond', serif;
-  line-height: 1.7;
-  padding: 0;
-  margin: 0;
-}
-
-main.article-page {
-  max-width: 840px;
-  margin: auto;
-  padding: 2rem;
-}
-
-.article-header {
-  border-bottom: 2px solid var(--color-border);
-  margin-bottom: 2rem;
-}
-
-.article-header h1 {
-  font-family: 'Cinzel', serif;
-  font-size: 2.5rem;
-  color: var(--color-title);
-  margin-bottom: 0.5rem;
-}
-
-.article-meta {
-  font-size: 0.9rem;
-  color: #bbb;
-  margin-bottom: 1rem;
-}
-
-.article-meta .tag-badge {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: bold;
-  background-color: var(--color-accent);
-  color: #1c1a2a;
-  padding: 0.3rem 0.5rem;
-  border-radius: 3px;
-  margin-right: 0.5rem;
-  text-transform: uppercase;
-}
-
-.article-cover {
-  width: 100%;
-  height: 280px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 6px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);
-  margin-bottom: 2rem;
-}
-
-.article-content {
-  font-size: 1.15rem;
-}
-
-.article-content h2,
-.article-content h3 {
-  color: var(--color-title);
-  margin-top: 2rem;
-}
-
-.article-content img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-  margin: 1.5rem 0;
-  box-shadow: 0 0 8px rgba(0,0,0,0.2);
-}
-
-.article-content a {
-  color: var(--color-accent);
-  text-decoration: underline;
-  transition: color 0.2s;
-}
-
-.article-content a:hover {
-  color: white;
-}
-
+@import url("base.css");
+/* === Spécificités de la page article === */
 .article-page {
   max-width: 900px;
   margin: 2rem auto;
@@ -102,14 +9,16 @@ main.article-page {
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
 }
 
-#cover-image {
-  height: 300px;
+.article-cover {
+  width: 100%;
+  height: 280px;
   background-size: cover;
   background-position: center;
-  border-radius: 10px 10px 0 0;
+  border-radius: 6px;
+  margin-bottom: 2rem;
 }
 
-.meta {
+.article-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -120,53 +29,40 @@ main.article-page {
   border-bottom: 1px solid #444;
 }
 
-#title {
+.article-title {
   font-family: 'Cinzel', serif;
   font-size: 2rem;
-  margin: 1rem 1rem 0.5rem 1rem;
+  text-align: center;
+  margin: 1rem;
   color: var(--color-title);
-  text-shadow: 1px 1px 2px black;
 }
 
-#article-content {
-  padding: 1rem 1.5rem 2rem 1.5rem;
+.article-content {
+  padding: 1rem 1.5rem 2rem;
   font-size: 1.1rem;
   line-height: 1.8;
-  color: var(--color-text);
 }
 
-#article-content img {
+.article-content img {
   width: 100%;
   border-radius: 8px;
   margin: 1.5rem 0;
 }
 
-#article-content ul {
+.article-content ul {
   padding-left: 1.5rem;
   margin: 1rem 0;
 }
 
-#article-content li {
-  margin-bottom: 0.6rem;
-}
-
-#article-content blockquote {
+.article-content blockquote {
   font-style: italic;
-  border-left: 4px solid #9c83ff;
+  border-left: 4px solid var(--color-accent);
   padding-left: 1rem;
-  color: #c9b3ff;
+  color: var(--color-title);
   margin: 1rem 0;
 }
 
-#article-content h2,
-#article-content h3 {
-  color: #c9b3ff;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-}
-
-/*Sidebar*/
-/* === Disposition générale === */
+/* === Sidebar === */
 .article-layout {
   display: flex;
   gap: 2rem;
@@ -175,81 +71,42 @@ main.article-page {
   padding: 2rem;
 }
 
-.article-page {
-  flex: 3;
-}
-
 .sidebar {
   flex: 1;
   background-color: #2d2443;
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 0 8px #00000055;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
 }
 
-/* === Modules de la sidebar === */
-.sidebar section {
-  background-color: #1e182f;
-  padding: 1rem;
-  border-radius: 6px;
-}
-
-.sidebar h3 {
-  color: #c9b3ff;
-  margin-bottom: 0.8rem;
-  font-size: 1.2rem;
-  border-bottom: 1px solid #463966;
-  padding-bottom: 0.3rem;
-}
-
-/* Recherche */
 .sidebar input[type="text"] {
   width: 100%;
-  padding: 0.4rem 0.6rem;
+  padding: 0.4rem;
   background-color: #2d2443;
   border: 1px solid #6c59a0;
   color: #fff;
   border-radius: 4px;
-  font-family: 'EB Garamond', serif;
 }
 
-/* Vidéo */
 .sidebar iframe {
   width: 100%;
-  aspect-ratio: 16 / 9;
   border: none;
   border-radius: 4px;
 }
 
-/* Articles récents */
 .recent-articles ul {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
 .recent-articles li {
   margin-bottom: 1rem;
-  border-left: 3px solid #9c83ff;
+  border-left: 3px solid var(--color-accent);
   padding-left: 0.5rem;
   font-size: 0.95rem;
 }
 
-.recent-articles li a {
-  color: #e6e3f0;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.recent-articles li a:hover {
-  color: #ffffff;
-}
-
-/*bottom*/
-
+/* === À propos de l'auteur === */
 .article-author {
   display: flex;
   align-items: center;
@@ -267,24 +124,4 @@ main.article-page {
   border-radius: 100%;
   object-fit: cover;
   border: 2px solid #9c83ff88;
-}
-
-.article-author .author-info {
-  flex: 1;
-}
-
-.article-author .author-info h3 {
-  margin: 0;
-  color: #c9b3ff;
-}
-
-.article-author .author-info p {
-  font-size: 0.9rem;
-  margin: 0.2rem 0 0.5rem;
-}
-
-.article-author .author-info a {
-  font-size: 0.85rem;
-  color: #a88cff;
-  text-decoration: underline;
 }
