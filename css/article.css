@@ -215,3 +215,155 @@
   color: #a88cff;
   text-decoration: underline;
 }
+.comments-section {
+  margin-top: 3rem;
+  padding: 2rem;
+  background-color: #2d2443;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.comments-section h2 {
+  margin-bottom: 1.5rem;
+  color: var(--color-title);
+  border-bottom: 1px solid var(--color-border-accent);
+  padding-bottom: 0.5rem;
+}
+
+.comment {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.comment-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-border-accent);
+}
+
+.comment-body {
+  flex: 1;
+}
+
+.comment-meta {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-bottom: 0.3rem;
+}
+
+.comment-author {
+  font-weight: bold;
+  color: #c9b3ff;
+  margin-right: 0.5rem;
+}
+
+.comment-form {
+  margin-top: 2rem;
+  background-color: #1c1a2a;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+}
+
+.comment-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background: #2b223f;
+  color: #ccc;
+  font-family: var(--font-body);
+  resize: vertical;
+}
+
+.comment-form button {
+  margin-top: 0.5rem;
+  padding: 0.4rem 1rem;
+  background: #6c59a0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.comment-form.disabled textarea,
+.comment-form.disabled button {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.login-warning {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 0.5rem;
+}
+.comment-section {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 1.5rem;
+  background-color: #1f1a2e;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+
+@media (max-width: 768px) {
+  .article-layout {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .article-title {
+    font-size: 1.6rem;
+    padding: 1rem 1rem 0;
+  }
+
+  .article-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .article-content {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .article-author {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .article-author img.author-avatar {
+    width: 64px;
+    height: 64px;
+  }
+
+  .comment-section {
+    padding: 1rem;
+  }
+
+  .comment-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .comment-avatar {
+    margin-bottom: 0.5rem;
+  }
+
+  .sidebar {
+    padding: 1rem;
+  }
+
+  .sidebar h3 {
+    font-size: 1.1rem;
+  }
+}

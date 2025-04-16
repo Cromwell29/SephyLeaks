@@ -39,8 +39,6 @@ body {
 
 
 /* === Header === */
-
-/* === Header === */
 header {
   background-color: var(--color-header);
   padding: 2rem;
@@ -61,8 +59,6 @@ h1 {
   margin-top: 0.5rem;
   color: var(--color-subtitle);
 }
-
-/* === Navigation === */
 
 /* === Navigation === */
 .main-nav {
@@ -107,15 +103,11 @@ h1 {
 }
 
 /* === Main Content === */
-
-/* === Main Content === */
 main {
   padding: 2rem;
   max-width: 800px;
   margin: auto;
 }
-
-/* === Filtres === */
 
 /* === Filtres === */
 .filters {
@@ -316,8 +308,6 @@ main {
 }
 
 /* === Footer === */
-
-/* === Footer === */
 footer {
   margin-top: 4rem;
   padding: 2rem;
@@ -347,3 +337,45 @@ footer {
   color: white;
 }
 
+/* === Responsive === */
+@media (max-width: 768px) {
+  header {
+    padding: 1.5rem 1rem;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+  }
+
+  .main-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  .card-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .read-more {
+    font-size: 0.8rem;
+  }
+
+  .rss-link {
+    font-size: 0.85rem;
+  }
+}

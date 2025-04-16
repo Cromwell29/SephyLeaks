@@ -5,6 +5,7 @@
   <title>SephyLeaks – Éditeur d'article</title>
   <link rel="stylesheet" href="css/admin.css">
   <script src="js/admin/admin.js" defer></script>
+  <script src="https://lds-img.finalfantasyxiv.com/pc/global/js/eorzeadb/loader.js?v3"></script>
  </head>
 <body>
   <div class="editor-container">
@@ -24,6 +25,14 @@
 
       <label for="content">Contenu HTML</label>
       <textarea id="content"></textarea>
+
+      <!-- 🔘 Bouton Lodestone -->
+      <button id="insert-ffxiv-link" style="margin-top: 0.5rem;">➕ Insérer un lien FFXIV</button>
+
+      <button id="clear-preview" style="margin-top: 0.5rem;">⚠️ Effacer l’aperçu</button>
+
+      <button id="export-json" style="margin-top: 0.5rem;">📤 Exporter JSON</button>
+
     </div>
 
     <div class="preview">
