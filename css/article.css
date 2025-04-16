@@ -247,3 +247,44 @@ main.article-page {
 .recent-articles li a:hover {
   color: #ffffff;
 }
+
+/*bottom*/
+
+.article-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: #1f1a2e;
+  border-radius: 10px;
+  box-shadow: 0 0 6px #00000055;
+}
+
+.article-author img.author-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  object-fit: cover;
+  border: 2px solid #9c83ff88;
+}
+
+.article-author .author-info {
+  flex: 1;
+}
+
+.article-author .author-info h3 {
+  margin: 0;
+  color: #c9b3ff;
+}
+
+.article-author .author-info p {
+  font-size: 0.9rem;
+  margin: 0.2rem 0 0.5rem;
+}
+
+.article-author .author-info a {
+  font-size: 0.85rem;
+  color: #a88cff;
+  text-decoration: underline;
+}
