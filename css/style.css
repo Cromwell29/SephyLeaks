@@ -307,12 +307,21 @@ footer {
   border-top: 1px solid #444;
 }
 .rss-link {
-  display: inline-block;
-  margin-top: 1rem;
-  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #9c83ff22;
+  border: 1px solid #9c83ff55;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
   color: #c9b3ff;
+  font-size: 0.9rem;
   text-decoration: none;
+  transition: background 0.2s ease;
 }
+
 .rss-link:hover {
+  background: #9c83ff44;
   color: white;
 }
+
