@@ -1,5 +1,151 @@
-@import url("base.css");
-/* === Spécificités de la page d'accueil === */
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Cormorant+Garamond&family=EB+Garamond&family=IM+Fell+English+SC&display=swap');
+
+/* === Variables === */
+
+/* === Variables et polices === */
+:root {
+  --color-bg-main: #2b223f;
+  --color-bg-alt: #1c1a2a;
+  --color-header: #4b3a75;
+  --color-article: #463966;
+  --color-border-accent: #9c83ff;
+  --color-title: #c9b3ff;
+  --color-subtitle: #aaa4d0;
+  --color-text: #e6e3f0;
+  --color-footer: #777;
+}
+
+/* === Reset minimal === */
+
+/* === Reset global === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* === Body et typographie === */
+body {
+  background: linear-gradient(to bottom right, var(--color-bg-main), var(--color-bg-alt));
+  color: var(--color-text);
+  font-family: 'EB Garamond', serif;
+  font-size: 18px;
+  line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+/* === Header === */
+
+/* === Header === */
+header {
+  background-color: var(--color-header);
+  padding: 2rem;
+  text-align: center;
+  border-bottom: 2px solid #6c59a0;
+}
+
+h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 3rem;
+  margin: 0;
+  color: var(--color-title);
+}
+
+.subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  color: var(--color-subtitle);
+}
+
+/* === Navigation === */
+
+/* === Navigation === */
+.main-nav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #3a2e5f;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid #6c59a0;
+  border-bottom: 2px solid #6c59a0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.main-nav .logo {
+  font-family: 'Cinzel', serif;
+  color: #c9b3ff;
+  font-size: 1.8rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  text-decoration: none;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links li a {
+  color: #e0d8ff;
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+}
+
+.nav-links li a:hover {
+  color: #ffffff;
+}
+
+/* === Main Content === */
+
+/* === Main Content === */
+main {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+}
+
+/* === Filtres === */
+
+/* === Filtres === */
+.filters {
+  text-align: center;
+  margin: 2rem 0 1rem 0;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid #9c83ff55;
+  color: #c9b3ff;
+  padding: 0.4rem 1rem;
+  margin: 0 0.3rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover,
+.filter-btn:focus-visible {
+  outline: 2px solid #9c83ff;
+  background-color: #9c83ff22;
+}
+
+
+/* === Articles === */
+
+/* === Cartes d’articles === */
 #articles-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -42,10 +188,34 @@
   margin: 0;
 }
 
+.card-content p {
+  font-size: 1rem;
+  color: #e6e3f0;
+}
+
 .card-content .date {
   font-size: 0.8rem;
   color: #aaa;
+  margin-top: auto;
   text-align: right;
+}
+
+.tag-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #9c83ff;
+  color: #1c1a2a;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  z-index: 2; 
+}
+.article-card:hover .card-image {
+  filter: brightness(1.1) contrast(1.05);
 }
 
 .read-more {
@@ -61,3 +231,119 @@
 .read-more:hover {
   color: white;
 }
+
+
+
+
+/* === Articles complets === */
+.article-full {
+  max-width: 700px;
+  margin: auto;
+  padding: 2rem;
+  background-color: #2d2443;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00000055;
+}
+
+.article-full h2 {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 2rem;
+  color: #e4d0ff;
+  margin-bottom: 0.5rem;
+}
+
+.article-full .date {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-bottom: 1rem;
+}
+
+.article-full .cover-image {
+  width: 100%;
+  height: 240px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.article-full p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+.article-page-wrapper {
+  max-width: 900px;
+  margin: 2rem auto;
+  background-color: #2d2443;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.article-cover {
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+}
+
+.article-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #3a2e5f;
+  border-bottom: 1px solid #6c59a0;
+}
+
+.article-title {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  color: #e4d0ff;
+  padding: 1.5rem 2rem 0.5rem 2rem;
+  text-align: center;
+}
+
+.article-content {
+  padding: 1rem 2rem 2rem 2rem;
+  color: #e6e3f0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.article-content p + p {
+  margin-top: 1.2rem;
+}
+
+/* === Footer === */
+
+/* === Footer === */
+footer {
+  margin-top: 4rem;
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-footer);
+  border-top: 1px solid #444;
+}
+
+/* === RSS et liens === */
+.rss-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #9c83ff22;
+  border: 1px solid #9c83ff55;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  color: #c9b3ff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.rss-link:hover {
+  background: #9c83ff44;
+  color: white;
+}
+
