@@ -69,7 +69,21 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => toast.remove(), 300);
     }, 2200);
   }
+// 🖼 Insertion d'une icône depuis la banque
+document.querySelectorAll(".icon-thumb").forEach(icon => {
+  icon.addEventListener("click", () => {
+    const html = icon.dataset.insert;
+    const textarea = document.getElementById("content");
+    const cursorPos = textarea.selectionStart;
+    const before = textarea.value.substring(0, cursorPos);
+    const after = textarea.value.substring(cursorPos);
+    textarea.value = before + html + after;
 
+    // Mise à jour de l'aperçu
+    textarea.dispatchEvent(new Event("input"));
+    showToast("🧩 Icône insérée !");
+  });
+});
   // 🧼 Effacer l'aperçu et les champs
   document.getElementById("clear-preview").addEventListener("click", () => {
     inputs.forEach(id => {
@@ -116,23 +130,10 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.remove();
     });
   });
-// 🖼 Insertion d'une icône depuis la banque
-    document.querySelectorAll(".icon-thumb").forEach(icon => {
-      icon.addEventListener("click", () => {
-        const html = icon.dataset.insert;
-        const textarea = document.getElementById("content");
-        const cursorPos = textarea.selectionStart;
-        const before = textarea.value.substring(0, cursorPos);
-        const after = textarea.value.substring(cursorPos);
-        textarea.value = before + html + after;
-
-    // Mise à jour de l'aperçu
-        textarea.dispatchEvent(new Event("input"));
-        showToast("🧩 Icône insérée !");
-      });
-    });
-
-  // 📌 Publier dans localStorage
+  
+document.getElementById("resize-up").addEventListener("click", () => adjustLastImageSize(10));
+document.getElementById("resize-down").addEventListener("click", () => adjustLastImageSize(-10));  
+   // 📌 Publier dans localStorage
   document.getElementById("publish-article").addEventListener("click", () => {
     const article = {
       id: crypto.randomUUID(),
