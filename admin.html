@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>SephyLeaks – Éditeur d'article</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <script src="js/admin/admin.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <div class="editor-container">
+    <div class="editor-form">
+      <h2>Nouvel article</h2>
+      <label for="title">Titre</label>
+      <input type="text" id="title">
+
+      <label for="tag">Tag (Guide, Astuce, etc.)</label>
+      <input type="text" id="tag">
+
+      <label for="date">Date</label>
+      <input type="date" id="date">
+
+      <label for="image">Image (URL)</label>
+      <input type="text" id="image">
+<div class="markdown-toggle">
+  <label><input type="checkbox" id="mode-libre"> Mode libre (↩ = saut de ligne)</label>
+</div>
+
+      <label for="content">Contenu HTML</label>
+      <textarea id="content"></textarea>
+
+<div class="text-tools">
+  <button type="button" id="bold-btn">🅱️ Gras</button>
+  <button type="button" id="italic-btn">𝑰 Italique</button>
+  <button type="button" id="clear-formatting">🧹 Texte normal</button>
+</div>
+<div class="text-tools">
+  <label for="font-size-select">Taille du texte :</label>
+  <select id="font-size-select">
+    <option value="">-- Choisir --</option>
+    <option value="8px">Très petit (8px)</option>
+    <option value="12px">Petit (12px)</option>
+    <option value="15px">Normal (15px)</option>
+    <option value="20px">Grand (20px)</option>
+    <option value="26px">Très grand (26px)</option>
+  </select>
+</div>
+<div class="image-insert-box">
+  <h3>🖼️ Image externe</h3>
+  <input type="text" id="external-img-url" placeholder="Lien de l'image (ex : https://...)" />
+  <input type="text" id="external-img-width" placeholder="Largeur (ex: 100% ou 300px)" value="100%">
+<div class="image-align-box">
+  <label for="img-align">Alignement :</label>
+  <select id="img-align">
+    <option value="">-- Par défaut --</option>
+    <option value="left">À gauche</option>
+    <option value="center">Centré</option>
+    <option value="right">À droite</option>
+  </select>
+</div>  
+  <button id="insert-img-btn">➕ Insérer dans l’article</button>
+  <div id="img-preview" class="img-preview"></div>
+</div>
+<div class="carrousel-inserter image-insert-box">
+  <label>Galerie carrousel :</label>
+  <input type="text" id="gallery-url-1" placeholder="Image 1 (obligatoire)">
+  <input type="text" id="gallery-url-2" placeholder="Image 2 (obligatoire)">
+  <input type="text" id="gallery-url-3" placeholder="Image 3 (optionnelle)">
+  <button id="insert-gallery-btn">🎠 Insérer un carrousel</button>
+</div>
+
+
+      <details class="icon-bank">
+        <summary>🔽 Banque d’icônes</summary>
+        <div class="icon-bank-grid">
+          <!-- ⬇️ ICI tu colles les icônes disponibles -->
+          <img src="assets/icotheque/sephy-reporter-1.webp"
+               alt="Sephy Reporter"
+               title="Sephy Reporter"
+               class="icon-thumb"
+               data-insert="<img src='assets/icotheque/sephy-reporter-1.webp' alt='Sephy Reporter' class='resizable-img' style='width:100px;'>">
+        </div>
+      </details>
+      <div class="resize-controls">
+         <button id="resize-up">↔️ Agrandir</button>
+         <button id="resize-down">↔️ Réduire</button>
+      </div>
+      <div class="editor-buttons">
+        <button id="insert-ffxiv-link">➕ Insérer un lien FFXIV</button>
+        <button id="clear-preview">⚠️ Effacer l’aperçu</button>
+        <button id="export-json">📄 Exporter JSON</button>
+        <button id="publish-article">📌 Publier l’article</button>
+      </div>
+    </div>
+
+    <div class="preview">
+      <h2>Aperçu</h2>
+      <div id="preview-content">
+        <h1>Titre de l'article</h1>
+        <div>
+          <span class="tag-badge">TAG</span>
+          <span class="date">2025-04-15</span>
+        </div>
+        <div class="cover-image" style="background-image: url('https://via.placeholder.com/800x200');"></div>
+        <p>Contenu de l'article...</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
