@@ -34,6 +34,76 @@ document.addEventListener("DOMContentLoaded", () => {
       ${content || '<p>Contenu de l\'article...</p>'}
     `;
   }
+function wrapSelectionWith(before, after) {
+  const textarea = document.getElementById("content");
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const selected = textarea.value.substring(start, end);
+  const beforeText = textarea.value.substring(0, start);
+  const afterText = textarea.value.substring(end);
+
+  textarea.value = beforeText + before + selected + after + afterText;
+
+  // Remettre le curseur autour du texte sélectionné
+  textarea.focus();
+  textarea.selectionStart = start + before.length;
+  textarea.selectionEnd = end + before.length;
+
+  // Rafraîchir l’aperçu live
+  textarea.dispatchEvent(new Event("input"));
+}
+document.getElementById("bold-btn").addEventListener("click", () => {
+  wrapSelectionWith("<strong>", "</strong>");
+});
+
+document.getElementById("italic-btn").addEventListener("click", () => {
+  wrapSelectionWith("<em>", "</em>");
+});
+
+document.getElementById("clear-formatting").addEventListener("click", () => {
+  const textarea = document.getElementById("content");
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+
+  if (start === end) return; // Rien de sélectionné
+
+  let before = textarea.value.substring(0, start);
+  let selected = textarea.value.substring(start, end);
+  let after = textarea.value.substring(end);
+
+  // 🔍 Supprimer les balises autour ET dans la sélection
+  before = before.replace(/<strong>\s*$/, '');
+  after = after.replace(/^\s*<\/strong>/, '');
+  before = before.replace(/<em>\s*$/, '');
+  after = after.replace(/^\s*<\/em>/, '');
+  before = before.replace(/<span[^>]*?>\s*$/, '');
+  after = after.replace(/^\s*<\/span>/, '');
+
+  selected = selected
+    .replace(/<\/?(strong|em)>/gi, '')
+    .replace(/<span[^>]*?>/gi, '')
+    .replace(/<\/span>/gi, '');
+
+  // 🔁 Réinjection du texte propre
+  textarea.value = before + selected + after;
+
+  const newPos = before.length;
+  textarea.focus();
+  textarea.selectionStart = newPos;
+  textarea.selectionEnd = newPos + selected.length;
+
+  textarea.dispatchEvent(new Event("input"));
+});
+document.getElementById("font-size-select").addEventListener("change", (e) => {
+  const size = e.target.value;
+  if (!size) return;
+
+  const spanTag = `<span style="font-size:${size};">`;
+  wrapSelectionWith(spanTag, "</span>");
+
+  // Reset la sélection dans le menu
+  e.target.selectedIndex = 0;
+});
 
   document.getElementById("insert-ffxiv-link").addEventListener("click", () => {
     const name = prompt("Nom de l'objet ou compétence :");
