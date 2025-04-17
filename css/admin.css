@@ -179,6 +179,42 @@ body {
   background-color: #8a6bd1;
 }
 
+/* === Banque d'icônes === */
+.icon-bank {
+  margin-top: 1.5rem;
+  background: #2d2443;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  color: #c9b3ff;
+  cursor: pointer;
+}
+
+.icon-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.icon-thumb {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border: 1px solid #6c59a0;
+  border-radius: 4px;
+  padding: 4px;
+  background-color: #1c1a2a;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.icon-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 6px #9c83ffcc;
+}
+
 /* === Responsive admin === */
 @media (max-width: 768px) {
   .editor-container {

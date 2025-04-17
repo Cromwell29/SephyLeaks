@@ -116,4 +116,38 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.remove();
     });
   });
+// 🖼 Insertion d'une icône depuis la banque
+    document.querySelectorAll(".icon-thumb").forEach(icon => {
+      icon.addEventListener("click", () => {
+        const html = icon.dataset.insert;
+        const textarea = document.getElementById("content");
+        const cursorPos = textarea.selectionStart;
+        const before = textarea.value.substring(0, cursorPos);
+        const after = textarea.value.substring(cursorPos);
+        textarea.value = before + html + after;
+
+    // Mise à jour de l'aperçu
+        textarea.dispatchEvent(new Event("input"));
+        showToast("🧩 Icône insérée !");
+      });
+    });
+
+  // 📌 Publier dans localStorage
+  document.getElementById("publish-article").addEventListener("click", () => {
+    const article = {
+      id: crypto.randomUUID(),
+      title: document.getElementById('title').value,
+      tag: document.getElementById('tag').value,
+      date: document.getElementById('date').value,
+      image: document.getElementById('image').value,
+      resume: "À compléter automatiquement plus tard",
+      content: document.getElementById('content').value,
+      author: "sephy"
+    };
+
+    const current = JSON.parse(localStorage.getItem("articles") || "[]");
+    current.push(article);
+    localStorage.setItem("articles", JSON.stringify(current));
+    showToast("✅ Article publié (stocké localement)");
+  });
 });
