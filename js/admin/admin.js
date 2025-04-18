@@ -142,6 +142,40 @@ document.getElementById("font-size-select").addEventListener("change", (e) => {
   // Reset la sélection dans le menu
   e.target.selectedIndex = 0;
 });
+document.getElementById("insert-gallery-btn").addEventListener("click", () => {
+  const url1 = document.getElementById("gallery-url-1").value.trim();
+  const url2 = document.getElementById("gallery-url-2").value.trim();
+  const url3 = document.getElementById("gallery-url-3").value.trim();
+  const size = document.getElementById("carousel-size").value;
+
+  if (!url1 || !url2) {
+    alert("⚠️ Les deux premières images sont obligatoires !");
+    return;
+  }
+
+  let html = `
+<div class="carousel ${size}">
+  <div class="carousel-track">
+    <img src="${url1}" alt="">
+    <img src="${url2}" alt="">
+    ${url3 ? `<img src="${url3}" alt="">` : ""}
+  </div>
+</div>
+<div class="carousel-buttons">
+  <button onclick="prevSlide(this)">◀</button>
+  <button onclick="nextSlide(this)">▶</button>
+</div>
+`;
+
+  const textarea = document.getElementById("content");
+  const cursor = textarea.selectionStart;
+  const before = textarea.value.substring(0, cursor);
+  const after = textarea.value.substring(cursor);
+  textarea.value = before + html + after;
+
+  textarea.dispatchEvent(new Event("input"));
+  showToast("🎠 Carrousel inséré !");
+});
 
   document.getElementById("insert-ffxiv-link").addEventListener("click", () => {
     const name = prompt("Nom de l'objet ou compétence :");
@@ -238,9 +272,21 @@ document.querySelectorAll(".icon-thumb").forEach(icon => {
       modal.remove();
     });
   });
+function adjustLastImageSize(delta) {
+  const preview = document.getElementById("preview-content");
+  const images = preview.querySelectorAll("img.resizable-img");
+  if (images.length === 0) return;
+
+  const lastImage = images[images.length - 1];
+  const currentWidth = parseInt(lastImage.style.width || "100");
+  const newWidth = Math.max(10, currentWidth + delta); // Limite à 10px min
+  lastImage.style.width = newWidth + "px";
+  showToast(`📏 Taille ajustée : ${newWidth}px`);
+}
   
 document.getElementById("resize-up").addEventListener("click", () => adjustLastImageSize(10));
 document.getElementById("resize-down").addEventListener("click", () => adjustLastImageSize(-10));  
+
    // 📌 Publier dans localStorage
   document.getElementById("publish-article").addEventListener("click", () => {
     const article = {

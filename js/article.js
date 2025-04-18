@@ -63,6 +63,21 @@ document.addEventListener("DOMContentLoaded", () => {
       container.innerHTML = "<p>❌ Erreur de chargement de l’article ou de l’auteur.</p>";
       console.error(err);
     });
+function nextSlide(button) {
+  const container = button.closest(".carousel-buttons").previousElementSibling;
+  if (!container || !container.classList.contains("carousel")) return;
+
+  const track = container.querySelector(".carousel-track");
+  track.appendChild(track.firstElementChild);
+}
+
+function prevSlide(button) {
+  const container = button.closest(".carousel-buttons").previousElementSibling;
+  if (!container || !container.classList.contains("carousel")) return;
+
+  const track = container.querySelector(".carousel-track");
+  track.insertBefore(track.lastElementChild, track.firstElementChild);
+}
 
   // === Articles récents dans la sidebar ===
   fetch("data/articles.json")
