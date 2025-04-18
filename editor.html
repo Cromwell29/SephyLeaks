@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>SephyLeaks – Éditeur d'article</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=EB+Garamond&family=Cormorant+Garamond&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/editor.css">
+  <script src="js/admin/editor.js" defer></script>
+ <!-- Favicon de base -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+  <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon">
+
+<!-- Icône Apple / Android -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="assets/icons/site.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/android-chrome-512x512.png">
+</head>
+<body>
+  <div class="editor-wrapper">
+    <aside class="editor-sidebar">
+      <h2>🛠 Outils</h2>
+      <section class="tool-group">
+        <h3>Texte</h3>
+			<button type="button" id="bold-btn" class="format-btn">🅱️ Gras</button>
+			<button type="button" id="italic-btn" class="format-btn">𝑰 Italique</button>
+			<button type="button" id="clear-formatting" class="format-btn">🧹 Normal</button>
+        <select id="font-family-select">
+			<option value="">-- Police --</option>
+			<option value="serif">Serif classique</option>
+			<option value="Georgia, serif">Georgia</option>
+			<option value="Garamond, serif">Garamond</option>
+			<option value="Verdana, sans-serif">Verdana</option>
+			<option value="'EB Garamond', serif">EB Garamond</option>
+			<option value="'Cinzel', serif">Cinzel</option>
+		 </select>
+         <select id="font-size-select">
+			<option value="">-- Taille du texte --</option>
+			<option value="8px">Très petit (8px)</option>
+			<option value="12px">Petit (12px)</option>
+			<option value="15px">Normal (15px)</option>
+			<option value="20px">Grand (20px)</option>
+			<option value="26px">Très grand (26px)</option>
+		  </select>
+        <div class="color-palette">
+			<button class="color-btn" data-color="#ff5e5e" style="background:#ff5e5e;"></button>
+			<button class="color-btn" data-color="#fcbf49" style="background:#fcbf49;"></button>
+			<button class="color-btn" data-color="#4caf50" style="background:#4caf50;"></button>
+			<button class="color-btn" data-color="#56cfe1" style="background:#56cfe1;"></button>
+			<button class="color-btn" data-color="#9c83ff" style="background:#9c83ff;"></button>
+			<button class="color-btn" data-color="#ffffff" style="background:#fff; border:1px solid #ccc;"></button>
+		</div>
+			<input type="color" id="custom-color" value="#ffffff" />
+			<input type="text" id="custom-color-hex" placeholder="#ffffff" maxlength="7" style="width: 80px;" />
+		<button id="apply-custom-color" class="format-btn">🎨 Appliquer</button>
+	  </section>
+      <section class="tool-group">
+        <h3>Format rapide</h3>
+		  <div class="quick-format">
+			<button class="format-btn" data-before="<blockquote>" data-after="</blockquote>">❝ Citation</button>
+			<button class="format-btn" data-before='<div class="tip-box">' data-after="</div>">💡 Astuce</button>
+			<button class="format-btn" data-before="<h2>" data-after="</h2>">H2</button>
+			<button class="format-btn" data-before="<h3>" data-after="</h3>">H3</button>
+			<button id="insert-hr" class="format-btn">─ Ligne</button>
+		  </div>
+      </section>
+      <section class="tool-group">
+        <h3>🖼️ Image externe</h3>
+			<div class="image-insert-box">
+			  <input type="text" id="external-img-url" placeholder="Lien de l'image (ex : https://...)" />
+			  <input type="text" id="external-img-width" placeholder="Largeur (ex: 100% ou 300px)" value="100%">
+			<div class="image-align-box">
+			  <label for="img-align">Alignement :</label>
+			  <select id="img-align">
+				<option value="">-- Par défaut --</option>
+				<option value="left">À gauche</option>
+				<option value="center">Centré</option>
+				<option value="right">À droite</option>
+			  </select>
+			</div>  
+			  <button id="insert-img-btn" class="format-btn">➕ Insérer dans l’article</button>
+			  <div id="img-preview" class="img-preview"></div>
+			</div>
+      </section>
+      <section class="tool-group">
+        <h3>Média</h3>
+			<div class="carrousel-inserter image-insert-box">
+			  <label>Galerie carrousel :</label>
+			  <input type="text" id="gallery-url-1" placeholder="Image 1 (obligatoire)">
+			  <input type="text" id="gallery-url-2" placeholder="Image 2 (obligatoire)">
+			  <input type="text" id="gallery-url-3" placeholder="Image 3 (optionnelle)">
+			<div class="carousel-size-box">
+			  <label for="carousel-size">Taille :</label>
+			  <select id="carousel-size">
+				<option value="small">Petite</option>
+				<option value="medium" selected>Moyenne</option>
+				<option value="large">Grande</option>
+			  </select>
+			</div>
+			  <button id="insert-gallery-btn" class="format-btn">🎠 Insérer un carrousel</button>
+			</div>
+				<details class="icon-bank">
+				  <summary>🔽 Banque d’icônes</summary>
+				  <div class="icon-bank-grid">
+				  <!-- ⬇️ ICI tu colles les icônes disponibles -->
+				  <img src="assets/icotheque/sephy-reporter-1.webp"
+					   alt="Sephy Reporter"
+					   title="Sephy Reporter"
+					   class="icon-thumb"
+					   data-insert="<img src='assets/icotheque/sephy-reporter-1.webp' alt='Sephy Reporter' class='resizable-img' style='width:100px;'>">
+				</div>
+				<div class="resize-controls">
+					<button id="resize-up">↔️ Agrandir</button>
+				    <button id="resize-down">↔️ Réduire</button>
+				</div>
+		    </details>
+			<button id="insert-ffxiv-link" class="format-btn">➕ Insérer un lien FFXIV</button>
+      </section>
+	  <section class="tool-group">
+			<h3>Export</h3>
+			<button id="export-json" class="format-btn">📄 Exporter JSON</button>
+			<button id="publish-article" class="format-btn">📌 Publier l’article</button>
+			<button id="clear-preview" class="format-btn">⚠️ Effacer l’aperçu</button>
+	  </section>
+    </aside>
+	
+
+<main class="editor-main">
+      <div class="editor-bar">
+        <input type="text" id="title" placeholder="Titre...">
+        <input type="text" id="tag" placeholder="Tags...">
+        <input type="date" id="date">
+  <div class="image-url-group">
+    <label for="image">URL bannière :</label>
+    <input type="text" id="image" placeholder="https://...">
+  </div>
+      </div>
+      <textarea id="content" placeholder="Rédige ton article ici..."></textarea>
+</main>
+
+    <aside class="editor-preview">
+      <div id="preview-content" class="preview-content">...</div>
+    </aside>
+  </div>
+  <div id="toast" class="toast-hidden"></div>
+</body>
+</html>

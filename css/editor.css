@@ -1,0 +1,427 @@
+/* === RESET & BASE === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  height: 100vh;
+  display: flex;
+  font-family: 'EB Garamond', serif;
+  background-color: #1c1a2a;
+  color: #ddd;
+}
+.editor-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.format-btn {
+  background: #6c59a0;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+  margin: 0.2rem 0;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.format-btn:hover {
+  background: #8a6bd1;
+}
+
+/* === SIDEBAR GAUCHE === */
+.editor-sidebar {
+  width: 320px;
+  background-color: #2d2443;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  border-right: 1px solid #444;
+}
+.editor-sidebar h2 {
+  font-family: 'Cinzel', serif;
+  color: #c9b3ff;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #555;
+  padding-bottom: 0.3rem;
+}
+.editor-sidebar label,
+.editor-sidebar select,
+.editor-sidebar input,
+.editor-sidebar button {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.95rem;
+}
+.editor-sidebar input,
+.editor-sidebar select {
+  width: 100%;
+  padding: 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background-color: #1c1a2a;
+  color: #ddd;
+  margin-top: 0.3rem;
+}
+.text-tools,
+.image-insert-box,
+.carrousel-inserter,
+.quick-format,
+.resize-controls,
+.editor-buttons {
+  margin-bottom: 1rem;
+}
+.text-tools button,
+.quick-format button,
+.editor-buttons button,
+.resize-controls button {
+  padding: 0.4rem 0.8rem;
+  background-color: #6c59a0;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin: 0.2rem 0.2rem 0 0;
+}
+.text-tools button:hover,
+.quick-format button:hover,
+.editor-buttons button:hover,
+.resize-controls button:hover {
+  background-color: #8a6bd1;
+}
+.color-palette {
+  display: flex;
+  gap: 0.3rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+.color-palette button {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid #666;
+  cursor: pointer;
+}
+
+/* === ZONE CENTRALE === */
+.editor-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  overflow-y: auto;
+  background-color: #1f1b2f;
+}
+.editor-bar {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+.editor-bar label {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+.editor-main textarea {
+  flex: 1;
+  width: 100%;
+  background-color: #1c1a2a;
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #ddd;
+  resize: vertical;
+  min-height: 300px;
+  font-family: 'EB Garamond', serif;
+}
+
+/* === PREVIEW DROITE === */
+.editor-preview {
+  flex: 0,8;
+  background-color: #2d2443;
+  padding: 1.5rem;
+  overflow-y: auto;
+  border-left: 1px solid #444;
+}
+.editor-preview h2 {
+  font-family: 'Cinzel', serif;
+  margin-bottom: 1rem;
+  color: #c9b3ff;
+}
+.preview-content {
+  background-color: #1c1a2a;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #555;
+  min-height: 300px;
+}
+.preview-content h1 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: #e4d0ff;
+}
+.preview-content p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/* === APERÇU D’INFORMATIONS === */
+.preview-info {
+  background: #2f2646;
+  color: #ccc;
+  font-size: 14px;
+  padding: 0.5rem 1rem;
+  border-left: 4px solid #a886ff;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+}
+.preview-info .icon {
+  margin-right: 0.5em;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1100px) {
+  .editor-wrapper {
+    flex-direction: column;
+  }
+  .editor-sidebar,
+  .editor-preview {
+    width: 100%;
+  }
+  .editor-main textarea,
+  .preview-content {
+    min-height: 200px;
+  }
+}
+.icon-bank {
+  margin-top: 1.2rem;
+  background: #2d2443;
+  border: 1px solid #9c83ff55;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  color: #c9b3ff;
+  cursor: pointer;
+  box-shadow: 0 0 8px #00000044;
+}
+
+.icon-bank summary {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #c9b3ff;
+  cursor: pointer;
+  padding-bottom: 0.5rem;
+}
+
+.icon-bank-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: flex-start;
+}
+
+.icon-thumb {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border: 1px solid #6c59a0;
+  border-radius: 6px;
+  padding: 4px;
+  background-color: #1c1a2a;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.icon-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 6px #9c83ffaa;
+}
+.icon-bank-grid {
+  max-height: 500px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.carousel-track img {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+
+.carousel-buttons {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.carousel-buttons button {
+  background-color: #6c59a0;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  margin: 0 0.2rem;
+  color: white;
+  font-family: 'EB Garamond', serif;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.carousel-buttons button:hover {
+  background-color: #8a6bd1;
+}
+.preview-content .carousel {
+  overflow: hidden;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.preview-content .carousel-track {
+  display: flex;
+  transition: transform 0.4s ease;
+  will-change: transform;
+}
+
+.preview-content .carousel-track img {
+  width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
+  object-fit: contain;
+  margin-right: 1rem;
+}
+
+.preview-content .carousel-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.preview-content .carousel-buttons button {
+  background: #6c59a0;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.preview-content .carousel-buttons button:hover {
+  background: #8a6bd1;
+}
+.carousel {
+  overflow: hidden;
+  position: relative;
+  margin: 1rem 0;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+.carousel.small {
+  max-width: 300px;
+}
+.carousel.medium {
+  max-width: 500px;
+}
+.carousel.large {
+  max-width: 800px;
+}
+
+#toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #2d2443;
+  color: #c9b3ff;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #9c83ff;
+  border-radius: 6px;
+  box-shadow: 0 0 10px #00000088;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.95rem;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#toast.toast-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#toast.toast-hidden {
+  opacity: 0;
+}
+.editor-bar input[type="text"],
+.editor-bar input[type="date"] {
+  background: #1c1a2a;
+  border: 1px solid #555;
+  color: #ddd;
+  font-family: 'EB Garamond', serif;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+  width: 180px;
+  max-width: 100%;
+  transition: border-color 0.2s ease;
+}
+
+.editor-bar input[type="text"]:focus,
+.editor-bar input[type="date"]:focus {
+  border-color: #9c83ff;
+  outline: none;
+}
+.editor-bar input[type="text"]:hover,
+.editor-bar input[type="date"]:hover {
+  background-color: #261f36;
+}
+.image-url-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #1c1a2a;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #555;
+}
+
+.image-url-group label {
+  color: #c9b3ff;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.image-url-group input {
+  background: transparent;
+  border: none;
+  color: #ddd;
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  flex: 1;
+}
+
+.image-url-group input:focus {
+  outline: none;
+}
