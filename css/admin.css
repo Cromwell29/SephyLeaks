@@ -327,6 +327,42 @@ body {
   margin-bottom: 1rem;
 }
 
+.preview-content p img.align-left {
+  float: left;
+}
+
+.preview-content p img.align-right {
+  float: right;
+}
+
+.preview-content p img.align-center {
+  display: block;
+  margin: 0 auto;
+}
+/* ✅ Alignement des images - compatible dans et hors <p> */
+
+.preview-content img.align-left,
+.preview-content p img.align-left {
+  float: left;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.preview-content img.align-right,
+.preview-content p img.align-right {
+  float: right;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.preview-content img.align-center,
+.preview-content p img.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+
 .preview-content .gallery {
   display: flex;
   gap: 1rem;

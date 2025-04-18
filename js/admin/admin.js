@@ -24,6 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const image = document.getElementById('image').value;
     const content = document.getElementById('content').value;
 
+    const contentFormatted = (content || 'Contenu de l\'article...')
+      .replace(/\n/g, '<br>')
+      .replace(/  /g, '&nbsp;&nbsp;'); // 👈 Ici on gère les espaces multiples
+
     document.getElementById('preview-content').innerHTML = `
       <h1>${title || 'Titre de l\'article'}</h1>
       <div>
@@ -31,9 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="date">${date || 'Date'}</span>
       </div>
       <div class="cover-image" style="background-image: url('${image || 'https://via.placeholder.com/800x200'}');"></div>
-      ${content || '<p>Contenu de l\'article...</p>'}
+      ${contentFormatted}
     `;
   }
+
 function wrapSelectionWith(before, after) {
   const textarea = document.getElementById("content");
   const start = textarea.selectionStart;
@@ -94,6 +99,39 @@ document.getElementById("clear-formatting").addEventListener("click", () => {
 
   textarea.dispatchEvent(new Event("input"));
 });
+document.getElementById("insert-img-btn").addEventListener("click", () => {
+  const url = document.getElementById("external-img-url").value;
+  let width = document.getElementById("external-img-width").value.trim() || "100%";
+  const align = document.getElementById("img-align").value;
+
+  if (!width.endsWith("px") && !width.endsWith("%")) {
+    width += "px";
+  }
+
+  if (!url) return;
+
+  let alignClass = '';
+  if (align === 'left') alignClass = 'align-left';
+  if (align === 'center') alignClass = 'align-center';
+  if (align === 'right') alignClass = 'align-right';
+
+  const html = `<img src="${url}" alt="" style="width:${width};" class="${alignClass}">`;
+
+  const textarea = document.getElementById("content");
+  const cursor = textarea.selectionStart;
+  const before = textarea.value.substring(0, cursor);
+  const after = textarea.value.substring(cursor);
+  textarea.value = before + html + after;
+
+  textarea.dispatchEvent(new Event("input"));
+  showToast("🖼️ Image insérée avec alignement !");
+});
+document.getElementById("external-img-url").addEventListener("input", () => {
+  const url = document.getElementById("external-img-url").value;
+  const preview = document.getElementById("img-preview");
+  preview.innerHTML = url ? `<img src="${url}" alt="Aperçu image" />` : "";
+});
+
 document.getElementById("font-size-select").addEventListener("change", (e) => {
   const size = e.target.value;
   if (!size) return;
