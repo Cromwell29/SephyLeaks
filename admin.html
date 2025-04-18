@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>SephyLeaks – Éditeur d'article</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=EB+Garamond&family=Cormorant+Garamond&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/admin.css">
   <script src="js/admin/admin.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
   <div class="editor-container">
@@ -22,9 +22,6 @@
 
       <label for="image">Image (URL)</label>
       <input type="text" id="image">
-<div class="markdown-toggle">
-  <label><input type="checkbox" id="mode-libre"> Mode libre (↩ = saut de ligne)</label>
-</div>
 
       <label for="content">Contenu HTML</label>
       <textarea id="content"></textarea>
@@ -34,6 +31,19 @@
   <button type="button" id="italic-btn">𝑰 Italique</button>
   <button type="button" id="clear-formatting">🧹 Texte normal</button>
 </div>
+<div class="text-tools">
+  <label for="font-family-select">Police :</label>
+  <select id="font-family-select">
+    <option value="">-- Choisir --</option>
+    <option value="serif">Serif classique</option>
+    <option value="Georgia, serif">Georgia</option>
+    <option value="Garamond, serif">Garamond</option>
+    <option value="Verdana, sans-serif">Verdana</option>
+    <option value="'EB Garamond', serif">EB Garamond</option>
+	<option value="'Cinzel', serif">Cinzel</option>
+  </select>
+</div>
+
 <div class="text-tools">
   <label for="font-size-select">Taille du texte :</label>
   <select id="font-size-select">
@@ -45,6 +55,31 @@
     <option value="26px">Très grand (26px)</option>
   </select>
 </div>
+<div class="text-tools">
+  <label>Couleur du texte :</label>
+  <div class="color-palette">
+    <button class="color-btn" data-color="#ff5e5e" style="background:#ff5e5e;"></button>
+    <button class="color-btn" data-color="#fcbf49" style="background:#fcbf49;"></button>
+    <button class="color-btn" data-color="#4caf50" style="background:#4caf50;"></button>
+    <button class="color-btn" data-color="#56cfe1" style="background:#56cfe1;"></button>
+    <button class="color-btn" data-color="#9c83ff" style="background:#9c83ff;"></button>
+    <button class="color-btn" data-color="#ffffff" style="background:#fff; border:1px solid #ccc;"></button>
+  </div>
+  <input type="color" id="custom-color" value="#ffffff" />
+  <input type="text" id="custom-color-hex" placeholder="#ffffff" maxlength="7" style="width: 80px;" />
+  <button id="apply-custom-color">🎨 Appliquer</button>
+</div>
+<div class="text-tools">
+  <label>Format rapide :</label>
+  <div class="quick-format">
+    <button class="format-btn" data-before="<blockquote>" data-after="</blockquote>">❝ Citation</button>
+    <button class="format-btn" data-before='<div class="tip-box">' data-after="</div>">💡 Astuce</button>
+    <button class="format-btn" data-before="<h2>" data-after="</h2>">H2</button>
+    <button class="format-btn" data-before="<h3>" data-after="</h3>">H3</button>
+    <button id="insert-hr" class="format-btn">─ Ligne</button>
+  </div>
+</div>
+
 <div class="image-insert-box">
   <h3>🖼️ Image externe</h3>
   <input type="text" id="external-img-url" placeholder="Lien de l'image (ex : https://...)" />
@@ -66,6 +101,14 @@
   <input type="text" id="gallery-url-1" placeholder="Image 1 (obligatoire)">
   <input type="text" id="gallery-url-2" placeholder="Image 2 (obligatoire)">
   <input type="text" id="gallery-url-3" placeholder="Image 3 (optionnelle)">
+<div class="carousel-size-box">
+  <label for="carousel-size">Taille :</label>
+  <select id="carousel-size">
+    <option value="small">Petite</option>
+    <option value="medium" selected>Moyenne</option>
+    <option value="large">Grande</option>
+  </select>
+</div>
   <button id="insert-gallery-btn">🎠 Insérer un carrousel</button>
 </div>
 

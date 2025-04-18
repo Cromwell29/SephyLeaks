@@ -27,9 +27,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const contentFormatted = (content || 'Contenu de l\'article...')
       .replace(/\n/g, '<br>')
       .replace(/  /g, '&nbsp;&nbsp;'); // 👈 Ici on gère les espaces multiples
-
-    document.getElementById('preview-content').innerHTML = `
-      <h1>${title || 'Titre de l\'article'}</h1>
+let notice = "";
+if (content.includes("carousel")) {
+  notice = `<div class="preview-info"><span class="icon">ℹ️</span> Les boutons du carrousel sont désactivés dans l’aperçu. Consultez la version article pour tester.</div>`;
+}
+document.getElementById('preview-content').innerHTML = `
+  ${notice}
+  <h1>${title || 'Titre de l\'article'}</h1>
       <div>
         <span class="tag-badge">${tag || 'TAG'}</span>
         <span class="date">${date || 'Date'}</span>
@@ -64,6 +68,31 @@ document.getElementById("bold-btn").addEventListener("click", () => {
 document.getElementById("italic-btn").addEventListener("click", () => {
   wrapSelectionWith("<em>", "</em>");
 });
+// 🎨 Application d'une couleur prédéfinie
+document.querySelectorAll(".color-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const color = btn.dataset.color;
+    wrapSelectionWith(`<span style="color:${color};">`, "</span>");
+  });
+});
+// 🎯 Format rapide
+document.querySelectorAll(".format-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const before = btn.dataset.before;
+    const after = btn.dataset.after;
+
+    if (before && after) {
+      wrapSelectionWith(before, after);
+    } else if (btn.id === "insert-hr") {
+      const textarea = document.getElementById("content");
+      const pos = textarea.selectionStart;
+      const beforeText = textarea.value.substring(0, pos);
+      const afterText = textarea.value.substring(pos);
+      textarea.value = beforeText + "<hr>\n" + afterText;
+      textarea.dispatchEvent(new Event("input"));
+    }
+  });
+});
 
 document.getElementById("clear-formatting").addEventListener("click", () => {
   const textarea = document.getElementById("content");
@@ -76,18 +105,34 @@ document.getElementById("clear-formatting").addEventListener("click", () => {
   let selected = textarea.value.substring(start, end);
   let after = textarea.value.substring(end);
 
-  // 🔍 Supprimer les balises autour ET dans la sélection
-  before = before.replace(/<strong>\s*$/, '');
-  after = after.replace(/^\s*<\/strong>/, '');
-  before = before.replace(/<em>\s*$/, '');
-  after = after.replace(/^\s*<\/em>/, '');
-  before = before.replace(/<span[^>]*?>\s*$/, '');
-  after = after.replace(/^\s*<\/span>/, '');
-
+// Nettoyage des balises ouvertes juste avant ou juste après la sélection
+before = before
+  .replace(/<strong>\s*$/, '')
+  .replace(/<em>\s*$/, '')
+  .replace(/<span[^>]*?>\s*$/, '')
+  .replace(/style\s*=\s*".*?"\s*$/, '')
+  .replace(/class\s*=\s*".*?"\s*$/, '')
+  .replace(/<span[^>]*?>\s*$/, '');
+  
+after = after
+  .replace(/^\s*<\/strong>/, '')
+  .replace(/^\s*<\/em>/, '')
+  .replace(/^\s*<\/span>/, '')
+  .replace(/^\s*style\s*=\s*".*?"/, '')
+  .replace(/^\s*class\s*=\s*".*?"/, '')
+  .replace(/^\s*<\/span>/, '');
+  
   selected = selected
-    .replace(/<\/?(strong|em)>/gi, '')
-    .replace(/<span[^>]*?>/gi, '')
-    .replace(/<\/span>/gi, '');
+  .replace(/<\/?(strong|em)>/gi, '')                         // Supprime <strong>, <em>
+  .replace(/<span[^>]*?>/gi, '')                             // Supprime les <span ...>
+  .replace(/<\/span>/gi, '')                                 // Supprime </span>
+  .replace(/style\s*=\s*"(.*?)"/gi, '')                      // Supprime tout attribut style
+  .replace(/class\s*=\s*"(.*?)"/gi, '')                     // Supprime les class éventuelles
+   .replace(/<span[^>]*?font-family[^>]*?>/gi, '')
+  .replace(/<span[^>]*?font-size[^>]*?>/gi, '')
+  .replace(/<\/span>/gi, '')
+  .replace(/<span[^>]*?>/gi, '')
+  .replace(/<\/span>/gi, '');
 
   // 🔁 Réinjection du texte propre
   textarea.value = before + selected + after;
@@ -99,6 +144,29 @@ document.getElementById("clear-formatting").addEventListener("click", () => {
 
   textarea.dispatchEvent(new Event("input"));
 });
+document.getElementById("font-family-select").addEventListener("change", (e) => {
+  const font = e.target.value;
+  if (!font) return;
+
+  const spanTag = `<span style="font-family:${font};">`;
+  wrapSelectionWith(spanTag, "</span>");
+
+  e.target.selectedIndex = 0;
+});
+
+
+// 🎨 Appliquer la couleur personnalisée
+document.getElementById("apply-custom-color").addEventListener("click", () => {
+  const colorInput = document.getElementById("custom-color").value;
+  const hexInput = document.getElementById("custom-color-hex").value.trim();
+  const color = hexInput || colorInput;
+  if (/^#[0-9a-fA-F]{6}$/.test(color)) {
+    wrapSelectionWith(`<span style="color:${color};">`, "</span>");
+  } else {
+    showToast("⚠️ Couleur hex invalide");
+  }
+});
+
 document.getElementById("insert-img-btn").addEventListener("click", () => {
   const url = document.getElementById("external-img-url").value;
   let width = document.getElementById("external-img-width").value.trim() || "100%";
