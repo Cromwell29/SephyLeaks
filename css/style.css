@@ -397,6 +397,42 @@ main {
   color: #bfaaff;
 }
 
+.latest-articles {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 1.5rem;
+  background-color: #2d2443;
+  border-radius: 8px;
+  box-shadow: 0 0 8px #00000044;
+}
+
+.latest-articles h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  color: #c9b3ff;
+  margin-bottom: 1rem;
+}
+
+#latest-list {
+  list-style: disc inside;
+  padding-left: 1rem;
+}
+
+#latest-list li {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: #ddd;
+}
+
+#latest-list li a {
+  color: #9c83ff;
+  text-decoration: none;
+}
+
+#latest-list li a:hover {
+  text-decoration: underline;
+  color: white;
+}
 
 
 
