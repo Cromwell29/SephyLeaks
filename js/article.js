@@ -89,8 +89,7 @@ window.prevSlide = function(button) {
   const track = container.querySelector(".carousel-track");
   track.insertBefore(track.lastElementChild, track.firstElementChild);
 };
-functi
-on parseDate(dateStr) {
+function parseDate(dateStr) {
   // Essaye le format ISO
   const iso = Date.parse(dateStr);
   if (!isNaN(iso)) return new Date(iso);
