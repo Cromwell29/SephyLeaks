@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch("data/articles.json")
     .then(res => res.json())
     .then(articles => {
-      console.log("📄 Données JSON :", articles
+      console.log("📄 Données JSON :", articles);
 	  
 const latestArticle = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date))[0];
 const filteredArticles = articles.filter(a => a.id !== latestArticle.id);
@@ -42,17 +42,16 @@ const filteredArticles = articles.filter(a => a.id !== latestArticle.id);
         uniqueTags.add(tag);
       });
 
-const featured = document.getElementById("featured-article");
-if (latestArticle && featured) {
-  featured.innerHTML = `
-    <a href="article.html?id=${latestArticle.id}" class="featured-card">
-      <img src="${latestArticle.image}" alt="${latestArticle.title}" class="featured-image">
-      <div class="featured-info">
-        <div class="featured-meta">${latestArticle.date} – ${latestArticle.tag}</div>
-        <h2>${latestArticle.title}</h2>
-      </div>
-    </a>
-  `;
+      if (latestArticle && featured) {
+        featured.innerHTML = `
+          <a href="article.html?id=${latestArticle.id}" class="featured-card">
+            <img src="${latestArticle.image}" alt="${latestArticle.title}" class="featured-image">
+            <div class="featured-info">
+              <div class="featured-meta">${latestArticle.date} – ${latestArticle.tag}</div>
+              <h2>${latestArticle.title}</h2>
+            </div>
+          </a>
+        `;
       }
 
       // Filtres
