@@ -95,6 +95,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
     })
+	// Trouver l'article le plus récent
+	const latestArticle = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date))[0];
+
+	const featured = document.getElementById("featured-article");
+	featured.innerHTML = `
+	  <a href="article.html?id=${latestArticle.id}" class="featured-card">
+		<img src="${latestArticle.image}" alt="${latestArticle.title}" class="featured-image">
+		<div class="featured-info">
+		  <div class="featured-meta">${latestArticle.date} – ${latestArticle.tag}</div>
+		  <h2>${latestArticle.title}</h2>
+		</div>
+	  </a>
+	`;
+
     .catch(err => {
       console.error("❌ Erreur de chargement JSON :", err);
     });
