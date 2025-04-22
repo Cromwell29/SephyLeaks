@@ -21,18 +21,30 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // ✅ Injecter l'article
-      container.innerHTML = `
-        <article class="article-page-wrapper">
-          <div class="article-cover" style="background-image: url('${article.image}');"></div>
-          <div class="article-meta">
-            <span class="tag-badge">${article.tag}</span>
-            <span class="date">${article.date}</span>
-          </div>
-          <h1 class="article-title">${article.title}</h1>
-          <div class="article-content"></div>
-        </article>
-      `;
+	// ✅ Injecter l'article
+const bannerUrl = article.banner || article.image;
+const banner = bannerUrl
+  ? `<div class="article-banner">
+       <div class="banner-label">🖼️ Illustration principale</div>
+       <img src="${bannerUrl}" alt="Bannière de l'article">
+     </div>`
+  : "";
+
+
+
+	container.innerHTML = `
+	  <article class="article-page-wrapper">
+		<div class="article-cover" style="background-image: url('${bannerUrl}');"></div>
+		<div class="article-meta">
+		  <span class="tag-badge">${article.tag}</span>
+		  <span class="date">${article.date}</span>
+		</div>
+		<h1 class="article-title">${article.title}</h1>
+		${banner}
+		<div class="article-content"></div>
+	  </article>
+	`;
+
 
       document.querySelector(".article-content").innerHTML = article.content;
 

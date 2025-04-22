@@ -525,3 +525,34 @@
   border: 1px solid #9c83ff;
 }
 
+.article-banner {
+  margin: 1.5rem 0;
+  max-height: 300px;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 0 10px #00000055;
+  position: relative;
+}
+
+.article-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.banner-label {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: #2d2443;
+  color: #c9b3ff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #9c83ff;
+  z-index: 2;
+  pointer-events: none;
+}
+

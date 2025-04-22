@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const date = document.getElementById('date').value;
     const image = document.getElementById('image').value;
     const content = document.getElementById('content').value;
+	const bannerImage = image ? `<div class="banner-image"><img src="${image}" alt="Bannière de l'article" /></div>` : "";
 
     const contentFormatted = (content || 'Contenu de l\'article...')
       .replace(/\n/g, '<br>')
@@ -33,6 +34,7 @@ if (content.includes("carousel")) {
 }
 document.getElementById('preview-content').innerHTML = `
   ${notice}
+  ${bannerImage}
   <h1>${title || 'Titre de l\'article'}</h1>
       <div>
         <span class="tag-badge">${tag || 'TAG'}</span>
@@ -299,43 +301,51 @@ document.querySelectorAll(".icon-thumb").forEach(icon => {
     updatePreview();
     showToast("Prévisualisation réinitialisée.");
   });
+document.getElementById("image").addEventListener("input", () => {
+  const url = document.getElementById("image").value;
+  const preview = document.getElementById("banner-preview");
+  preview.innerHTML = url ? `<img src="${url}" alt="Bannière" />` : "";
+});
+
 
   // 📤 Exporter JSON dans une boîte stylisée
   document.getElementById("export-json").addEventListener("click", () => {
-    const article = {
-      id: crypto.randomUUID(),
-      title: document.getElementById('title').value,
-      tag: document.getElementById('tag').value,
-      date: document.getElementById('date').value,
-      image: document.getElementById('image').value,
-      resume: "À remplir…",
-      content: document.getElementById('content').value,
-      author: "sephy"
-    };
+  const article = {
+    id: crypto.randomUUID(),
+    title: document.getElementById("title").value,
+    tag: document.getElementById("tag").value,
+    date: document.getElementById("date").value,
+    image: document.getElementById("image").value,
+    banner: document.getElementById("banner")?.value || "",  // ← si on a un champ "bannière"
+    resume: "À remplir…",
+    content: document.getElementById("content").value,
+    author: "sephy"
+  };
 
-    const modal = document.createElement("div");
-    modal.className = "json-modal";
-    modal.innerHTML = `
-      <div class="json-box">
-        <h3>🧾 JSON exporté</h3>
-        <textarea readonly id="json-output">${JSON.stringify(article, null, 2)}</textarea>
-        <button id="copy-json">📋 Copier</button>
-        <button id="close-json">✖ Fermer</button>
-      </div>
-    `;
-    document.body.appendChild(modal);
+  const modal = document.createElement("div");
+  modal.className = "json-modal";
+  modal.innerHTML = `
+    <div class="json-box">
+      <h3>🧾 JSON exporté</h3>
+      <textarea readonly id="json-output">${JSON.stringify(article, null, 2)}</textarea>
+      <button id="copy-json">📋 Copier</button>
+      <button id="close-json">✖ Fermer</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
 
-    document.getElementById("copy-json").addEventListener("click", () => {
-      const textarea = document.getElementById("json-output");
-      textarea.select();
-      document.execCommand("copy");
-      showToast("📋 JSON copié dans le presse-papier");
-    });
-
-    document.getElementById("close-json").addEventListener("click", () => {
-      modal.remove();
-    });
+  document.getElementById("copy-json").addEventListener("click", () => {
+    const textarea = document.getElementById("json-output");
+    textarea.select();
+    document.execCommand("copy");
+    showToast("📋 JSON copié dans le presse-papier");
   });
+
+  document.getElementById("close-json").addEventListener("click", () => {
+    modal.remove();
+  });
+});
+
 function adjustLastImageSize(delta) {
   const preview = document.getElementById("preview-content");
   const images = preview.querySelectorAll("img.resizable-img");
