@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	section.classList.add("article-card");
 
 	section.innerHTML = `
-        <div class="tag-badge">${article.tag}</div>
   	<div class="card-image" style="background-image: url('${article.image}');"></div>
   	<div class="card-content">
    	 <div class="tag">${article.tag}</div>
