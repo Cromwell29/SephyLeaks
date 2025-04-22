@@ -13,103 +13,100 @@ document.addEventListener("DOMContentLoaded", () => {
   const uniqueTags = new Set();
 
   fetch("data/articles.json")
-    .then(res => {
-      console.log("📦 Fichier JSON récupéré :", res.status);
-      return res.json();
-    })
+    .then(res => res.json())
     .then(articles => {
       console.log("📄 Données JSON :", articles);
 
       // Injection d'articles
       articles.forEach(article => {
-        console.log("🖋️ Injection article :", article.title);
-
         const tag = article.tag.trim().toLowerCase();
 
         const section = document.createElement("section");
-        section.classList.add("article");
+        section.classList.add("article", "article-card");
         section.setAttribute("data-tag", tag);
-	section.classList.add("article-card");
 
-	section.innerHTML = `
-  	<div class="card-image" style="background-image: url('${article.image}');"></div>
-  	<div class="card-content">
-   	 <div class="tag">${article.tag}</div>
-   	 <h2>${article.title}</h2>
-   	 <p>${article.resume}</p>
-         <div class="date">${article.date}</div>
-         <a href="article.html?id=${article.id}" class="read-more" title="${article.title}">→ Lire l’article</a>
-        </div>
-	`;
-
+        section.innerHTML = `
+          <div class="card-image" style="background-image: url('${article.image}');"></div>
+          <div class="card-content">
+            <div class="tag">${article.tag}</div>
+            <h2>${article.title}</h2>
+            <p>${article.resume}</p>
+            <div class="date">${article.date}</div>
+            <a href="article.html?id=${article.id}" class="read-more" title="${article.title}">→ Lire l’article</a>
+          </div>
+        `;
 
         container.appendChild(section);
         uniqueTags.add(tag);
       });
 
-      console.log("✅ Nombre d'articles injectés :", document.querySelectorAll(".article").length);
+      // 🔥 Article mis en avant
+      const latestArticle = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date))[0];
+      const featured = document.getElementById("featured-article");
+      if (latestArticle && featured) {
+        featured.innerHTML = `
+          <a href="article.html?id=${latestArticle.id}" class="featured-card">
+            <img src="${latestArticle.image}" alt="${latestArticle.title}" class="featured-image">
+            <div class="featured-info">
+              <div class="featured-meta">${latestArticle.date} – ${latestArticle.tag}</div>
+              <h2>${latestArticle.title}</h2>
+            </div>
+          </a>
+        `;
+      }
 
-      // Génération des boutons de filtre
-     const formatLabel = tag => {
-	  if (tag.toLowerCase() === "make a gils") return "Make a Gil$";
-	  return tag.charAt(0).toUpperCase() + tag.slice(1);
-	};
+      // Filtres
+      const formatLabel = tag => {
+        if (tag.toLowerCase() === "make a gils") return "Make a Gil$";
+        return tag.charAt(0).toUpperCase() + tag.slice(1);
+      };
 
-	const createButton = (label, isActive = false) => {
-	  const btn = document.createElement("button");
-	  btn.textContent = formatLabel(label);
-	  btn.dataset.filter = label.toLowerCase();
-	  btn.className = "filter-btn";
-	  if (isActive) btn.classList.add("active");
-	  filtersContainer.appendChild(btn);
-	};
+      const createButton = (label, isActive = false) => {
+        const btn = document.createElement("button");
+        btn.textContent = formatLabel(label);
+        btn.dataset.filter = label.toLowerCase();
+        btn.className = "filter-btn";
+        if (isActive) btn.classList.add("active");
+        filtersContainer.appendChild(btn);
+      };
 
       createButton("Tous", true);
-      [...uniqueTags].forEach(tag => {
-        const label = tag
-          .split(" ")
-          .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-          .join(" ");
-        createButton(label);
-      });
+      [...uniqueTags].forEach(tag => createButton(tag));
 
-      // Affichage de tous les articles au démarrage
       document.querySelectorAll(".article").forEach(article => {
         article.style.display = "block";
       });
 
-      // Filtrage
-      const buttons = document.querySelectorAll(".filter-btn");
-      buttons.forEach(btn => {
+      document.querySelectorAll(".filter-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           document.querySelector(".filter-btn.active")?.classList.remove("active");
           btn.classList.add("active");
 
           const filter = btn.dataset.filter;
-          const articles = document.querySelectorAll(".article");
-
-          articles.forEach(article => {
+          document.querySelectorAll(".article").forEach(article => {
             const tag = article.dataset.tag;
             article.style.display = (filter === "tous" || tag === filter) ? "block" : "none";
           });
         });
       });
     })
-	// Trouver l'article le plus récent
-	const latestArticle = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date))[0];
-
-	const featured = document.getElementById("featured-article");
-	featured.innerHTML = `
-	  <a href="article.html?id=${latestArticle.id}" class="featured-card">
-		<img src="${latestArticle.image}" alt="${latestArticle.title}" class="featured-image">
-		<div class="featured-info">
-		  <div class="featured-meta">${latestArticle.date} – ${latestArticle.tag}</div>
-		  <h2>${latestArticle.title}</h2>
-		</div>
-	  </a>
-	`;
-
     .catch(err => {
       console.error("❌ Erreur de chargement JSON :", err);
     });
 });
+
+// Fonction utilitaire pour trier les dates FR ou ISO
+function parseDate(dateStr) {
+  const iso = Date.parse(dateStr);
+  if (!isNaN(iso)) return new Date(iso);
+
+  const moisFr = {
+    janv: "01", févr: "02", mars: "03", avr: "04",
+    mai: "05", juin: "06", juil: "07", août: "08",
+    sept: "09", oct: "10", nov: "11", déc: "12"
+  };
+
+  const [jour, mois, année] = dateStr.split(" ");
+  const mm = moisFr[mois.toLowerCase()] || "01";
+  return new Date(`${année}-${mm}-${jour.padStart(2, "0")}`);
+}
