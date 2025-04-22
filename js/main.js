@@ -16,7 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => res.json())
     .then(articles => {
       console.log("📄 Données JSON :", articles);
+// 🔥 Article mis en avant
+const latestArticle = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date))[0];
 
+// ✂️ Filtrer les autres pour éviter doublon
+const filteredArticles = articles.filter(a => a.id !== latestArticle.id);
       // Injection d'articles
 	filteredArticles.forEach(article => {
         const tag = article.tag.trim().toLowerCase();
@@ -40,11 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
         uniqueTags.add(tag);
       });
 
-      // 🔥 Article mis en avant
-		const latestArticle = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date))[0];
-
-		// ✂️ Filtrer les autres pour éviter doublon
-		const filteredArticles = articles.filter(a => a.id !== latestArticle.id);      const featured = document.getElementById("featured-article");
       if (latestArticle && featured) {
         featured.innerHTML = `
           <a href="article.html?id=${latestArticle.id}" class="featured-card">
