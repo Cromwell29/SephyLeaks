@@ -32,18 +32,17 @@ const banner = bannerUrl
 
 
 
-	container.innerHTML = `
-	  <article class="article-page-wrapper">
-		<div class="article-cover" style="background-image: url('${bannerUrl}');"></div>
-		<div class="article-meta">
-		  <span class="tag-badge">${article.tag}</span>
-		  <span class="date">${article.date}</span>
-		</div>
-		<h1 class="article-title">${article.title}</h1>
-		${banner}
-		<div class="article-content"></div>
-	  </article>
-	`;
+container.innerHTML = `
+  <article class="article-page-wrapper">
+    ${banner}
+    <div class="article-meta">
+      <span class="tag-badge">${article.tag}</span>
+      <span class="date">${article.date}</span>
+    </div>
+    <h1 class="article-title">${article.title}</h1>
+    <div class="article-content"></div>
+  </article>
+`;
 
 
       document.querySelector(".article-content").innerHTML = article.content;
@@ -100,7 +99,10 @@ window.prevSlide = function(button) {
       if (!recentContainer) return;
 
       const sorted = [...articles].sort((a, b) => new Date(b.date) - new Date(a.date));
-      sorted.slice(0, 3).forEach(article => {
+     articles
+		  .sort((a, b) => new Date(b.date) - new Date(a.date))
+		  .slice(0, 3)
+		  .forEach(article => {
         const li = document.createElement("li");
         li.innerHTML = `
           <a href="article.html?id=${article.id}" title="${article.title}">
