@@ -12,86 +12,95 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const uniqueTags = new Set();
 
-  fetch("data/articles.json")
-    .then(res => res.json())
-    .then(articles => {
-      console.log("📄 Données JSON :", articles);
-	  
-const latestArticle = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date))[0];
-const filteredArticles = articles.filter(a => a.id !== latestArticle.id);
-      // Injection d'articles
-	filteredArticles.forEach(article => {
-        const tag = article.tag.trim().toLowerCase();
+ fetch("data/articles.json")
+  .then(res => res.json())
+  .then(articles => {
+    console.log("📄 Données JSON :", articles);
 
-        const section = document.createElement("section");
-        section.classList.add("article", "article-card");
-        section.setAttribute("data-tag", tag);
+    // 🔥 Article mis en avant
+    const latestArticle = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date))[0];
 
-        section.innerHTML = `
-          <div class="card-image" style="background-image: url('${article.image}');"></div>
-          <div class="card-content">
-            <div class="tag">${article.tag}</div>
-            <h2>${article.title}</h2>
-            <p>${article.resume}</p>
-            <div class="date">${article.date}</div>
-            <a href="article.html?id=${article.id}" class="read-more" title="${article.title}">→ Lire l’article</a>
+    // ✂️ Filtrer les autres pour éviter doublon
+    const filteredArticles = articles.filter(a => a.id !== latestArticle.id);
+
+    // ⬇️ ⬅️ D'abord on récupère featured
+    const featured = document.getElementById("featured-article");
+
+    // 📰 Mise en page de l’article vedette
+    if (latestArticle && featured) {
+      featured.innerHTML = `
+        <a href="article.html?id=${latestArticle.id}" class="featured-card">
+          <img src="${latestArticle.image}" alt="${latestArticle.title}" class="featured-image">
+          <div class="featured-info">
+            <div class="featured-meta">${latestArticle.date} – ${latestArticle.tag}</div>
+            <h2>${latestArticle.title}</h2>
           </div>
-        `;
+        </a>
+      `;
+    }
 
-        container.appendChild(section);
-        uniqueTags.add(tag);
-      });
+    // 🧱 Articles normaux
+    filteredArticles.forEach(article => {
+      const tag = article.tag.trim().toLowerCase();
 
-      if (latestArticle && featured) {
-        featured.innerHTML = `
-          <a href="article.html?id=${latestArticle.id}" class="featured-card">
-            <img src="${latestArticle.image}" alt="${latestArticle.title}" class="featured-image">
-            <div class="featured-info">
-              <div class="featured-meta">${latestArticle.date} – ${latestArticle.tag}</div>
-              <h2>${latestArticle.title}</h2>
-            </div>
-          </a>
-        `;
-      }
+      const section = document.createElement("section");
+      section.classList.add("article", "article-card");
+      section.setAttribute("data-tag", tag);
 
-      // Filtres
-      const formatLabel = tag => {
-        if (tag.toLowerCase() === "make a gils") return "Make a Gil$";
-        return tag.charAt(0).toUpperCase() + tag.slice(1);
-      };
+      section.innerHTML = `
+        <div class="card-image" style="background-image: url('${article.image}');"></div>
+        <div class="card-content">
+          <div class="tag">${article.tag}</div>
+          <h2>${article.title}</h2>
+          <p>${article.resume}</p>
+          <div class="date">${article.date}</div>
+          <a href="article.html?id=${article.id}" class="read-more" title="${article.title}">→ Lire l’article</a>
+        </div>
+      `;
 
-      const createButton = (label, isActive = false) => {
-        const btn = document.createElement("button");
-        btn.textContent = formatLabel(label);
-        btn.dataset.filter = label.toLowerCase();
-        btn.className = "filter-btn";
-        if (isActive) btn.classList.add("active");
-        filtersContainer.appendChild(btn);
-      };
+      container.appendChild(section);
+      uniqueTags.add(tag);
+    });
 
-      createButton("Tous", true);
-      [...uniqueTags].forEach(tag => createButton(tag));
+    // 🎯 Filtres
+    const formatLabel = tag => {
+      if (tag.toLowerCase() === "make a gils") return "Make a Gil$";
+      return tag.charAt(0).toUpperCase() + tag.slice(1);
+    };
 
-      document.querySelectorAll(".article").forEach(article => {
-        article.style.display = "block";
-      });
+    const createButton = (label, isActive = false) => {
+      const btn = document.createElement("button");
+      btn.textContent = formatLabel(label);
+      btn.dataset.filter = label.toLowerCase();
+      btn.className = "filter-btn";
+      if (isActive) btn.classList.add("active");
+      filtersContainer.appendChild(btn);
+    };
 
-      document.querySelectorAll(".filter-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          document.querySelector(".filter-btn.active")?.classList.remove("active");
-          btn.classList.add("active");
+    createButton("Tous", true);
+    [...uniqueTags].forEach(tag => createButton(tag));
 
-          const filter = btn.dataset.filter;
-          document.querySelectorAll(".article").forEach(article => {
-            const tag = article.dataset.tag;
-            article.style.display = (filter === "tous" || tag === filter) ? "block" : "none";
-          });
+    document.querySelectorAll(".article").forEach(article => {
+      article.style.display = "block";
+    });
+
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelector(".filter-btn.active")?.classList.remove("active");
+        btn.classList.add("active");
+
+        const filter = btn.dataset.filter;
+        document.querySelectorAll(".article").forEach(article => {
+          const tag = article.dataset.tag;
+          article.style.display = (filter === "tous" || tag === filter) ? "block" : "none";
         });
       });
-    })
-    .catch(err => {
-      console.error("❌ Erreur de chargement JSON :", err);
     });
+  })
+  .catch(err => {
+    console.error("❌ Erreur de chargement JSON :", err);
+  });
+
 });
 
 // Fonction utilitaire pour trier les dates FR ou ISO
