@@ -12,98 +12,91 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const uniqueTags = new Set();
 
- fetch("data/articles.json")
-  .then(res => res.json())
-  .then(articles => {
-    console.log("📄 Données JSON :", articles);
+  fetch("data/articles.json")
+    .then(res => res.json())
+    .then(articles => {
+      console.log("📄 Données JSON :", articles);
 
-    // 🔥 Article mis en avant
-    const latestArticle = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date))[0];
+      const latestArticle = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date))[0];
+      const filteredArticles = articles.filter(a => a.id !== latestArticle.id);
 
-    // ✂️ Filtrer les autres pour éviter doublon
-    const filteredArticles = articles.filter(a => a.id !== latestArticle.id);
+      // Injection des cartes
+      filteredArticles.forEach(article => {
+        const tag = article.tag.trim().toLowerCase();
 
-    // ⬇️ ⬅️ D'abord on récupère featured
-    const featured = document.getElementById("featured-article");
+        const section = document.createElement("section");
+        section.classList.add("article", "article-card");
+        section.setAttribute("data-tag", tag);
 
-    // 📰 Mise en page de l’article vedette
-    if (latestArticle && featured) {
-      featured.innerHTML = `
-        <a href="article.html?id=${latestArticle.id}" class="featured-card">
-          <img src="${latestArticle.image}" alt="${latestArticle.title}" class="featured-image">
-          <div class="featured-info">
-            <div class="featured-meta">${latestArticle.date} – ${latestArticle.tag}</div>
-            <h2>${latestArticle.title}</h2>
+        section.innerHTML = `
+          <div class="card-image">
+            <img src="${article.image}" alt="${article.title}" />
           </div>
-        </a>
-      `;
-    }
+          <div class="card-content">
+            <div class="tag">${article.tag}</div>
+            <h2>${article.title}</h2>
+            <p>${article.resume}</p>
+            <div class="date">${article.date}</div>
+            <a href="article.html?id=${article.id}" class="read-more" title="${article.title}">→ Lire l’article</a>
+          </div>
+        `;
 
-    // 🧱 Articles normaux
-    filteredArticles.forEach(article => {
-      const tag = article.tag.trim().toLowerCase();
+        container.appendChild(section);
+        uniqueTags.add(tag);
+      });
 
-      const section = document.createElement("section");
-      section.classList.add("article", "article-card");
-      section.setAttribute("data-tag", tag);
+      const featured = document.getElementById("featured-article");
+      if (latestArticle && featured) {
+        featured.innerHTML = `
+          <a href="article.html?id=${latestArticle.id}" class="featured-card">
+            <img src="${latestArticle.image}" alt="${latestArticle.title}" class="featured-image">
+            <div class="featured-info">
+              <div class="featured-meta">${latestArticle.date} – ${latestArticle.tag}</div>
+              <h2>${latestArticle.title}</h2>
+            </div>
+          </a>
+        `;
+      }
 
-      section.innerHTML = `
-        <div class="card-image" style="background-image: url('${article.image}');"></div>
-        <div class="card-content">
-          <div class="tag">${article.tag}</div>
-          <h2>${article.title}</h2>
-          <p>${article.resume}</p>
-          <div class="date">${article.date}</div>
-          <a href="article.html?id=${article.id}" class="read-more" title="${article.title}">→ Lire l’article</a>
-        </div>
-      `;
+      const formatLabel = tag => {
+        if (tag.toLowerCase() === "make a gils") return "Make a Gil$";
+        return tag.charAt(0).toUpperCase() + tag.slice(1);
+      };
 
-      container.appendChild(section);
-      uniqueTags.add(tag);
-    });
+      const createButton = (label, isActive = false) => {
+        const btn = document.createElement("button");
+        btn.textContent = formatLabel(label);
+        btn.dataset.filter = label.toLowerCase();
+        btn.className = "filter-btn";
+        if (isActive) btn.classList.add("active");
+        filtersContainer.appendChild(btn);
+      };
 
-    // 🎯 Filtres
-    const formatLabel = tag => {
-      if (tag.toLowerCase() === "make a gils") return "Make a Gil$";
-      return tag.charAt(0).toUpperCase() + tag.slice(1);
-    };
+      createButton("Tous", true);
+      [...uniqueTags].forEach(tag => createButton(tag));
 
-    const createButton = (label, isActive = false) => {
-      const btn = document.createElement("button");
-      btn.textContent = formatLabel(label);
-      btn.dataset.filter = label.toLowerCase();
-      btn.className = "filter-btn";
-      if (isActive) btn.classList.add("active");
-      filtersContainer.appendChild(btn);
-    };
+      document.querySelectorAll(".article").forEach(article => {
+        article.style.display = "block";
+      });
 
-    createButton("Tous", true);
-    [...uniqueTags].forEach(tag => createButton(tag));
+      document.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelector(".filter-btn.active")?.classList.remove("active");
+          btn.classList.add("active");
 
-    document.querySelectorAll(".article").forEach(article => {
-      article.style.display = "block";
-    });
-
-    document.querySelectorAll(".filter-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelector(".filter-btn.active")?.classList.remove("active");
-        btn.classList.add("active");
-
-        const filter = btn.dataset.filter;
-        document.querySelectorAll(".article").forEach(article => {
-          const tag = article.dataset.tag;
-          article.style.display = (filter === "tous" || tag === filter) ? "block" : "none";
+          const filter = btn.dataset.filter;
+          document.querySelectorAll(".article").forEach(article => {
+            const tag = article.dataset.tag;
+            article.style.display = (filter === "tous" || tag === filter) ? "block" : "none";
+          });
         });
       });
+    })
+    .catch(err => {
+      console.error("❌ Erreur de chargement JSON :", err);
     });
-  })
-  .catch(err => {
-    console.error("❌ Erreur de chargement JSON :", err);
-  });
-
 });
 
-// Fonction utilitaire pour trier les dates FR ou ISO
 function parseDate(dateStr) {
   const iso = Date.parse(dateStr);
   if (!isNaN(iso)) return new Date(iso);
@@ -118,7 +111,7 @@ function parseDate(dateStr) {
   const mm = moisFr[mois.toLowerCase()] || "01";
   return new Date(`${année}-${mm}-${jour.padStart(2, "0")}`);
 }
-// === Derniers articles dans #latest-list (exclure l'article en vedette)
+
 fetch("data/articles.json")
   .then(res => res.json())
   .then(articles => {
@@ -126,11 +119,7 @@ fetch("data/articles.json")
     if (!latestList) return;
 
     const sorted = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date));
-    
-    // Identifier l'article en vedette (même critère qu’au-dessus)
     const featured = sorted[0];
-
-    // Exclure l’article vedette ici aussi
     const filtered = sorted.filter(a => a.id !== featured.id);
 
     filtered.slice(0, 4).forEach(article => {
