@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("📄 Données JSON :", articles);
 
       // Injection d'articles
-      articles.forEach(article => {
+	filteredArticles.forEach(article => {
         const tag = article.tag.trim().toLowerCase();
 
         const section = document.createElement("section");
@@ -41,8 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       // 🔥 Article mis en avant
-      const latestArticle = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date))[0];
-      const featured = document.getElementById("featured-article");
+		const latestArticle = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date))[0];
+
+		// ✂️ Filtrer les autres pour éviter doublon
+		const filteredArticles = articles.filter(a => a.id !== latestArticle.id);      const featured = document.getElementById("featured-article");
       if (latestArticle && featured) {
         featured.innerHTML = `
           <a href="article.html?id=${latestArticle.id}" class="featured-card">
@@ -110,3 +112,25 @@ function parseDate(dateStr) {
   const mm = moisFr[mois.toLowerCase()] || "01";
   return new Date(`${année}-${mm}-${jour.padStart(2, "0")}`);
 }
+// === Derniers articles dans #latest-list (exclure l'article en vedette)
+fetch("data/articles.json")
+  .then(res => res.json())
+  .then(articles => {
+    const latestList = document.getElementById("latest-list");
+    if (!latestList) return;
+
+    const sorted = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date));
+    
+    // Identifier l'article en vedette (même critère qu’au-dessus)
+    const featured = sorted[0];
+
+    // Exclure l’article vedette ici aussi
+    const filtered = sorted.filter(a => a.id !== featured.id);
+
+    filtered.slice(0, 4).forEach(article => {
+      const li = document.createElement("li");
+      li.innerHTML = `<a href="article.html?id=${article.id}">${article.title}</a> <span style="font-size:0.85rem; color:#aaa;">(${article.date})</span>`;
+      latestList.appendChild(li);
+    });
+  })
+  .catch(err => console.error("❌ Erreur chargement derniers articles :", err));
