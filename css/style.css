@@ -115,24 +115,35 @@ main {
   margin: 2rem 0 1rem 0;
 }
 
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+}
+
 .filter-btn {
-  background: transparent;
-  border: 1px solid #9c83ff55;
+  background-color: #2d2443;
+  border: 1px solid #9c83ff;
   color: #c9b3ff;
-  padding: 0.4rem 1rem;
-  margin: 0 0.3rem;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  font-family: 'EB Garamond', serif;
+  border-radius: 6px;
   cursor: pointer;
-  border-radius: 4px;
   transition: all 0.2s ease;
+  text-transform: capitalize;
+  font-size: 1rem;
 }
 
 .filter-btn:hover,
-.filter-btn:focus-visible {
-  outline: 2px solid #9c83ff;
-  background-color: #9c83ff22;
+.filter-btn.active {
+  background-color: #9c83ff;
+  color: #1c1a2a;
+  font-weight: bold;
 }
+
 
 
 /* === GRILLE D’ARTICLES === */
