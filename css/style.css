@@ -144,6 +144,18 @@ main {
   background-color: #2d2443;
   box-shadow: 0 0 10px #00000066;
 }
+.featured-section {
+  max-width: 900px;
+  margin: 3rem auto 2rem;
+  padding: 0 1rem;
+}
+
+.featured-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  color: var(--color-title);
+  margin-bottom: 1rem;
+}
 
 .featured-card {
   display: flex;
@@ -175,6 +187,58 @@ main {
   margin-bottom: 0.5rem;
 }
 
+.sidebar-right {
+  flex: 1;
+  padding: 1.5rem;
+  margin-left: 2rem;
+}
+
+.contribute-box,
+.guides-box {
+  background-color: #2d2443;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 10px #00000055;
+  color: #ddd;
+}
+
+.contribute-img {
+  width: 100%;
+  max-width: 160px;
+  display: block;
+  margin: 1rem auto;
+}
+
+.btn-contribuer {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #6c59a0;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-contribuer:hover {
+  background: #8a6bd1;
+}
+
+.guides-box .tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.guide-tag {
+  background: #1c1a2a;
+  border: 1px solid #9c83ff;
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  color: #c9b3ff;
+}
 
 
 /* === GRILLE D’ARTICLES === */
