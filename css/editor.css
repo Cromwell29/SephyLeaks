@@ -145,6 +145,16 @@ body {
   min-height: 300px;
   font-family: 'EB Garamond', serif;
 }
+.editor-bar select {
+  background: #1c1a2a;
+  border: 1px solid #555;
+  color: #ddd;
+  font-family: 'EB Garamond', serif;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 180px;
+}
 
 /* === PREVIEW DROITE === */
 .editor-preview {

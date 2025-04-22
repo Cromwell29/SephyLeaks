@@ -50,14 +50,19 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("✅ Nombre d'articles injectés :", document.querySelectorAll(".article").length);
 
       // Génération des boutons de filtre
-      const createButton = (label, isActive = false) => {
-        const btn = document.createElement("button");
-        btn.textContent = label;
-        btn.dataset.filter = label.toLowerCase();
-        btn.className = "filter-btn";
-        if (isActive) btn.classList.add("active");
-        filtersContainer.appendChild(btn);
-      };
+     const formatLabel = tag => {
+	  if (tag.toLowerCase() === "make a gils") return "Make a Gil$";
+	  return tag.charAt(0).toUpperCase() + tag.slice(1);
+	};
+
+	const createButton = (label, isActive = false) => {
+	  const btn = document.createElement("button");
+	  btn.textContent = formatLabel(label);
+	  btn.dataset.filter = label.toLowerCase();
+	  btn.className = "filter-btn";
+	  if (isActive) btn.classList.add("active");
+	  filtersContainer.appendChild(btn);
+	};
 
       createButton("Tous", true);
       [...uniqueTags].forEach(tag => {

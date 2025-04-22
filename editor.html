@@ -129,7 +129,12 @@
 <main class="editor-main">
       <div class="editor-bar">
         <input type="text" id="title" placeholder="Titre...">
-        <input type="text" id="tag" placeholder="Tags...">
+        <select id="tag">
+		  <option value="">-- Choisir un tag --</option>
+		  <option value="Chronique">Chronique</option>
+		  <option value="Guide">Guide</option>
+		  <option value="Make a Gils">Make a Gils</option>
+		</select>
         <input type="date" id="date">
   <div class="image-url-group">
     <label for="image">URL bannière :</label>
@@ -142,11 +147,11 @@
 </div>
       <textarea id="content" placeholder="Rédige ton article ici..."></textarea>
 </main>
-
+<div class="editor-main">
     <aside class="editor-preview">
       <div id="preview-content" class="preview-content">...</div>
     </aside>
-  </div>
   <div id="toast" class="toast-hidden"></div>
+ </div>
 </body>
 </html>
