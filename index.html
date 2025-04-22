@@ -16,9 +16,14 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-chrome-192x192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/android-chrome-512x512.png">
 </head>
-<header>
-  <h1>SephyLeaks</h1>
-  <div class="subtitle">L’information libre d’Éorzéa</div>
+<header class="main-header">
+  <div class="header-inner">
+    <img src="assets/logoSL.webp" alt="Logo SephyLeaks" class="site-logo">
+    <div class="site-title-group">
+      <h1>SephyLeaks</h1>
+      <div class="subtitle">L’information libre d’Éorzéa</div>
+    </div>
+  </div>
 </header>
 
 <nav class="main-nav">
@@ -26,9 +31,9 @@
   <ul class="nav-links">
     <li><a href="#">Accueil</a></li>
     <li><a href="#">Guides</a></li>
-    <li><a href="#">Chroniques</a></li>
-    <li><a href="#">Make a Gils 💸</a></li>
-    <li><a href="#">Contact</a></li>
+    <li><a href="#">Ressources</a></li>
+    <li><a href="#">Connexion</a></li>
+    <li><a href="#">❓ À propos</a></li>
   </ul>
 </nav>
 <section class="hero-section">
@@ -39,6 +44,7 @@
   </div>
 </section>
 
+<div class="main-with-sidebar">
   <main>
 	<section id="filters"">
 	  <!-- Les boutons seront générés dynamiquement -->
@@ -56,8 +62,8 @@
   
 <aside class="sidebar-right">
   <div class="contribute-box">
-    <h3>💸 Make a Gil$</h3>
-    <img src="assets/icotheque/sephy-reporter-1.webp" alt="Sephy Reporter" class="contribute-img">
+    <h3>Contribution</h3>
+    <img src="assets/icotheque/sephy-reporter-3.webp" alt="Sephy Reporter" class="contribute-img">
     <p>Ton aide serait précieuse pour rédiger de nouveaux articles sur Final Fantasy XIV !</p>
     <a href="#" class="btn-contribuer">Contribuer</a>
   </div>
@@ -71,6 +77,7 @@
     </div>
   </div>
 </aside>
+</div>
 <div data-include="components/footer.html"></div>
 <script src="js/main.js" defer></script>
 </body>

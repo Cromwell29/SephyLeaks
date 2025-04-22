@@ -45,7 +45,47 @@ header {
   text-align: center;
   border-bottom: 2px solid #6c59a0;
 }
+.main-header {
+  background-color: var(--color-header);
+  padding: 2rem 1rem;
+  text-align: left;
+  border-bottom: 2px solid #6c59a0;
+}
 
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.site-logo {
+  width: 180px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 0 8px #00000066;
+}
+.site-logo:hover {
+  box-shadow: 0 0 12px #9c83ffcc;
+  transition: box-shadow 0.3s ease;
+}
+
+.site-title-group h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 2.6rem;
+  margin: 0;
+  color: var(--color-title);
+}
+.site-title-group .subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  margin-top: 0.2rem;
+  color: var(--color-subtitle);
+}
 h1 {
   font-family: 'Cinzel', serif;
   font-size: 3rem;
@@ -186,12 +226,28 @@ main {
   color: #aaa;
   margin-bottom: 0.5rem;
 }
+.main-with-sidebar {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 1300px;
+  margin: auto;
+  padding: 2rem 1rem;
+  gap: 2rem;
+}
+
+.main-with-sidebar main {
+  flex: 3;
+  max-width: 900px;
+}
 
 .sidebar-right {
   flex: 1;
-  padding: 1.5rem;
-  margin-left: 2rem;
+  max-width: 340px;
 }
+
+
 
 .contribute-box,
 .guides-box {
@@ -201,6 +257,13 @@ main {
   margin-bottom: 2rem;
   box-shadow: 0 0 10px #00000055;
   color: #ddd;
+}
+
+.guides-box h3 {
+  font-size: 1.3rem;
+  color: #c9b3ff;
+  margin-bottom: 1rem;
+  font-family: 'Cinzel', serif;
 }
 
 .contribute-img {
@@ -232,12 +295,23 @@ main {
 }
 
 .guide-tag {
-  background: #1c1a2a;
-  border: 1px solid #9c83ff;
+  background: #2d2443;
+  border: 1px solid #8a6bd1;
   border-radius: 999px;
-  padding: 0.3rem 0.8rem;
-  font-size: 0.85rem;
-  color: #c9b3ff;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #d4c3ff;
+  box-shadow: 0 1px 3px #00000044;
+  transition: background 0.2s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: default;
+}
+.guide-tag:hover {
+  background: #6c59a022;
+  transform: scale(1.05);
 }
 
 
@@ -477,6 +551,32 @@ footer {
 
   .rss-link {
     font-size: 0.85rem;
+  }
+  .main-with-sidebar {
+  flex-direction: column;
+  padding: 1rem;
+}
+.sidebar-right {
+  margin-left: 0;
+  max-width: 100%;
+}
+}
+@media (max-width: 600px) {
+	.header-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .site-logo {
+    width: 48px;
+  }
+
+  .site-title-group h1 {
+    font-size: 2rem;
+  }
+  .site-logo {
+    width: 64px;
   }
 }
 .hero-section {
