@@ -492,5 +492,20 @@ body {
   margin-top: 0.5rem;
   border: 1px solid #666;
 }
+#resume {
+  width: 100%;
+  padding: 0.6rem;
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  background-color: #1c1a2a;
+  color: #ddd;
+  border: 1px solid #555;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+#resume::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
 
 

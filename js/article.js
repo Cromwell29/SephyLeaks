@@ -89,6 +89,23 @@ window.prevSlide = function(button) {
   const track = container.querySelector(".carousel-track");
   track.insertBefore(track.lastElementChild, track.firstElementChild);
 };
+functi
+on parseDate(dateStr) {
+  // Essaye le format ISO
+  const iso = Date.parse(dateStr);
+  if (!isNaN(iso)) return new Date(iso);
+
+  // Sinon, tente le format "7 avr. 2025"
+  const moisFr = {
+    janv: "01", févr: "02", mars: "03", avr: "04",
+    mai: "05", juin: "06", juil: "07", août: "08",
+    sept: "09", oct: "10", nov: "11", déc: "12"
+  };
+
+  const [jour, mois, année] = dateStr.split(" ");
+  const mm = moisFr[mois.toLowerCase()] || "01";
+  return new Date(`${année}-${mm}-${jour.padStart(2, "0")}`);
+}
 
 
   // === Articles récents dans la sidebar ===
@@ -97,10 +114,8 @@ window.prevSlide = function(button) {
     .then(articles => {
       const recentContainer = document.getElementById("recent-articles-list");
       if (!recentContainer) return;
-
-      const sorted = [...articles].sort((a, b) => new Date(b.date) - new Date(a.date));
      articles
-		  .sort((a, b) => new Date(b.date) - new Date(a.date))
+		  .sort((a, b) => parseDate(b.date) - parseDate(a.date))
 		  .slice(0, 3)
 		  .forEach(article => {
         const li = document.createElement("li");

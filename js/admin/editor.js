@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const inputs = ['title', 'tag', 'date', 'image', 'content'];
+	const inputs = ['title', 'tag', 'date', 'image', 'resume', 'content'];
+
 
   // 🧠 Récupérer un brouillon si présent
   inputs.forEach(id => {
@@ -22,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tag = document.getElementById('tag').value;
     const date = document.getElementById('date').value;
     const image = document.getElementById('image').value;
+	const resume = document.getElementById('resume').value || '';
     const content = document.getElementById('content').value;
 	const bannerImage = image ? `<div class="banner-image"><img src="${image}" alt="Bannière de l'article" /></div>` : "";
 
@@ -37,6 +39,7 @@ document.getElementById('preview-content').innerHTML = `
   ${bannerImage}
   <h1>${title || 'Titre de l\'article'}</h1>
       <div>
+	  <div class="article-resume">${resume}</div>
         <span class="tag-badge">${tag || 'TAG'}</span>
         <span class="date">${date || 'Date'}</span>
       </div>
@@ -316,8 +319,7 @@ document.getElementById("image").addEventListener("input", () => {
     tag: document.getElementById("tag").value,
     date: document.getElementById("date").value,
     image: document.getElementById("image").value,
-    banner: document.getElementById("banner")?.value || "",  // ← si on a un champ "bannière"
-    resume: "À remplir…",
+    resume: document.getElementById("resume").value,
     content: document.getElementById("content").value,
     author: "sephy"
   };
@@ -369,7 +371,7 @@ document.getElementById("resize-down").addEventListener("click", () => adjustLas
       tag: document.getElementById('tag').value,
       date: document.getElementById('date').value,
       image: document.getElementById('image').value,
-      resume: "À compléter automatiquement plus tard",
+      resume: document.getElementById("resume").value,
       content: document.getElementById('content').value,
       author: "sephy"
     };
