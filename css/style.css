@@ -708,6 +708,32 @@ footer {
   font-size: 0.95rem;
   padding: 0 1rem;
 }
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 2rem auto;
+  flex-wrap: wrap;
+}
+
+.page-btn {
+  background-color: #2d2443;
+  border: 1px solid #6c59a0;
+  color: #ddd;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.page-btn:hover,
+.page-btn.active {
+  background-color: #9c83ff;
+  color: #1c1a2a;
+  font-weight: bold;
+}
 
 
 #search-input {
