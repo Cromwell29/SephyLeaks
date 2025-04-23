@@ -39,9 +39,14 @@
 </nav>
 
   <main>
-    <section class="search-section">
-      <input type="text" id="search-input" placeholder="🔍 Rechercher un article...">
-    </section>
+	<div class="listing-controls">
+	  <div class="search-bar">
+		<input type="text" id="search-input" placeholder="🔍 Rechercher un article...">
+	  </div>
+	  <div class="tag-filters" id="tag-filters">
+		<!-- Boutons de filtre insérés dynamiquement via JS -->
+	  </div>
+	</div>
 
 	<section id="listing-container"></section>
 
