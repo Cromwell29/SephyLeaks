@@ -23,8 +23,11 @@ const popupUser = document.getElementById("popup-user");
 
 if (popup && popupUser) {
   popupUser.textContent = userData.email;
-  popup.classList.remove("popup-hidden");
-  popup.classList.add("popup-show");
+popup.classList.remove("popup-hidden"); // retire d'abord display: none
+setTimeout(() => {
+  popup.classList.add("popup-show"); // déclenche ensuite l’animation (opacity)
+}, 10); // petit délai pour laisser le DOM appliquer la suppression du display
+
 
   setTimeout(() => {
     popup.classList.remove("popup-show");
