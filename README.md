@@ -1,35 +1,87 @@
-# SephyLeaks
+# 📰 SephyLeaks – README
 
-✨ **Site communautaire non officiel sur Final Fantasy XIV**  
-Par Sephy – guides, chroniques, astuces, et secrets bien gardés.
+## 🎯 Objectif du projet
+SephyLeaks est un site communautaire non commercial autour de Final Fantasy XIV, pensé comme une source libre et qualitative d’informations : guides, chroniques, astuces. L’objectif est d’offrir une expérience agréable à la fois pour les lecteurs et les contributeurs.
 
-> _L'information libre d'Éorzéa_
+## ✅ Fonctionnalités actuellement en place
 
-## 🔗 En ligne
-➡️ [https://cromwell29.github.io/SephyLeaks/](https://cromwell29.github.io/SephyLeaks/)
+### 🎨 Front-end général
+- Thème sombre esthétique avec une palette violet/argenté.
+- Mise en page responsive (desktop / mobile).
+- Logo dans l’en-tête (personnalisé et arrondi).
+- Section "Héro" avec lien d’ancre fluide vers les articles.
 
-## 🧱 Stack actuelle
-- HTML / CSS (structure modulaire)
-- JavaScript simple
-- Chargement dynamique des articles via fichier `JSON`
-- Design violet/argenté ✨, typographies fantasy élégantes
+### 📄 Page d’accueil (`index.html`)
+- **À la une** : affiche automatiquement l’article le plus récent.
+- **Derniers articles** : 4 articles récents exclus l'article vedette.
+- **Filtres** : générés dynamiquement à partir des tags utilisés.
+- **Cartes d'articles** : uniformisées avec un ratio 16:9 commun à la bannière article.
+- **Sidebar** : section "Contribution" et "Guides" statiques.
 
-## 📁 Arborescence
-sephyleaks/ ├── index.html ├── css/ │ └── style.css ├── js/ │ └── main.js ├── data/ │ └── articles.json
+### 📑 Page article (`article.html`)
+- Affichage d’un article unique avec :
+  - Bannière 16:9 harmonisée avec les cartes.
+  - Contenu HTML enrichi, styles et blocs spéciaux (`tip-box`, `carousel`, etc).
+  - Bloc auteur dynamique via `authors.json`.
+  - Section commentaires placeholder (future fonctionnalité).
 
+### 🛠️ CMS éditeur (`admin.html`)
+- Interface en local avec preview live.
+- Outils de formatage : police, couleurs, citations, encadrés, images, carrousels…
+- **Sélecteur de tags** unifié avec ceux de l’index.
+- Ajout du champ Résumé pour les cartes.
+- Bouton Export JSON prêt pour ajout manuel dans `articles.json`.
+- Sauvegarde du brouillon dans `localStorage`.
 
-## 📌 Roadmap
-- [ ] Ajout de filtres (guides / actus / farming)
-- [ ] Pages d’articles individuelles
-- [ ] Système de tags + recherche
-- [ ] Section “Make a Gils 💸”
-- [ ] Intégration de la mascotte Sephy Reporter
-- [ ] Formulaire de contribution
-- [ ] Page "À propos / Soutenir" avec Ko-fi
+## 🔄 Roadmap en cours
+
+### 🧱 Étape 7 – Responsive & Polish CSS
+- Repasser sur chaque composant pour affiner les espacements et le responsive mobile.
+- Uniformiser davantage les tailles de polices et paddings dans toutes les zones.
+
+### 🔐 Étapes suivantes prévues
+- **Système de comptes** (visiteur, auteur, admin).
+- **Interface d’administration** pour gérer les articles (publication, suppression, modification).
+- **Connexion** avec page dédiée.
+- **Ajout d’un module de commentaires** (lié aux comptes).
+- **Possibilité de proposer un article via formulaire côté public**.
+
+## 🧪 Test et debug
+- Chargement dynamique des articles vérifié ✅
+- Filtrage des tags fonctionnel ✅
+- Affichage des dates FR/ISO géré ✅
+- Derniers articles : exclusion correcte de l'article vedette ✅
+
+## 🖼 Ratio recommandé pour bannières
+> **Ratio :** 16:9 (ex. 1600x900, 1280x720, etc.)
+>
+> Utilisé pour :
+> - les cartes d’articles sur l’index
+> - les bannières d’articles détaillés
+> - l’article "À la une"
+
+## 📁 Organisation des fichiers
+```
+📁 assets/
+├── icons/ (favicons)
+├── icotheque/ (icônes custom)
+├── logoSL.webp (logo officiel SephyLeaks)
+
+📁 css/
+├── style.css (global)
+├── article.css (page article uniquement)
+├── editor.css (CMS uniquement)
+
+📁 js/
+├── main.js (chargement index)
+├── article.js (chargement page article)
+├── admin/editor.js (éditeur CMS)
+
+📁 data/
+├── articles.json
+├── authors.json
+```
 
 ---
+Ce fichier est mis à jour automatiquement après chaque session importante. Si besoin, tu peux me demander un export `.md` ou `.pdf` pour l’intégrer à ton repo ou le partager.
 
-## 🛡️ Disclaimer
-
-Projet personnel non affilié à Square Enix.  
-Certains éléments graphiques peuvent provenir du Fan Kit officiel de FFXIV, utilisé dans le respect de leurs [conditions](https://support.na.square-enix.com/rule.php?id=5382&la=1&tag=lodestone).
