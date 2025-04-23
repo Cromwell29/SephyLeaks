@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Connexion – SephyLeaks</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/account/login.css">
+</head>
+<body>
+<div class="login-wrapper">
+  <h1>Connexion</h1>
+  <form id="login-form">
+    <label for="email">Adresse e-mail :</label>
+    <input type="email" id="email" required>
+
+    <label for="password">Mot de passe :</label>
+    <input type="password" id="password" required>
+
+    <button type="submit">Se connecter</button>
+	<p id="login-error" class="error-message"></p>
+    <p class="login-info">(Test local sans base de données. Stockage temporaire en localStorage.)</p>
+  </form>
+    <div id="login-message" class="login-feedback"></div>
+  </div>
+
+  <script src="../js/account/login.js"></script>
+</body>
+</html>
