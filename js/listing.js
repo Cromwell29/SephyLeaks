@@ -48,9 +48,11 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 	   });
       articles.forEach(article => {
+		const tag = article.tag.trim().toLowerCase();
         const section = document.createElement("section");
         section.classList.add("article-card");
-
+		section.setAttribute("data-tag", tag);
+		
         section.innerHTML = `
           <div class="card-image" style="background-image: url('${article.image}')"></div>
           <div class="card-content">
