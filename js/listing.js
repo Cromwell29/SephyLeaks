@@ -44,6 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".article-card").forEach(card => {
           const cardTag = card.dataset.tag;
           card.style.display = cardTag === tag ? "block" : "none";
+		     });
+      });
+	   });
       articles.forEach(article => {
         const section = document.createElement("section");
         section.classList.add("article-card");
