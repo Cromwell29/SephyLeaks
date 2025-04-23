@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>SephyLeaks – L’information libre d’Éorzéa</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/include.js" defer></script>
+ <!-- Favicon de base -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+  <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon">
+
+<!-- Icône Apple / Android -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="assets/icons/site.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/android-chrome-512x512.png">
+</head>
+<header class="main-header">
+  <div class="header-inner">
+    <img src="assets/logoSL.webp" alt="Logo SephyLeaks" class="site-logo">
+    <div class="site-title-group">
+      <h1>SephyLeaks</h1>
+      <div class="subtitle">L’information libre d’Éorzéa</div>
+    </div>
+  </div>
+</header>
+
+<nav class="main-nav">
+  <a href="index.html" class="logo">SephyLeaks</a>
+  <ul class="nav-links">
+    <li><a href="#">Accueil</a></li>
+    <li><a href="#">Guides</a></li>
+    <li><a href="#">Ressources</a></li>
+    <li><a href="#">Connexion</a></li>
+    <li><a href="#">❓ À propos</a></li>
+  </ul>
+</nav>
+
+  <main>
+    <section class="search-section">
+      <input type="text" id="search-input" placeholder="🔍 Rechercher un article...">
+    </section>
+
+    <section id="articles-container">
+      <!-- Articles injectés ici -->
+    </section>
+  </main>
+
+  <div data-include="components/footer.html"></div>
+</body>
+</html>
