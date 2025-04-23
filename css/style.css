@@ -683,3 +683,49 @@ footer {
 .hero-cta:hover {
   background-color: #b8a0ff;
 }
+
+/* === LISTING - Barre de recherche + filtres === */
+.listing-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 2rem auto 1.5rem;
+  padding: 0 1rem;
+}
+
+.search-bar {
+  flex: 1;
+}
+
+#search-input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-family: 'EB Garamond', serif;
+  border-radius: 6px;
+  border: 1px solid var(--color-border-accent);
+  background-color: #2d2443;
+  color: var(--color-text);
+  box-shadow: 0 1px 3px #00000033;
+}
+
+#search-input::placeholder {
+  color: #aaa;
+}
+
+@media (max-width: 768px) {
+  .listing-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-bar,
+  .tag-filters {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

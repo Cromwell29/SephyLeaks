@@ -6,7 +6,44 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => res.json())
     .then(articles => {
       articles.sort((a, b) => new Date(b.date) - new Date(a.date));
-      
+      // Extraire les tags uniques
+    const tags = new Set(articles.map(a => a.tag.trim().toLowerCase()));
+
+    const tagFiltersContainer = document.getElementById("tag-filters");
+
+    const formatLabel = tag => {
+      if (tag === "make a gils") return "Make a Gil$";
+      return tag.charAt(0).toUpperCase() + tag.slice(1);
+    };
+
+    // Créer le bouton "Tous"
+    const allBtn = document.createElement("button");
+    allBtn.textContent = "Tous";
+    allBtn.className = "filter-btn active";
+    allBtn.dataset.filter = "tous";
+    tagFiltersContainer.appendChild(allBtn);
+
+    allBtn.addEventListener("click", () => {
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      allBtn.classList.add("active");
+      document.querySelectorAll(".article-card").forEach(a => a.style.display = "block");
+    });
+
+    // Créer un bouton par tag
+    tags.forEach(tag => {
+      const btn = document.createElement("button");
+      btn.textContent = formatLabel(tag);
+      btn.className = "filter-btn";
+      btn.dataset.filter = tag;
+      tagFiltersContainer.appendChild(btn);
+
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        document.querySelectorAll(".article-card").forEach(card => {
+          const cardTag = card.dataset.tag;
+          card.style.display = cardTag === tag ? "block" : "none";
       articles.forEach(article => {
         const section = document.createElement("section");
         section.classList.add("article-card");
