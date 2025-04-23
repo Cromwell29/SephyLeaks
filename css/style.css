@@ -524,6 +524,24 @@ main {
 .article-content p + p {
   margin-top: 1.2rem;
 }
+.view-all-wrapper {
+  text-align: center;
+  margin-top: 2rem;
+}
+.view-all-btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  background-color: #6c59a0;
+  color: white;
+  text-decoration: none;
+  font-family: 'Cinzel', serif;
+  transition: background-color 0.2s ease;
+}
+.view-all-btn:hover {
+  background-color: #8a6bd1;
+}
 
 /* === Footer === */
 footer {

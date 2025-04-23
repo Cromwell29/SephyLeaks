@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const filteredArticles = articles.filter(a => a.id !== latestArticle.id);
 
       // Injection des cartes
-      filteredArticles.forEach(article => {
+	filteredArticles.slice(0, 10).forEach(article => {
         const tag = article.tag.trim().toLowerCase();
 
         const section = document.createElement("section");

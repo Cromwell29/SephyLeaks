@@ -25,7 +25,7 @@ SephyLeaks est un site communautaire non commercial autour de Final Fantasy XIV,
   - Bloc auteur dynamique via `authors.json`.
   - Section commentaires placeholder (future fonctionnalité).
 
-### 🛠️ CMS éditeur (`admin.html`)
+### 🛠️ CMS éditeur (`editor.html`)
 - Interface en local avec preview live.
 - Outils de formatage : police, couleurs, citations, encadrés, images, carrousels…
 - **Sélecteur de tags** unifié avec ceux de l’index.
@@ -83,5 +83,3 @@ SephyLeaks est un site communautaire non commercial autour de Final Fantasy XIV,
 ```
 
 ---
-Ce fichier est mis à jour automatiquement après chaque session importante. Si besoin, tu peux me demander un export `.md` ou `.pdf` pour l’intégrer à ton repo ou le partager.
-
