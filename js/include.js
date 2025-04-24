@@ -1,19 +1,20 @@
 function setupBurgerMenu() {
-  const burgerBtn = document.getElementById("burger-btn");
-  const navLinks = document.querySelector(".nav-links");
+  const burgerBtn = document.getElementById("menu-toggle");
+  const navLinks = document.getElementById("nav-menu");
 
   if (burgerBtn && navLinks) {
     burgerBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("show");
+      navLinks.classList.toggle("active"); // correspond à ton CSS
     });
 
-    document.querySelectorAll(".nav-links a").forEach(link => {
+    navLinks.querySelectorAll("a").forEach(link => {
       link.addEventListener("click", () => {
-        navLinks.classList.remove("show");
+        navLinks.classList.remove("active");
       });
     });
   }
 }
+
 
 function activateStickyEffect() {
   const headerBlock = document.querySelector('.sticky-header');
