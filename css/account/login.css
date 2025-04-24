@@ -67,3 +67,18 @@ button:hover {
   color: #aaa;
   margin-top: 1rem;
 }
+
+.login-return {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.login-return a {
+  color: #c9b3ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-return a:hover {
+  text-decoration: underline;
+}

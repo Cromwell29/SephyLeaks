@@ -160,6 +160,45 @@
   padding: 0;
   margin: 0;
 }
+
+.recent-article-item {
+  margin-bottom: 0.7rem;
+}
+
+.recent-article-link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: var(--color-text);
+  border-bottom: 1px solid #57497c55;
+  padding-bottom: 0.5rem;
+  transition: background 0.2s ease;
+}
+
+.recent-article-link:hover {
+  background: #3a2e5f33;
+  border-radius: 6px;
+  padding: 0.4rem;
+}
+
+.recent-article-link img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 0 4px #00000033;
+}
+
+.recent-article-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.3;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .recent-articles li {
   margin-bottom: 1rem;
   border-left: 3px solid #9c83ff;
