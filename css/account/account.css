@@ -48,7 +48,7 @@
 }
 #welcome-popup {
   position: fixed;
-  top: 150px;
+  top: 30px;
   left: 50%;
   transform: translateX(-50%);
   background-color: #2d2443;
@@ -63,14 +63,11 @@
   transition: opacity 0.4s ease;
 }
 
-#welcome-popup.popup-show {
-  display: block; /* rendre visible si caché par défaut */
+.popup-show {
   opacity: 1;
 }
 
-
 .popup-hidden {
-  opacity: 0;
-  pointer-events: none;
+  display: none;
 }
 

@@ -17,6 +17,22 @@ function activateStickyEffect() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const burgerBtn = document.getElementById("burger-btn");
+  const navLinks = document.querySelector(".nav-links");
+
+  if (burgerBtn && navLinks) {
+    burgerBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+
+    // ✅ Ferme le menu quand on clique sur un lien
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+      });
+    });
+  }
+
   const targets = document.querySelectorAll('[data-include]');
 
   targets.forEach(el => {
