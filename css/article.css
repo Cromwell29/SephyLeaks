@@ -172,14 +172,15 @@
   text-decoration: none;
   color: var(--color-text);
   border-bottom: 1px solid #57497c55;
-  padding-bottom: 0.5rem;
-  transition: background 0.2s ease;
+  border-radius: 6px;
+  padding: 0.4rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+
 }
 
 .recent-article-link:hover {
-  background: #3a2e5f33;
-  border-radius: 6px;
-  padding: 0.4rem;
+  background: #3a2e5f55;
+  transform: scale(1.01);
 }
 
 .recent-article-link img {
@@ -188,6 +189,7 @@
   object-fit: cover;
   border-radius: 4px;
   box-shadow: 0 0 4px #00000033;
+
 }
 
 .recent-article-title {
