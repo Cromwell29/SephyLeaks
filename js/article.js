@@ -24,8 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	// ✅ Injecter l'article
 const bannerUrl = article.banner || article.image;
 const banner = bannerUrl
-  ? `<div class="article-banner">
-       <div class="banner-label">🖼️ Illustration principale</div>
+  ? `<div class="cover-image">
        <img src="${bannerUrl}" alt="Bannière de l'article">
      </div>`
   : "";
