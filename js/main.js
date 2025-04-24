@@ -16,9 +16,9 @@ const navLinks = document.querySelector(".nav-links");
   li.setAttribute("data-auth", "true");
 
   if (user) {
-    li.innerHTML = `<a href="../account/account.html">👤 Mon compte</a>`;
+    li.innerHTML = `<a href="/SephyLeaks/account/account.html">👤 Mon compte</a>`;
   } else {
-    li.innerHTML = `<a href="../account/login.html">Connexion</a>`;
+    li.innerHTML = `<a href="/SephyLeaks/account/login.html">Connexion</a>`;
   }
   navLinks.appendChild(li);
 if (user) {
@@ -29,7 +29,7 @@ if (user) {
   logoutLi.addEventListener("click", (e) => {
     e.preventDefault();
     localStorage.removeItem("sephyUser");
-    window.location.href = "../index.html";
+    window.location.href = "index.html";
   });
 }
 
