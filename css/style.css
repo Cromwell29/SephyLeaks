@@ -592,7 +592,16 @@
    background: #9c83ff44;
    color: white;
  }
- 
+ .menu-toggle {
+  display: none;
+}
+
+.burger {
+  font-size: 1.8rem;
+  color: white;
+  display: none;
+  cursor: pointer;
+}
  /* === Responsive === */
  @media (max-width: 768px) {
    header {
@@ -616,11 +625,22 @@
      padding: 1rem;
    }
    
-   .nav-links {
-     flex-direction: column;
-     width: 100%;
-     padding-top: 1rem;
-   }
+  .burger {
+    display: block;
+    align-self: flex-end;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+    gap: 0.5rem;
+  }
+
+  .menu-toggle:checked + .burger + .nav-links {
+    display: flex;
+  }
  
    .main-nav {
      flex-direction: column;
