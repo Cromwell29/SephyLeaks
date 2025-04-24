@@ -1,21 +1,3 @@
-function setupBurgerMenu() {
-  const burgerBtn = document.getElementById("menu-toggle");
-  const navLinks = document.getElementById("nav-menu");
-
-  if (burgerBtn && navLinks) {
-    burgerBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("active"); // correspond à ton CSS
-    });
-
-    navLinks.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("active");
-      });
-    });
-  }
-}
-
-
 function activateStickyEffect() {
   const headerBlock = document.querySelector('.sticky-header');
   if (!headerBlock) return;

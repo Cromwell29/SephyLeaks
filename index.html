@@ -30,8 +30,7 @@
 
 <nav class="main-nav">
   <a href="index.html" class="logo">SephyLeaks</a>
-  <button id="burger-btn" aria-label="Ouvrir le menu">☰</button>
-  <ul class="nav-links" id="nav-menu">
+  <ul class="nav-links">
     <li><a href="#">Accueil</a></li>
     <li><a href="#">Guides</a></li>
     <li><a href="#">Ressources</a></li>
@@ -49,56 +48,45 @@
 
 <div class="main-with-sidebar">
   <main>
-    <section class="featured-section">
-      <h2 class="featured-title">À la une</h2>
-      <div id="featured-article"></div>
+	<section class="featured-section">
+	  <h2 class="featured-title">À la une</h2>
+	  <div id="featured-article"></div>
+	</section>
+<section class="latest-articles">
+  <h2>Derniers articles</h2>
+  <ul id="latest-list"></ul>
+</section>
+	<section id="filters"">
+	  <!-- Les boutons seront générés dynamiquement -->
+	</section>
+    <section id="articles-container">
+      <!-- Articles chargés dynamiquement ici -->
     </section>
+	<div class="view-all-wrapper">
+		<a href="listing.html" class="view-all-btn">Voir tous les articles →</a>
+	</div>
 
-    <section class="latest-articles">
-      <h2>Derniers articles</h2>
-      <ul id="latest-list"></ul>
-    </section>
-
-    <section id="filters"></section>
-    <section id="articles-container"></section>
-
-    <div class="view-all-wrapper">
-      <a href="listing.html" class="view-all-btn">Voir tous les articles →</a>
-    </div>
   </main>
-
-  <aside class="sidebar-right">
-    <div class="contribute-box">
-      <h3>Contribution</h3>
-      <img src="assets/icotheque/sephy-reporter-3.webp" alt="Sephy Reporter" class="contribute-img">
-      <p>Ton aide serait précieuse pour rédiger de nouveaux articles sur Final Fantasy XIV !</p>
-      <a href="#" class="btn-contribuer">Contribuer</a>
-    </div>
+  
+<aside class="sidebar-right">
+  <div class="contribute-box">
+    <h3>Contribution</h3>
+    <img src="assets/icotheque/sephy-reporter-3.webp" alt="Sephy Reporter" class="contribute-img">
+    <p>Ton aide serait précieuse pour rédiger de nouveaux articles sur Final Fantasy XIV !</p>
+    <a href="#" class="btn-contribuer">Contribuer</a>
+  </div>
     <div class="guides-box">
-      <h3>📚 Guides</h3>
-      <div class="tag-list">
-        <span class="guide-tag">Jobs</span>
-        <span class="guide-tag">Craft</span>
-        <span class="guide-tag">Glamour</span>
-        <span class="guide-tag">Raid</span>
-      </div>
+    <h3>📚 Guides</h3>
+    <div class="tag-list">
+      <span class="guide-tag">Jobs</span>
+      <span class="guide-tag">Craft</span>
+      <span class="guide-tag">Glamour</span>
+      <span class="guide-tag">Raid</span>
     </div>
-  </aside>
+  </div>
+</aside>
 </div>
-
 <div data-include="components/footer.html"></div>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const burgerBtn = document.getElementById("burger-btn");
-    const navMenu = document.getElementById("nav-menu");
-
-    if (burgerBtn && navMenu) {
-      burgerBtn.addEventListener("click", () => {
-        navMenu.classList.toggle("show");
-      });
-    }
-  });
-</script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
