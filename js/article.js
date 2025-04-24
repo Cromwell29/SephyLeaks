@@ -32,7 +32,6 @@ if (bannerUrl) {
 
 container.innerHTML = `
   <article class="article-page-wrapper">
-    ${banner}
     <div class="article-meta">
       <span class="tag-badge">${article.tag}</span>
       <span class="date">${article.date}</span>
