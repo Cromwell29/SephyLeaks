@@ -26,23 +26,12 @@ const bannerUrl = article.banner || article.image;
 if (bannerUrl) {
   document.getElementById("cover-image").style.backgroundImage = `url(${bannerUrl})`;
 }
+console.log("➡️ Image de couverture :", bannerUrl);
+document.querySelector(".tag-badge").textContent = article.tag;
+document.querySelector(".date").textContent = article.date;
+document.querySelector("h1").textContent = article.title;
+document.querySelector(".article-content").innerHTML = article.content;
 
-
-
-
-container.innerHTML = `
-  <article class="article-page-wrapper">
-    <div class="article-meta">
-      <span class="tag-badge">${article.tag}</span>
-      <span class="date">${article.date}</span>
-    </div>
-    <h1 class="article-title">${article.title}</h1>
-    <div class="article-content"></div>
-  </article>
-`;
-
-
-      document.querySelector(".article-content").innerHTML = article.content;
 
       // === Charger l'auteur une fois qu'on a l'article ===
       return fetch("data/authors.json");
