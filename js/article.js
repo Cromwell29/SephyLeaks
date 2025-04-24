@@ -23,11 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// ✅ Injecter l'article
 const bannerUrl = article.banner || article.image;
-const banner = bannerUrl
-  ? `<div class="cover-image">
-       <img src="${bannerUrl}" alt="Bannière de l'article">
-     </div>`
-  : "";
+if (bannerUrl) {
+  document.getElementById("cover-image").style.backgroundImage = `url(${bannerUrl})`;
+}
+
 
 
 
