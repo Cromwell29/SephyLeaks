@@ -31,7 +31,10 @@ if (popup && popupUser) {
   }, 4000);
 }
 
-
+document.getElementById("logout-btn").addEventListener("click", () => {
+  localStorage.removeItem("user");
+  window.location.href = "index.html";
+});
   // Déconnexion
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("sephyUser");

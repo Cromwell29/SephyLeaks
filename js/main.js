@@ -2,6 +2,37 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("✅ SephyLeaks prêt");
 
+const navLinks = document.querySelector(".nav-links");
+
+  if (!navLinks) return;
+
+  const user = JSON.parse(localStorage.getItem("sephyUser"));
+
+  // Supprimer l'ancien lien
+  const existing = navLinks.querySelector('li[data-auth]');
+  if (existing) existing.remove();
+
+  const li = document.createElement("li");
+  li.setAttribute("data-auth", "true");
+
+  if (user) {
+    li.innerHTML = `<a href="../account/account.html">👤 Mon compte</a>`;
+  } else {
+    li.innerHTML = `<a href="../account/login.html">Connexion</a>`;
+  }
+  navLinks.appendChild(li);
+if (user) {
+  const logoutLi = document.createElement("li");
+  logoutLi.innerHTML = `<a href="#" id="logout-link">Déconnexion</a>`;
+  navLinks.appendChild(logoutLi);
+
+  logoutLi.addEventListener("click", (e) => {
+    e.preventDefault();
+    localStorage.removeItem("sephyUser");
+    window.location.href = "../index.html";
+  });
+}
+
   const container = document.getElementById("articles-container");
   const filtersContainer = document.getElementById("filters");
 

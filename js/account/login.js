@@ -30,10 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	  errorDisplay.textContent = "Identifiants incorrects.";
 	  return;
 	}
-
-// Si tout est bon :
-localStorage.setItem("user", JSON.stringify({ email }));
-window.location.href = "../account/account.html";
+// Exemple d'objet utilisateur simulé
+const user = {
+  email: document.getElementById("email").value,
+  role: "auteur"
+};
 
     if (email === dummyAccount.email && password === dummyAccount.password) {
       // Connexion réussie
