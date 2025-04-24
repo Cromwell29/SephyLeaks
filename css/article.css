@@ -191,6 +191,11 @@
   box-shadow: 0 0 4px #00000033;
 
 }
+.sidebar-right {
+  flex: 1;
+  max-width: 300px; /* ou 280px pour serrer davantage */
+  width: 100%;
+}
 
 .recent-article-title {
   font-size: 0.95rem;
@@ -200,6 +205,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 150px;
 }
 .recent-articles li {
   margin-bottom: 1rem;
