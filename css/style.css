@@ -207,8 +207,17 @@ main {
 }
 
 .featured-image {
+  position: relative;
   width: 100%;
-  height: 240px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.featured-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -355,6 +364,7 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 .card-content {
   padding: 1rem;
