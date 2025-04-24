@@ -1,8 +1,24 @@
+function setupBurgerMenu() {
+  const burgerBtn = document.getElementById("burger-btn");
+  const navLinks = document.querySelector(".nav-links");
+
+  if (burgerBtn && navLinks) {
+    burgerBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+      });
+    });
+  }
+}
+
 function activateStickyEffect() {
   const headerBlock = document.querySelector('.sticky-header');
   if (!headerBlock) return;
 
-  // Appliquer directement au chargement si scrollé
   if (window.scrollY > 20) {
     headerBlock.classList.add('scrolled');
   }
@@ -17,22 +33,6 @@ function activateStickyEffect() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const burgerBtn = document.getElementById("burger-btn");
-  const navLinks = document.querySelector(".nav-links");
-
-  if (burgerBtn && navLinks) {
-    burgerBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("show");
-    });
-
-    // ✅ Ferme le menu quand on clique sur un lien
-    document.querySelectorAll(".nav-links a").forEach(link => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("show");
-      });
-    });
-  }
-
   const targets = document.querySelectorAll('[data-include]');
 
   targets.forEach(el => {
@@ -46,13 +46,16 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(html => {
         el.innerHTML = html;
 
-        // ✅ Astuce : on force une "repaint" une fois l’élément injecté
         if (html.includes("main-nav")) {
           const nav = document.querySelector(".main-nav");
           if (nav) {
             nav.style.position = "sticky";
-            nav.offsetHeight; // force repaint
+            nav.offsetHeight;
           }
+
+          // Appelle les fonctions après inclusion
+          activateStickyEffect();
+          setupBurgerMenu();
         }
       })
       .catch(err => console.error("Erreur d'inclusion:", file, err));
