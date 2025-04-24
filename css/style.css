@@ -660,28 +660,45 @@ footer {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.3rem;
+    gap: 0.5rem;
     text-align: center;
   }
 
   .site-logo {
     width: 56px;
     height: auto;
-    margin-bottom: 0.3rem;
   }
 
   .site-title-group h1 {
     font-size: 1.6rem;
+    line-height: 1.2;
     margin: 0;
-    line-height: 1.1;
   }
 
-  .site-title-group .subtitle {
+  .subtitle {
     font-size: 0.95rem;
-    margin: 0.1rem 0 0;
-    line-height: 1.2;
+    margin-top: 0.2rem;
+  }
+
+  .main-nav {
+    flex-direction: column;
+    align-items: center;
+    padding: 0.8rem 1rem;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .nav-links li a {
+    font-size: 1.05rem;
   }
 }
+
 
 .hero-section {
   background: linear-gradient(120deg, #2d2443, #3a2e5f);
