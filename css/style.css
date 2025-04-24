@@ -803,4 +803,24 @@ footer {
     justify-content: center;
   }
 }
+.article-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .article-layout {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .article-page {
+    order: 1;
+    width: 100%;
+ 
 
