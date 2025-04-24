@@ -656,16 +656,21 @@ footer {
     align-items: center;
     text-align: center;
   }
+  .main-header {
+    padding: 1rem;
+  }
 
   .site-logo {
-    width: 48px;
+    width: 64px;
+    height: auto;
   }
 
   .site-title-group h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
-  .site-logo {
-    width: 64px;
+
+  .subtitle {
+    font-size: 1rem;
   }
 }
 .hero-section {
