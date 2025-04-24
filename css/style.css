@@ -502,12 +502,19 @@ main {
 }
 
 .article-cover {
+  position: relative;
   width: 100%;
-  height: 300px;
-  background-size: cover;
-  background-position: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
 }
 
+.article-cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .article-meta {
   display: flex;
   justify-content: space-between;
@@ -707,6 +714,21 @@ footer {
   max-width: 1000px;
   margin: 2rem auto 1.5rem;
   padding: 0 1rem;
+}
+/* POUR FORCER LE RATIO FIXE 16:9 SUR TOUTES LES CARTES EN LISTING */
+#listing-container .card-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+#listing-container .card-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .search-bar {
