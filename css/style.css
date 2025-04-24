@@ -650,11 +650,13 @@ footer {
   }
 }
 @media (max-width: 600px) {
-	.header-inner {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+.header-inner {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
   .main-header {
     padding: 1rem;
   }
