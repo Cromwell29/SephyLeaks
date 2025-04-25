@@ -166,3 +166,45 @@
   border-radius: 10px;
   box-shadow: 0 0 10px #00000033;
 }
+.apropos-mini-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #1f1a2e;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 8px #00000022;
+  margin-top: 1.5rem;
+  max-width: 350px;
+}
+
+.mini-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 6px #9c83ff44;
+}
+
+.mini-card-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.mini-card-links a {
+  color: #9c83ff;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.mini-card-links a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+.mini-card-links .wip {
+  color: #aaa;
+  font-style: italic;
+  font-size: 0.95rem;
+}
