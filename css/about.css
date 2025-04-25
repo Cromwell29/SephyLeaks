@@ -1,0 +1,108 @@
+.apropos-container {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #2d2443;
+  border-radius: 12px;
+  box-shadow: 0 0 12px #00000055;
+  color: var(--color-text);
+}
+
+.apropos-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.apropos-avatar {
+  flex: 0 0 200px;
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 8px #00000033;
+}
+
+.apropos-text {
+  flex: 1;
+  min-width: 250px;
+}
+
+.apropos-text h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--color-title);
+}
+
+.apropos-text p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #e6e3f0;
+}
+
+.kofi-button {
+  display: inline-block;
+  background: #9c83ff;
+  color: #1c1a2a;
+  font-weight: bold;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 6px #00000033;
+  transition: background 0.2s ease;
+}
+
+.kofi-button:hover {
+  background: #b8a0ff;
+  color: #1c1a2a;
+}
+
+.apropos-links {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+}
+
+.apropos-links a {
+  color: #9c83ff;
+  text-decoration: none;
+  margin-right: 0.5rem;
+}
+
+.apropos-links a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+.apropos-links .wip {
+  font-style: italic;
+  color: #aaa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .apropos-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .apropos-avatar {
+    width: 140px;
+  }
+
+  .apropos-text {
+    flex: none;
+    width: 100%;
+  }
+
+  .apropos-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+}
