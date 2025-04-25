@@ -114,3 +114,37 @@
     align-items: center;
   }
 }
+.apropos-columns {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.apropos-box {
+  flex: 1;
+  min-width: 280px;
+  background-color: #2d2443;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00000033;
+  color: var(--color-text);
+}
+
+.apropos-box h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--color-title);
+}
+
+.apropos-box p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+
+.apropos-box .wip {
+  font-style: italic;
+  color: #aaa;
+}
