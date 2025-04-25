@@ -66,9 +66,11 @@
   margin-top: 1rem;
   box-shadow: 0 2px 6px #00000033;
   transition: background 0.2s ease;
+  transition: transform 0.2s ease;
 }
 .kofi-button:hover {
   background: #b8a0ff;
+  transform: scale(1.05);
 }
 
 .apropos-links {
@@ -147,4 +149,20 @@
 .apropos-box .wip {
   font-style: italic;
   color: #aaa;
+}
+
+.apropos-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.apropos-box {
+  flex: 1;
+  min-width: 280px;
+  background-color: #2d2443;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00000033;
 }
