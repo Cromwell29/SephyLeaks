@@ -454,7 +454,51 @@
  }
  
  
- 
+ .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: #3a2e5f;
+  color: #c9b3ff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  border: 1px solid #6c59a0;
+  white-space: nowrap;
+}
+
+/* Variantes */
+.badge-admin {
+  background: #6c59a0;
+  color: #fff;
+  border-color: #9c83ff;
+}
+
+.badge-auteur {
+  background: #2e2a40;
+  color: #c3aaff;
+  border-color: #8a6bd1;
+}
+
+.badge-verified {
+  background: #2a4232;
+  color: #afffb4;
+  border-color: #52d88c;
+}
+
+/* Icône dans le badge */
+.badge::before {
+  content: "🎖️";
+  font-size: 1rem;
+}
+
+/* Icônes personnalisées pour chaque badge (optionnel) */
+.badge-admin::before { content: "👑"; }
+.badge-auteur::before { content: "📝"; }
+.badge-verified::before { content: "✅"; }
+
  
  /* === Articles complets === */
  .article-full {

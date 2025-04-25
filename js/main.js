@@ -111,7 +111,32 @@ function parseDate(dateStr) {
   const mm = moisFr[mois.toLowerCase()] || "01";
   return new Date(`${année}-${mm}-${jour.padStart(2, "0")}`);
 }
+// Badge rôle utilisateur – pré-intégré pour futurs modules
+function createRoleBadge(role) {
+  const badge = document.createElement("span");
+  badge.classList.add("badge");
 
+  switch (role) {
+    case "admin":
+      badge.classList.add("badge-admin");
+      badge.textContent = "Créatrice";
+      break;
+    case "auteur":
+      badge.classList.add("badge-auteur");
+      badge.textContent = "Auteur";
+      break;
+    case "verified":
+      badge.classList.add("badge-verified");
+      badge.textContent = "Vérifié";
+      break;
+    default:
+      badge.classList.add("badge-default");
+      badge.textContent = "Membre";
+      break;
+  }
+
+  return badge;
+}
 fetch("data/articles.json")
   .then(res => res.json())
   .then(articles => {
