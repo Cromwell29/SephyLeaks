@@ -1,10 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.querySelector(".nav-links");
-  if (!navLinks) return;
+  const contribBtn = document.getElementById("contribuer-btn");
 
   const user = JSON.parse(localStorage.getItem("sephyUser"));
 
-  // Supprimer ancien lien
+  // Gérer bouton Contribuer (index uniquement)
+  if (contribBtn) {
+    if (user) {
+      contribBtn.setAttribute("href", "/SephyLeaks/account/account.html#contribution");
+    } else {
+      contribBtn.setAttribute("href", "/SephyLeaks/account/register.html");
+    }
+  }
+
+  // Gérer Connexion / Mon compte / Déconnexion (toutes pages)
+  if (!navLinks) return;
+
   const existing = navLinks.querySelector('li[data-auth]');
   if (existing) existing.remove();
 
@@ -29,3 +40,4 @@ document.addEventListener("DOMContentLoaded", () => {
     navLinks.appendChild(li);
   }
 });
+
