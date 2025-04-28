@@ -36,9 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
             nav.offsetHeight;
           }
 
-          // Appelle les fonctions après inclusion
           activateStickyEffect();
           setupBurgerMenu();
+        }
+
+        if (file.includes("footer.html")) {
+          document.dispatchEvent(new Event("footerLoaded"));
         }
       })
       .catch(err => console.error("Erreur d'inclusion:", file, err));
