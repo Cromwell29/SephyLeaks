@@ -45,6 +45,13 @@ const conditionalLinks = document.getElementById("conditional-links");
 if (role === "admin") {
   conditionalLinks.innerHTML = `<a href="/SephyLeaks/admin.html" class="admin-link">🛠️ Panneau admin</a>`;
 }
+// 🎯 Afficher le formulaire au clic sur le bouton
+const editBtn = document.getElementById("edit-profile-btn");
+const editSection = document.getElementById("edit-form-section");
+
+editBtn.addEventListener("click", () => {
+  editSection.classList.toggle("hidden");
+});
 
 
   // 🎉 Popup bienvenue
