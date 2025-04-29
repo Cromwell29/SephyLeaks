@@ -31,13 +31,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  const { email, pseudo, role } = users;
+const { email, pseudo, role, bio } = users;
 
-  // ✅ Affichage infos
+// Affichage des infos
 document.getElementById("user-pseudo").textContent = pseudo;
 document.getElementById("user-email").textContent = email;
 document.getElementById("user-role").textContent = role;
-document.getElementById("user-bio").textContent = users.bio || "Aucune bio pour le moment.";
+document.getElementById("user-bio").textContent = bio || "Aucune bio pour le moment.";
+document.getElementById("edit-bio").value = bio || "";
 
 // lien admin (facultatif : dans une section conditionnelle)
 const conditionalLinks = document.getElementById("conditional-links");
