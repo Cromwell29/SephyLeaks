@@ -7,37 +7,64 @@
   <link rel="stylesheet" href="/SephyLeaks/css/style.css">
   <link rel="stylesheet" href="/SephyLeaks/css/account/account.css">
   <script type="module" src="/SephyLeaks/js/account/account.js"></script>
-
- <!-- Favicon de base -->
   <link rel="icon" type="image/png" sizes="32x32" href="/SephyLeaks/assets/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/SephyLeaks/assets/icons/favicon-16x16.png">
   <link rel="shortcut icon" href="/SephyLeaks/assets/icons/favicon.ico" type="image/x-icon">
-
-<!-- Icône Apple / Android -->
   <link rel="apple-touch-icon" sizes="180x180" href="/SephyLeaks/assets/icons/apple-touch-icon.png">
   <link rel="manifest" href="/SephyLeaks/assets/icons/site.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="/SephyLeaks/assets/icons/android-chrome-192x192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/SephyLeaks/assets/icons/android-chrome-512x512.png">
 </head>
 <body>
-<div id="welcome-popup" class="popup-hidden">
-  <p>🎉 Bienvenue sur SephyLeaks, <span id="popup-user"></span> !</p>
-</div>
+  <div id="welcome-popup" class="popup-hidden">
+    <p>🎉 Bienvenue sur SephyLeaks, <span id="popup-user"></span> !</p>
+  </div>
+
   <header class="main-header">
     <div class="header-inner">
       <img src="/SephyLeaks/assets/logoSL.webp" alt="Logo SephyLeaks" class="site-logo">
       <div class="site-title-group">
         <h1>Mon compte</h1>
-        <div class="subtitle">Espace utilisateur</div>
+        <div class="subtitle">Panneau personnel</div>
       </div>
     </div>
   </header>
 
-  <main class="account-wrapper">
-    <div id="account-info">
-      <p>Chargement des infos...</p>
-    </div>
-    <button id="logout-btn">🔓 Se déconnecter</button>
+  <main class="account-dashboard">
+    <section class="profile-header">
+      <div class="avatar-placeholder">👤</div>
+      <div class="user-main">
+        <h2 id="user-pseudo">Pseudo</h2>
+        <p id="user-role">Rôle</p>
+        <p id="user-email">Email</p>
+      </div>
+    </section>
+
+    <section class="profile-bio">
+      <h3>Bio</h3>
+      <p id="user-bio">Chargement de la bio...</p>
+    </section>
+
+    <section class="profile-actions">
+      <button id="edit-profile-btn">✏️ Modifier mon profil</button>
+      <button id="logout-btn">🔓 Se déconnecter</button>
+    </section>
+
+    <section id="conditional-links"></section>
+
+    <section id="edit-form-section" class="hidden">
+      <h3>Modifier mes informations</h3>
+      <form id="profile-form">
+        <label for="edit-pseudo">Pseudonyme :</label>
+        <input type="text" id="edit-pseudo" name="pseudo" required>
+
+        <label for="edit-bio">Bio :</label>
+        <textarea id="edit-bio" name="bio" rows="4"></textarea>
+
+        <button type="submit">💾 Enregistrer</button>
+        <p id="profile-msg" class="status-msg"></p>
+      </form>
+    </section>
   </main>
 </body>
 </html>
