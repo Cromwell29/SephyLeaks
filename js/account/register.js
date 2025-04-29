@@ -33,33 +33,38 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Étape 1 : inscription via Supabase Auth
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password
-    });
+	const { data: signUpData, error } = await supabase.auth.signUp({
+	  email,
+	  password
+	});
 
-    if (error) {
-      errorBox.textContent = `Erreur Supabase : ${error.message}`;
-      return;
-    }
+	if (error) {
+	  errorBox.textContent = `Erreur Supabase : ${error.message}`;
+	  return;
+	}
 
-    const user = data.user;
-    if (!user) {
-      errorBox.textContent = "Une erreur est survenue. Réessayez.";
-      return;
-    }
+	const user = signUpData.user;
 
-    // Étape 2 : enregistrement dans la table "users"
-    const { error: dbError } = await supabase.from("users").insert([
-      {
-        id: user.id,
-        email,
-        pseudo,
-        role: "membre",
-        bio: ""
-      }
-    ]);
+	// ➕ On attend que la session soit active
+	const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+
+	if (sessionError || !sessionData.session) {
+	  errorBox.textContent = "Erreur : session non active après inscription.";
+	  return;
+	}
+
+	const userId = sessionData.session.user.id;
+
+	// ➕ Insertion dans la table users
+	const { error: dbError } = await supabase.from("users").insert([
+	  {
+		id: userId,
+		email,
+		pseudo,
+		role: "membre",
+		bio: ""
+	  }
+	]);
 
     if (dbError) {
       errorBox.textContent = `Erreur base de données : ${dbError.message}`;
