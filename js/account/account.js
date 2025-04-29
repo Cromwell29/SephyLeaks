@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 🔎 Charger les infos utilisateur depuis la table "users"
   const { data: users, error: userError } = await supabase
     .from("users")
-    .select("email, pseudo, role")
+    .select("email,pseudo,role")
     .eq("id", userId)
     .single();
 
