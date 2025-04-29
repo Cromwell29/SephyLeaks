@@ -116,3 +116,25 @@ body {
   margin-top: 0.5rem;
   color: #7fffd4;
 }
+#welcome-popup {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: #2f1f4e;
+  color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 12px #0008;
+  font-size: 1rem;
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+  z-index: 999;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#welcome-popup.popup-show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
