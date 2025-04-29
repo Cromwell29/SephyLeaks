@@ -34,12 +34,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   const { email, pseudo, role } = users;
 
   // ✅ Affichage infos
-  info.innerHTML = `
-    <p><strong>Pseudo :</strong> ${pseudo}</p>
-    <p><strong>Email :</strong> ${email}</p>
-    <p><strong>Rôle :</strong> ${role}</p>
-    ${role === "admin" ? `<a href="/SephyLeaks/admin.html" class="admin-link">🛠️ Accéder au panneau admin</a>` : ""}
-  `;
+document.getElementById("user-pseudo").textContent = pseudo;
+document.getElementById("user-email").textContent = email;
+document.getElementById("user-role").textContent = role;
+document.getElementById("user-bio").textContent = users.bio || "Aucune bio pour le moment.";
+
+// lien admin (facultatif : dans une section conditionnelle)
+const conditionalLinks = document.getElementById("conditional-links");
+if (role === "admin") {
+  conditionalLinks.innerHTML = `<a href="/SephyLeaks/admin.html" class="admin-link">🛠️ Panneau admin</a>`;
+}
+
 
   // 🎉 Popup bienvenue
   if (popup && popupUser) {
