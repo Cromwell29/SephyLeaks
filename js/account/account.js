@@ -1,4 +1,4 @@
-import { supabase } from "../supabaseClient.js";
+import { supabase } from '/SephyLeaks/js/supabaseClient.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
   const info = document.getElementById("account-info");

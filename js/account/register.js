@@ -1,4 +1,4 @@
-import { supabase } from '../supabaseClient.js';
+import { supabase } from '/SephyLeaks/js/supabaseClient.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("register-form");
