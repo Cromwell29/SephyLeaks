@@ -1,8 +1,27 @@
-document.addEventListener("DOMContentLoaded", () => {
+import { supabase } from '/SephyLeaks/js/supabaseClient.js';
+
+document.addEventListener("DOMContentLoaded", async () => {
   const navLinks = document.querySelector(".nav-links");
   const contribBtn = document.getElementById("contribuer-btn");
 
-  const user = JSON.parse(localStorage.getItem("sephyUser"));
+  const { data: sessionData } = await supabase.auth.getSession();
+  const session = sessionData?.session;
+  const userId = session?.user?.id;
+
+  let user = null;
+
+  if (userId) {
+    // Récupérer les infos de l’utilisateur pour avoir le rôle si nécessaire
+    const { data, error } = await supabase
+      .from("users")
+      .select("email,pseudo,role")
+      .eq("id", userId)
+      .single();
+
+    if (!error && data) {
+      user = data;
+    }
+  }
 
   // Gérer bouton Contribuer (index uniquement)
   if (contribBtn) {
@@ -30,9 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutLi.innerHTML = `<a href="#" id="logout-link">Déconnexion</a>`;
     navLinks.appendChild(logoutLi);
 
-    logoutLi.addEventListener("click", (e) => {
+    logoutLi.addEventListener("click", async (e) => {
       e.preventDefault();
-      localStorage.removeItem("sephyUser");
+      await supabase.auth.signOut();
       window.location.href = "/SephyLeaks/index.html";
     });
   } else {
@@ -40,4 +59,3 @@ document.addEventListener("DOMContentLoaded", () => {
     navLinks.appendChild(li);
   }
 });
-
