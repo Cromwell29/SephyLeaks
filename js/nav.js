@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   let user = null;
 
   if (userId) {
-    // Récupérer les infos de l’utilisateur pour avoir le rôle si nécessaire
     const { data, error } = await supabase
       .from("users")
       .select("email,pseudo,role")
@@ -23,29 +22,39 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Gérer bouton Contribuer (index uniquement)
+  // 🎯 Bouton Contribuer
   if (contribBtn) {
-    if (user) {
-      contribBtn.setAttribute("href", "/SephyLeaks/account/account.html#contribution");
-    } else {
-      contribBtn.setAttribute("href", "/SephyLeaks/account/register.html");
-    }
+    contribBtn.setAttribute(
+      "href",
+      user ? "/SephyLeaks/account/account.html#contribution" : "/SephyLeaks/account/register.html"
+    );
   }
 
-  // Gérer Connexion / Mon compte / Déconnexion (toutes pages)
+  // 🎯 Barre de navigation dynamique
   if (!navLinks) return;
 
-  const existing = navLinks.querySelector('li[data-auth]');
-  if (existing) existing.remove();
+  // Supprimer ancien lien dynamique
+  navLinks.querySelectorAll('li[data-auth]').forEach(el => el.remove());
 
-  const li = document.createElement("li");
-  li.setAttribute("data-auth", "true");
+  // 👤 Lien "Mon compte"
+  const accountLi = document.createElement("li");
+  accountLi.setAttribute("data-auth", "true");
 
   if (user) {
-    li.innerHTML = `<a href="/SephyLeaks/account/account.html">👤 Mon compte</a>`;
-    navLinks.appendChild(li);
+    accountLi.innerHTML = `<a href="/SephyLeaks/account/account.html">👤 Mon compte</a>`;
+    navLinks.appendChild(accountLi);
 
+    // 🛠️ Si admin ➔ lien vers panneau admin
+    if (user.role === "admin") {
+      const adminLi = document.createElement("li");
+      adminLi.setAttribute("data-auth", "true");
+      adminLi.innerHTML = `<a href="/SephyLeaks/account/admin.html">🛠️ Admin</a>`;
+      navLinks.appendChild(adminLi);
+    }
+
+    // 🔓 Déconnexion
     const logoutLi = document.createElement("li");
+    logoutLi.setAttribute("data-auth", "true");
     logoutLi.innerHTML = `<a href="#" id="logout-link">Déconnexion</a>`;
     navLinks.appendChild(logoutLi);
 
@@ -55,7 +64,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.location.href = "/SephyLeaks/index.html";
     });
   } else {
-    li.innerHTML = `<a href="/SephyLeaks/account/login.html">Connexion</a>`;
-    navLinks.appendChild(li);
+    // Si pas connecté ➔ lien "Connexion"
+    accountLi.innerHTML = `<a href="/SephyLeaks/account/login.html">Connexion</a>`;
+    navLinks.appendChild(accountLi);
   }
 });
