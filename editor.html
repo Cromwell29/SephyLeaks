@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=EB+Garamond&family=Cormorant+Garamond&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/editor.css">
   <script type="module" src="/SephyLeaks/js/admin/editor.js"></script>
+  <script type="module" src="/SephyLeaks/js/admin/editor-nav.js"></script>
 
  <!-- Favicon de base -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
@@ -19,6 +20,27 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-chrome-192x192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/android-chrome-512x512.png">
 </head>
+<nav class="editor-nav">
+  <ul>
+    <li><a href="/SephyLeaks/account/account.html">Mon compte</a></li>
+    <li class="dropdown" id="my-articles-toggle">Mes articles ▾</li>
+    <li class="dropdown" id="my-proposals-toggle">Mes propositions ▾</li>
+  </ul>
+</nav>
+
+<!-- Conteneur pour les sliders -->
+<div class="slider-container hidden" id="my-articles">
+  <div class="slider-track" id="article-track">
+    <!-- Cartes d’articles générées dynamiquement -->
+  </div>
+</div>
+
+<div class="slider-container hidden" id="my-proposals">
+  <div class="slider-track" id="proposal-track">
+    <!-- Cartes de propositions générées dynamiquement -->
+  </div>
+</div>
+
 <body>
   <div class="editor-wrapper">
     <aside class="editor-sidebar">
