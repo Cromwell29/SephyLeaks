@@ -22,7 +22,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 	  document.body.innerHTML = "<p>❌ Accès restreint aux auteurs et admins uniquement.</p>";
 	  return;
 	}
-
+	const params = new URLSearchParams(window.location.search);
+	const editId = params.get("id");
+	let loadedFromDb = false;
  	const inputs = ['title', 'tag', 'date', 'image', 'resume', 'content'];
 
 
@@ -31,9 +33,68 @@ document.addEventListener("DOMContentLoaded", async () => {
     const saved = localStorage.getItem(`draft_${id}`);
     if (saved !== null) document.getElementById(id).value = saved;
   });
+  
+function populateFields(data, readOnly = false) {
+  document.getElementById("title").value = data.titre || "";
+  document.getElementById("tag").value = data.tag || "";
+  document.getElementById("date").value = data.date || "";
+  document.getElementById("image").value = data.image || "";
+  document.getElementById("resume").value = data.resume || "";
+  document.getElementById("content").value = data.contenu || "";
+  
+  updatePreview();
+
+  if (readOnly) {
+    ['title', 'tag', 'date', 'image', 'resume', 'content'].forEach(id => {
+      document.getElementById(id).setAttribute("disabled", "true");
+    });
+    document.getElementById("publish-article").disabled = true;
+    document.getElementById("export-json").disabled = true;
+    document.getElementById("clear-preview").disabled = true;
+    showToast("👁️ Article affiché en lecture seule");
+  }
+}
+try {
+  if (editId) {
+    const { data: proposition, error: propErr } = await supabase
+      .from("propositions")
+      .select("*")
+      .eq("id", editId)
+      .single();
+
+    if (proposition && !propErr) {
+      populateFields(proposition, false);
+      loadedFromDb = true;
+      showToast("✏️ Brouillon chargé depuis Supabase");
+    } else {
+      const { data: article, error: artErr } = await supabase
+        .from("articles")
+        .select("*")
+        .eq("id", editId)
+        .single();
+
+      if (article && !artErr) {
+        populateFields(article, true);
+        loadedFromDb = true;
+        showToast("👁️ Article publié affiché");
+      }
+    }
+  }
+} catch (err) {
+  console.error("❌ Erreur lors du chargement de l'article :", err);
+  showToast("❌ Impossible de charger l’article");
+}
+
+if (!loadedFromDb) {
+  inputs.forEach(id => {
+    const saved = localStorage.getItem(`draft_${id}`);
+    if (saved !== null) document.getElementById(id).value = saved;
+  });
 
   updatePreview();
-  showToast("📝 Brouillon chargé");
+  showToast("📝 Brouillon local chargé");
+}
+
 
   inputs.forEach(id => {
     document.getElementById(id).addEventListener('input', () => {
