@@ -193,12 +193,6 @@ document.querySelectorAll(".format-btn").forEach(btn => {
 });
 
 document.getElementById("clear-preview").addEventListener("click", () => {
-  const confirmMsg = isEditing
-    ? "❗ Vous êtes en train de modifier un brouillon. Effacer et revenir à zéro ?"
-    : "🧼 Réinitialiser tous les champs de l’aperçu ?";
-
-  if (!confirm(confirmMsg)) return;
-
   const textarea = document.getElementById("content");
   const start = textarea.selectionStart;
   const end = textarea.selectionEnd;
