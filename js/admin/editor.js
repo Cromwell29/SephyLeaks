@@ -394,24 +394,30 @@ document.querySelectorAll(".icon-thumb").forEach(icon => {
     showToast("🧩 Icône insérée !");
   });
 });
-// 🧼 Effacer l'aperçu et les champs
 document.getElementById("clear-preview").addEventListener("click", () => {
-  // Réinitialiser les champs
-  inputs.forEach(id => {
-    document.getElementById(id).value = "";
-    localStorage.removeItem(`draft_${id}`);
+  const confirmMsg = isEditing
+    ? "❗ Vous êtes en train de modifier un brouillon. Effacer et revenir à zéro ?"
+    : "🧼 Réinitialiser tous les champs de l’aperçu ?";
+
+  showCustomConfirm(confirmMsg, () => {
+    // Réinitialiser les champs
+    inputs.forEach(id => {
+      document.getElementById(id).value = "";
+      localStorage.removeItem(`draft_${id}`);
+    });
+
+    updatePreview();
+
+    // 🔁 Revenir en mode "nouvel article"
+    isEditing = false;
+    history.replaceState(null, "", "/SephyLeaks/editor.html");
+    document.getElementById("publish-article").textContent = "📤 Publier l’article";
+    document.getElementById("edit-info")?.classList.add("hidden");
+
+    showToast("Prévisualisation réinitialisée.");
   });
-
-  updatePreview();
-
-  // 🔁 Revenir en mode "nouvel article"
-  isEditing = false;
-  history.replaceState(null, "", "/SephyLeaks/editor.html"); // Supprime ?id=xxx de l'URL
-  document.getElementById("publish-article").textContent = "📤 Publier l’article";
-  document.getElementById("edit-info")?.classList.add("hidden");
-
-  showToast("Prévisualisation réinitialisée.");
 });
+
 
 document.getElementById("image").addEventListener("input", () => {
   const url = document.getElementById("image").value;
