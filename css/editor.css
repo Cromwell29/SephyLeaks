@@ -39,7 +39,21 @@ body {
 .format-btn:hover {
   background: #8a6bd1;
 }
-
+.btn-primary {
+  background-color: #7a44ff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-primary:hover {
+  background-color: #6338cc;
+}
 /* === SIDEBAR GAUCHE === */
 .editor-sidebar {
   width: 320px;
