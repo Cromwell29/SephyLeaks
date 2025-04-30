@@ -6,13 +6,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!session) return;
   const userId = session.user.id;
 
-  // Toggle sliders
-  document.getElementById("my-articles-toggle").addEventListener("click", () => {
-    document.getElementById("my-articles").classList.toggle("hidden");
-  });
-  document.getElementById("my-proposals-toggle").addEventListener("click", () => {
-    document.getElementById("my-proposals").classList.toggle("hidden");
-  });
+ document.getElementById("my-articles-toggle").addEventListener("click", () => {
+  const articles = document.getElementById("my-articles");
+  const proposals = document.getElementById("my-proposals");
+  articles.classList.toggle("hidden");
+  proposals.classList.add("hidden"); // ferme l'autre
+});
+
+document.getElementById("my-proposals-toggle").addEventListener("click", () => {
+  const articles = document.getElementById("my-articles");
+  const proposals = document.getElementById("my-proposals");
+  proposals.classList.toggle("hidden");
+  articles.classList.add("hidden"); // ferme l'autre
+});
+
 
   // Chargement des articles publiés
   const { data: articles } = await supabase
