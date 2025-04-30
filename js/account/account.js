@@ -1,60 +1,78 @@
 import { supabase } from '/SephyLeaks/js/supabaseClient.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const info = document.getElementById("account-info");
   const logoutBtn = document.getElementById("logout-btn");
   const popup = document.getElementById("welcome-popup");
   const popupUser = document.getElementById("popup-user");
+  const editBtn = document.getElementById("edit-profile-btn");
+  const editSection = document.getElementById("edit-form-section");
+  const profileForm = document.getElementById("profile-form");
+  const bioField = document.getElementById("edit-bio");
+  const displayBio = document.getElementById("user-bio");
+  const msg = document.getElementById("profile-msg");
+  const conditionalLinks = document.getElementById("conditional-links");
 
   // 🔐 Vérifier la session active
-  const { data: sessionData, error } = await supabase.auth.getSession();
+  const { data: sessionData } = await supabase.auth.getSession();
   const session = sessionData?.session;
 
   if (!session) {
-    info.innerHTML = "<p>❌ Aucun utilisateur connecté.</p>";
-    logoutBtn.style.display = "none";
+    document.body.innerHTML = "<p>❌ Aucun utilisateur connecté.</p>";
     return;
   }
 
   const userId = session.user.id;
 
-  // 🔎 Charger les infos utilisateur depuis la table "users"
+  // 🔎 Charger les infos utilisateur
   const { data: users, error: userError } = await supabase
     .from("users")
-    .select("email,pseudo,role")
+    .select("email,pseudo,role,bio")
     .eq("id", userId)
     .single();
 
   if (userError || !users) {
-    info.innerHTML = "<p>❌ Impossible de récupérer les infos utilisateur.</p>";
-    logoutBtn.style.display = "none";
+    document.body.innerHTML = "<p>❌ Impossible de récupérer les infos utilisateur.</p>";
     return;
   }
 
-const { email, pseudo, role, bio } = users;
+  const { email, pseudo, role, bio } = users;
 
-// Affichage des infos
-document.getElementById("user-pseudo").textContent = pseudo;
-document.getElementById("user-email").textContent = email;
-document.getElementById("user-role").textContent = role;
-document.getElementById("user-bio").textContent = bio || "Aucune bio pour le moment.";
-document.getElementById("edit-bio").value = bio || "";
+  // ✅ Remplir les champs
+  document.getElementById("user-pseudo").textContent = pseudo;
+  document.getElementById("user-email").textContent = email;
+  document.getElementById("user-role").textContent = role;
+  displayBio.textContent = bio || "Aucune bio pour le moment.";
+  bioField.value = bio || "";
 
-// lien admin (facultatif : dans une section conditionnelle)
-const conditionalLinks = document.getElementById("conditional-links");
-if (role === "admin") {
-  conditionalLinks.innerHTML = `<a href="/SephyLeaks/admin.html" class="admin-link">🛠️ Panneau admin</a>`;
-}
-// 🎯 Afficher le formulaire au clic sur le bouton
-const editBtn = document.getElementById("edit-profile-btn");
-const editSection = document.getElementById("edit-form-section");
+  if (role === "admin") {
+    conditionalLinks.innerHTML = `<a href="/SephyLeaks/admin.html" class="admin-link">🛠️ Panneau admin</a>`;
+  }
 
-editBtn.addEventListener("click", () => {
-  editSection.classList.toggle("hidden");
-});
+  // 📝 Édition de la bio
+  editBtn.addEventListener("click", () => {
+    editSection.classList.toggle("hidden");
+  });
 
+  profileForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const newBio = bioField.value.trim();
 
-  // 🎉 Popup bienvenue
+    const { error: updateError } = await supabase
+      .from("users")
+      .update({ bio: newBio })
+      .eq("id", userId);
+
+    if (updateError) {
+      msg.textContent = "❌ Échec de la mise à jour.";
+      msg.style.color = "crimson";
+    } else {
+      displayBio.textContent = newBio || "Aucune bio pour le moment.";
+      msg.textContent = "✅ Bio mise à jour avec succès !";
+      msg.style.color = "#7fffd4";
+    }
+  });
+
+  // 🎉 Popup de bienvenue
   if (popup && popupUser) {
     popupUser.textContent = pseudo;
     popup.classList.remove("popup-hidden");

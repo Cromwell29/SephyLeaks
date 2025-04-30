@@ -1,6 +1,5 @@
 // === SephyLeaks - JS de base ===
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ SephyLeaks prêt");
 
   const container = document.getElementById("articles-container");
   const filtersContainer = document.getElementById("filters");
@@ -15,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch("data/articles.json")
     .then(res => res.json())
     .then(articles => {
-      console.log("📄 Données JSON :", articles);
 
       const latestArticle = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date))[0];
       const filteredArticles = articles.filter(a => a.id !== latestArticle.id);
