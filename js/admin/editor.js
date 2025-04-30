@@ -63,17 +63,17 @@ try {
       .eq("id", editId)
       .single();
 
-    if (proposition && !propErr) {
-      populateFields(proposition, false);
-      loadedFromDb = true;
-	  isEditing = true;
-	  document.getElementById("edit-info")?.classList.remove("hidden");
-      showToast("✏️ Brouillon chargé depuis Supabase");
-    }
-	const publishBtn = document.getElementById("publish-article");
-	if (isEditing) {
-	  publishBtn.textContent = "💾 Mettre à jour";
-	}
+if (proposition && !propErr) {
+  populateFields(proposition, false);
+  loadedFromDb = true;
+  isEditing = true;
+
+  const publishBtn = document.getElementById("publish-article");
+  publishBtn.textContent = "💾 Mettre à jour";
+  document.getElementById("edit-info")?.classList.remove("hidden");
+  showToast("✏️ Brouillon chargé depuis Supabase");
+}
+
 	else {
       const { data: article, error: artErr } = await supabase
         .from("articles")
