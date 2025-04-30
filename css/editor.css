@@ -568,12 +568,14 @@ body {
 /* === SLIDER CONTAINERS === */
 .slider-container {
   display: block;
-  max-height: fit-content;
+  margin-top: 0;
+  background-color: #1f1b2f;
+  padding: 0.8rem 2rem;
+  border-bottom: 1px solid #333;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 1rem 2rem;
-  background-color: #1f1b2f;
-  box-shadow: inset 0 -1px 0 #444;
+  white-space: nowrap;
+  scroll-behavior: smooth;
 }
 
 
