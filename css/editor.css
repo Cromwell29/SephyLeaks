@@ -7,8 +7,7 @@
 body {
   margin: 0; /* assure qu’il n’y a pas de marge par défaut */
   padding: 0;
-  padding-top: 70px;
-  height: 100vh;
+  padding-top: 64px;
   display: flex;
   flex-direction: column; /* change flex-direction pour empiler nav + contenu */
   font-family: 'EB Garamond', serif;
@@ -17,9 +16,9 @@ body {
 }
 .editor-wrapper {
   display: flex;
-  flex: 1; /* occupe le reste de l’espace après le nav */
+  flex: 1;
   width: 100%;
-  height: calc(100vh - 50px); /* ajuster selon la hauteur réelle du nav */
+  min-height: calc(100vh - 64px); /* mieux que height */
 }
 
 .format-btn {
