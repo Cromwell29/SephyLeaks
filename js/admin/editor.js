@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 	const params = new URLSearchParams(window.location.search);
 	const editId = params.get("id");
 	let loadedFromDb = false;
+	let isEditing = false;
  	const inputs = ['title', 'tag', 'date', 'image', 'resume', 'content'];
 
 
@@ -65,8 +66,14 @@ try {
     if (proposition && !propErr) {
       populateFields(proposition, false);
       loadedFromDb = true;
+	  isEditing = true;
       showToast("✏️ Brouillon chargé depuis Supabase");
-    } else {
+    }
+	const publishBtn = document.getElementById("publish-article");
+	if (isEditing) {
+	  publishBtn.textContent = "💾 Mettre à jour";
+	}
+	else {
       const { data: article, error: artErr } = await supabase
         .from("articles")
         .select("*")
@@ -448,7 +455,7 @@ function adjustLastImageSize(delta) {
 document.getElementById("resize-up").addEventListener("click", () => adjustLastImageSize(10));
 document.getElementById("resize-down").addEventListener("click", () => adjustLastImageSize(-10));  
 
- document.getElementById("publish-article").addEventListener("click", async () => {
+document.getElementById("publish-article").addEventListener("click", async () => {
   const { data: sessionData } = await supabase.auth.getSession();
   const session = sessionData?.session;
   if (!session) return;
@@ -466,12 +473,25 @@ document.getElementById("resize-down").addEventListener("click", () => adjustLas
     status: "en attente"
   };
 
-  const { error } = await supabase.from("propositions").insert(article);
+  if (isEditing && editId) {
+    const { error } = await supabase
+      .from("propositions")
+      .update(article)
+      .eq("id", editId);
 
-  if (error) {
-    showToast("❌ Erreur lors de l'envoi : " + error.message);
+    if (error) {
+      showToast("❌ Erreur lors de la mise à jour : " + error.message);
+    } else {
+      showToast("✅ Proposition mise à jour !");
+    }
   } else {
-    showToast("✅ Article envoyé à l'équipe !");
+    const { error } = await supabase.from("propositions").insert(article);
+    if (error) {
+      showToast("❌ Erreur lors de l'envoi : " + error.message);
+    } else {
+      showToast("✅ Article envoyé à l'équipe !");
+    }
   }
 });
+
 });
