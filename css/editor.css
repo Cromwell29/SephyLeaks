@@ -5,17 +5,22 @@
   padding: 0;
 }
 body {
-  /* Ajoute une marge pour compenser le menu fixé */
-  padding-top: 70px;
-  height: auto; /* corrige le scroll bloqué */
-  display: block;
+  margin: 0; /* assure qu’il n’y a pas de marge par défaut */
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column; /* change flex-direction pour empiler nav + contenu */
+  font-family: 'EB Garamond', serif;
+  background-color: #1c1a2a;
+  color: #ddd;
 }
-
 .editor-wrapper {
   display: flex;
+  flex: 1; /* occupe le reste de l’espace après le nav */
   width: 100%;
-  height: calc(100vh - 70px); /* pour que ça tienne bien sous le menu */
+  height: calc(100vh - 50px); /* ajuster selon la hauteur réelle du nav */
 }
+
 .format-btn {
   background: #6c59a0;
   color: white;
@@ -172,9 +177,13 @@ body {
 .preview-content {
   background-color: #1c1a2a;
   padding: 1rem;
+  color: #ddd;
   border-radius: 8px;
   border: 1px solid #555;
   min-height: 300px;
+}
+.preview-content * {
+  color: inherit;
 }
 .preview-content h1 {
   font-size: 1.6rem;
@@ -609,3 +618,19 @@ body {
   margin-bottom: 0.5rem;
 }
 
+/* Scrollbars globales */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: #1c1a2a;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #6c59a0;
+  border-radius: 10px;
+  border: 2px solid #1c1a2a;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #9c83ff;
+}
