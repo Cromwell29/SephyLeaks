@@ -637,3 +637,14 @@ body {
 *::-webkit-scrollbar-thumb:hover {
   background-color: #9c83ff;
 }
+.status-banner {
+  margin-top: 1rem;
+  background: #ffd447;
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+}
+.hidden {
+  display: none;
+}

@@ -67,6 +67,7 @@ try {
       populateFields(proposition, false);
       loadedFromDb = true;
 	  isEditing = true;
+	  document.getElementById("edit-info")?.classList.remove("hidden");
       showToast("✏️ Brouillon chargé depuis Supabase");
     }
 	const publishBtn = document.getElementById("publish-article");
@@ -483,6 +484,7 @@ document.getElementById("publish-article").addEventListener("click", async () =>
       showToast("❌ Erreur lors de la mise à jour : " + error.message);
     } else {
       showToast("✅ Proposition mise à jour !");
+	  inputs.forEach(id => localStorage.removeItem(`draft_${id}`));
     }
   } else {
     const { error } = await supabase.from("propositions").insert(article);
@@ -490,6 +492,7 @@ document.getElementById("publish-article").addEventListener("click", async () =>
       showToast("❌ Erreur lors de l'envoi : " + error.message);
     } else {
       showToast("✅ Article envoyé à l'équipe !");
+	  inputs.forEach(id => localStorage.removeItem(`draft_${id}`));
     }
   }
 });
