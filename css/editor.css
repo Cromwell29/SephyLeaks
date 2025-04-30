@@ -178,13 +178,13 @@ body {
 /* === PREVIEW DROITE === */
 .editor-preview {
   width: 320px;
-  background-color: #2d2443;
-  padding: 1rem;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  border-right: 1px solid #444;
+  background-color: #2d2443;
+  padding: 1.5rem;
+  overflow-y: auto;
+  border-left: 1px solid #444;
 }
 .editor-preview h2 {
   font-family: 'Cinzel', serif;
