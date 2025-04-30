@@ -1,5 +1,29 @@
-document.addEventListener("DOMContentLoaded", () => {
-	const inputs = ['title', 'tag', 'date', 'image', 'resume', 'content'];
+import { supabase } from '/SephyLeaks/js/supabaseClient.js';
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const { data: sessionData } = await supabase.auth.getSession();
+  const session = sessionData?.session;
+
+  if (!session) {
+    document.body.innerHTML = "<p>❌ Accès refusé. Veuillez vous connecter.</p>";
+    return;
+  }
+
+  const userId = session.user.id;
+
+  const { data: userData, error } = await supabase
+    .from("users")
+    .select("role")
+    .eq("id", userId)
+    .single();
+
+	const role = userData.role;
+	if (error || !userData || !(role === "auteur" || role === "admin")) {
+	  document.body.innerHTML = "<p>❌ Accès restreint aux auteurs et admins uniquement.</p>";
+	  return;
+	}
+
+ 	const inputs = ['title', 'tag', 'date', 'image', 'resume', 'content'];
 
 
   // 🧠 Récupérer un brouillon si présent
@@ -363,22 +387,30 @@ function adjustLastImageSize(delta) {
 document.getElementById("resize-up").addEventListener("click", () => adjustLastImageSize(10));
 document.getElementById("resize-down").addEventListener("click", () => adjustLastImageSize(-10));  
 
-   // 📌 Publier dans localStorage
-  document.getElementById("publish-article").addEventListener("click", () => {
-    const article = {
-      id: crypto.randomUUID(),
-      title: document.getElementById('title').value,
-      tag: document.getElementById('tag').value,
-      date: document.getElementById('date').value,
-      image: document.getElementById('image').value,
-      resume: document.getElementById("resume").value,
-      content: document.getElementById('content').value,
-      author: "sephy"
-    };
+ document.getElementById("publish-article").addEventListener("click", async () => {
+  const { data: sessionData } = await supabase.auth.getSession();
+  const session = sessionData?.session;
+  if (!session) return;
 
-    const current = JSON.parse(localStorage.getItem("articles") || "[]");
-    current.push(article);
-    localStorage.setItem("articles", JSON.stringify(current));
-    showToast("✅ Article publié (stocké localement)");
-  });
+  const userId = session.user.id;
+
+  const article = {
+    titre: document.getElementById('title').value,
+    tag: document.getElementById('tag').value,
+    date: document.getElementById('date').value,
+    image: document.getElementById('image').value,
+    resume: document.getElementById("resume").value,
+    contenu: document.getElementById('content').value,
+    author_id: userId,
+    status: "en attente"
+  };
+
+  const { error } = await supabase.from("propositions").insert(article);
+
+  if (error) {
+    showToast("❌ Erreur lors de l'envoi : " + error.message);
+  } else {
+    showToast("✅ Article envoyé à l'équipe !");
+  }
+});
 });
