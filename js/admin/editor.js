@@ -192,7 +192,13 @@ document.querySelectorAll(".format-btn").forEach(btn => {
   });
 });
 
-document.getElementById("clear-formatting").addEventListener("click", () => {
+document.getElementById("clear-preview").addEventListener("click", () => {
+  const confirmMsg = isEditing
+    ? "❗ Vous êtes en train de modifier un brouillon. Effacer et revenir à zéro ?"
+    : "🧼 Réinitialiser tous les champs de l’aperçu ?";
+
+  if (!confirm(confirmMsg)) return;
+
   const textarea = document.getElementById("content");
   const start = textarea.selectionStart;
   const end = textarea.selectionEnd;
@@ -467,6 +473,12 @@ document.getElementById("resize-up").addEventListener("click", () => adjustLastI
 document.getElementById("resize-down").addEventListener("click", () => adjustLastImageSize(-10));  
 
 document.getElementById("publish-article").addEventListener("click", async () => {
+  const confirmMsg = isEditing
+    ? "💾 Mettre à jour cette proposition ?"
+    : "📤 Publier ce nouvel article ?";
+
+  if (!confirm(confirmMsg)) return;
+
   const { data: sessionData } = await supabase.auth.getSession();
   const session = sessionData?.session;
   if (!session) return;
