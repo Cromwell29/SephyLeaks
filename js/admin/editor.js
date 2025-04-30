@@ -471,7 +471,6 @@ function adjustLastImageSize(delta) {
   
 document.getElementById("resize-up").addEventListener("click", () => adjustLastImageSize(10));
 document.getElementById("resize-down").addEventListener("click", () => adjustLastImageSize(-10));  
-
 function showCustomConfirm(message, onConfirm) {
   const modal = document.getElementById("custom-confirm");
   document.getElementById("confirm-message").textContent = message;
@@ -542,4 +541,5 @@ document.getElementById("publish-article").addEventListener("click", () => {
       }
     }
   });
+});
 });
