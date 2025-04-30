@@ -472,51 +472,74 @@ function adjustLastImageSize(delta) {
 document.getElementById("resize-up").addEventListener("click", () => adjustLastImageSize(10));
 document.getElementById("resize-down").addEventListener("click", () => adjustLastImageSize(-10));  
 
-document.getElementById("publish-article").addEventListener("click", async () => {
+function showCustomConfirm(message, onConfirm) {
+  const modal = document.getElementById("custom-confirm");
+  document.getElementById("confirm-message").textContent = message;
+
+  modal.classList.remove("hidden");
+
+  const yes = document.getElementById("confirm-yes");
+  const no = document.getElementById("confirm-no");
+
+  const cleanup = () => {
+    modal.classList.add("hidden");
+    yes.removeEventListener("click", onYes);
+    no.removeEventListener("click", onNo);
+  };
+
+  const onYes = () => {
+    cleanup();
+    onConfirm();
+  };
+  const onNo = cleanup;
+
+  yes.addEventListener("click", onYes);
+  no.addEventListener("click", onNo);
+}
+
+document.getElementById("publish-article").addEventListener("click", () => {
   const confirmMsg = isEditing
     ? "💾 Mettre à jour cette proposition ?"
     : "📤 Publier ce nouvel article ?";
 
-  if (!confirm(confirmMsg)) return;
+  showCustomConfirm(confirmMsg, async () => {
+    const { data: sessionData } = await supabase.auth.getSession();
+    const session = sessionData?.session;
+    if (!session) return;
 
-  const { data: sessionData } = await supabase.auth.getSession();
-  const session = sessionData?.session;
-  if (!session) return;
+    const userId = session.user.id;
 
-  const userId = session.user.id;
+    const article = {
+      titre: document.getElementById('title').value,
+      tag: document.getElementById('tag').value,
+      date: document.getElementById('date').value,
+      image: document.getElementById('image').value,
+      resume: document.getElementById("resume").value,
+      contenu: document.getElementById('content').value,
+      author_id: userId,
+      status: "en attente"
+    };
 
-  const article = {
-    titre: document.getElementById('title').value,
-    tag: document.getElementById('tag').value,
-    date: document.getElementById('date').value,
-    image: document.getElementById('image').value,
-    resume: document.getElementById("resume").value,
-    contenu: document.getElementById('content').value,
-    author_id: userId,
-    status: "en attente"
-  };
+    if (isEditing && editId) {
+      const { error } = await supabase
+        .from("propositions")
+        .update(article)
+        .eq("id", editId);
 
-  if (isEditing && editId) {
-    const { error } = await supabase
-      .from("propositions")
-      .update(article)
-      .eq("id", editId);
-
-    if (error) {
-      showToast("❌ Erreur lors de la mise à jour : " + error.message);
+      if (error) {
+        showToast("❌ Erreur lors de la mise à jour : " + error.message);
+      } else {
+        showToast("✅ Proposition mise à jour !");
+        inputs.forEach(id => localStorage.removeItem(`draft_${id}`));
+      }
     } else {
-      showToast("✅ Proposition mise à jour !");
-	  inputs.forEach(id => localStorage.removeItem(`draft_${id}`));
+      const { error } = await supabase.from("propositions").insert(article);
+      if (error) {
+        showToast("❌ Erreur lors de l'envoi : " + error.message);
+      } else {
+        showToast("✅ Article envoyé à l'équipe !");
+        inputs.forEach(id => localStorage.removeItem(`draft_${id}`));
+      }
     }
-  } else {
-    const { error } = await supabase.from("propositions").insert(article);
-    if (error) {
-      showToast("❌ Erreur lors de l'envoi : " + error.message);
-    } else {
-      showToast("✅ Article envoyé à l'équipe !");
-	  inputs.forEach(id => localStorage.removeItem(`draft_${id}`));
-    }
-  }
-});
-
+  });
 });

@@ -663,5 +663,11 @@ body {
   font-weight: bold;
 }
 .hidden {
-  display: none;
+  display: none !important;
+}
+.button-row {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
