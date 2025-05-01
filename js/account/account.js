@@ -65,10 +65,19 @@ document.querySelectorAll('.tab-link').forEach((btn) => {
 document.getElementById("tab-profile").classList.remove("hidden");
 
 
-  // 📝 Édition de la bio
-  editBtn.addEventListener("click", () => {
-    editSection.classList.toggle("hidden");
-  });
+const editOverlay = document.getElementById("edit-overlay");
+const closeEdit = document.getElementById("close-edit");
+
+// Quand on clique sur “Modifier mon profil”
+editBtn.addEventListener("click", () => {
+  editOverlay.classList.remove("hidden");
+});
+
+// Quand on clique sur ✖
+closeEdit.addEventListener("click", () => {
+  editOverlay.classList.add("hidden");
+});
+
 
   profileForm.addEventListener("submit", async (e) => {
     e.preventDefault();

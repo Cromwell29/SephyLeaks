@@ -77,15 +77,24 @@
       <button id="logout-btn">🔓 Se déconnecter</button>
     </section>
 	
-    <section id="edit-form-section" class="hidden">
-      <h3>Modifier mes informations</h3>
-      <form id="profile-form">
-        <label for="edit-bio">Bio :</label>
-        <textarea id="edit-bio" name="bio" rows="4"></textarea>
-        <button type="submit">💾 Enregistrer</button>
-        <p id="profile-msg" class="status-msg"></p>
-      </form>
-    </section>
+<!-- Overlay Modifier Profil -->
+<div id="edit-overlay" class="overlay hidden">
+  <div class="edit-popup">
+    <button class="close-btn" id="close-edit">✖</button>
+    <h3>Modifier mon profil</h3>
+    <form id="profile-form">
+      <label for="edit-avatar">Lien de l’avatar :</label>
+      <input type="text" id="edit-avatar" name="avatar_url" placeholder="https://..." />
+      
+      <label for="edit-bio">Bio :</label>
+      <textarea id="edit-bio" name="bio" rows="4" placeholder="Décris-toi..."></textarea>
+
+      <button type="submit">💾 Enregistrer</button>
+      <p id="profile-msg" class="status-msg"></p>
+    </form>
+  </div>
+</div>
+
 	<section id="conditional-links"></section>
   </main>
 </body>
