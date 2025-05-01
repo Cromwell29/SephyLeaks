@@ -48,17 +48,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     conditionalLinks.innerHTML = `<a href="/SephyLeaks/admin.html" class="admin-link">🛠️ Panneau admin</a>`;
   }
   
-document.querySelectorAll('.tab-link').forEach((btn, index) => {
+document.querySelectorAll('.tab-link').forEach((btn) => {
   btn.addEventListener('click', () => {
-    // Active tab visual
     document.querySelectorAll('.tab-link').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // Affiche l’onglet correspondant
     document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-    document.getElementById(`tab-${btn.textContent.toLowerCase()}`).classList.remove('hidden');
+
+    const tabKey = btn.textContent.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // enlève accents
+    const targetTab = document.getElementById(`tab-${tabKey}`);
+    if (targetTab) targetTab.classList.remove('hidden');
   });
 });
+
 
   // 📝 Édition de la bio
   editBtn.addEventListener("click", () => {
