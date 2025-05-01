@@ -61,7 +61,7 @@ document.querySelectorAll('.tab-link').forEach((btn) => {
   });
 });
 const avatar = document.getElementById("account-avatar");
-avatar.src = users.avatar_url || "/SephyLeaks/assets/default-avatar.webp";
+avatar.src = users.avatar_url;
 
 // et dans le formulaire :
 document.getElementById("edit-avatar").value = users.avatar_url || "";
