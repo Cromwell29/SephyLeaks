@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 🔎 Charger les infos utilisateur
   const { data: users, error: userError } = await supabase
     .from("users")
-    .select("email,pseudo,role,bio")
+    .select("email,pseudo,role,bio,avatar_url")
     .eq("id", userId)
     .single();
 
@@ -61,7 +61,8 @@ document.querySelectorAll('.tab-link').forEach((btn) => {
   });
 });
 const avatar = document.getElementById("account-avatar");
-avatar.src = users.avatar_url;
+avatar.src = users.avatar_url || "/SephyLeaks/assets/default-avatar.png";
+
 
 // et dans le formulaire :
 document.getElementById("edit-avatar").value = users.avatar_url || "";
