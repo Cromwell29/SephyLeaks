@@ -52,15 +52,25 @@ body {
 }
 
 .edit-profile-btn {
-  margin-left: auto;
-  background: #9c83ff;
+  background: #c573f5;
+  color: white;
   border: none;
-  padding: 0.4rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 6px;
-  color: #fff;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-left: auto;
+  margin-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
+
+.edit-profile-btn:hover {
+  background: #a55fd0;
+}
+
 
 .account-tabs {
   display: flex;
@@ -368,4 +378,19 @@ body {
 .tab-content:not(.hidden) {
   display: block;
   margin-top: 1rem;
+}
+#edit-avatar {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  background: #1c1a2a;
+  border: 1px solid #444;
+  color: #eee;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+#edit-avatar::placeholder {
+  color: #aaa;
+  font-style: italic;
 }
