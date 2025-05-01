@@ -60,10 +60,8 @@ document.querySelectorAll('.tab-link').forEach((btn) => {
     if (targetTab) targetTab.classList.remove('hidden');
   });
 });
-const avatarImg = document.getElementById("account-avatar");
-
-// après récupération des données Supabase :
-avatarImg.src = users.avatar_url || "/SephyLeaks/assets/default-avatar.png";
+const avatar = document.getElementById("account-avatar");
+avatar.src = users.avatar_url || "/SephyLeaks/assets/default-avatar.webp";
 
 // et dans le formulaire :
 document.getElementById("edit-avatar").value = users.avatar_url || "";
@@ -88,7 +86,8 @@ closeEdit.addEventListener("click", () => {
 
   profileForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const newBio = bioField.value.trim();
+	const newBio = bioField.value.trim();
+	const newAvatarUrl = document.getElementById("edit-avatar").value.trim();
 
 	const { error: updateError } = await supabase
 	  .from("users")
