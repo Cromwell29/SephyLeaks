@@ -222,7 +222,7 @@ body {
 }
 
 .editor-preview {
-  width: 64px;           /* avant : ~320-360px */
+  width: 640px;           /* avant : ~320-360px */
   max-width: 720px;
   flex-shrink: 0;
   background-color: #2d2443;
