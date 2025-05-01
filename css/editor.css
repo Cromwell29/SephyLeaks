@@ -135,12 +135,14 @@ body {
 /* === ZONE CENTRALE === */
 .editor-main {
   flex: 1;
+  min-width: 0;
+  max-width: calc(100% - 420px);
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
   overflow-y: auto;
   background-color: #1f1b2f;
-}
+  }
 .editor-bar {
   display: flex;
   gap: 1rem;
@@ -209,6 +211,7 @@ body {
   background-color: #2d2443;
   padding: 1.5rem;
   overflow-y: auto;
+  width: 420px;
 }
    
 .editor-preview h2 {
@@ -223,6 +226,8 @@ body {
   border-radius: 8px;
   border: 1px solid #555;
   min-height: 400px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 .preview-content * {
   color: inherit;
