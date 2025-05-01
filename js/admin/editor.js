@@ -419,6 +419,12 @@ document.getElementById("clear-preview").addEventListener("click", () => {
     document.getElementById("publish-article").textContent = "📤 Publier l’article";
     document.getElementById("edit-info")?.classList.add("hidden");
 
+    // ⛔ Masquer le bouton supprimer
+    const delBtn = document.getElementById("delete-proposal");
+    delBtn.classList.add("hidden");
+    delBtn.disabled = true;
+	editId = null;
+
     showToast("Prévisualisation réinitialisée.");
   });
 });
