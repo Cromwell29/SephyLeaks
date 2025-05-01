@@ -55,11 +55,12 @@ document.querySelectorAll('.tab-link').forEach((btn) => {
 
     document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
 
-    const tabKey = btn.textContent.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // enlève accents
-    const targetTab = document.getElementById(`tab-${tabKey}`);
+    const key = btn.dataset.tab;
+    const targetTab = document.getElementById(`tab-${key}`);
     if (targetTab) targetTab.classList.remove('hidden');
   });
 });
+
 // 👉 Afficher le premier onglet (Profil) par défaut
 document.getElementById("tab-profile").classList.remove("hidden");
 
