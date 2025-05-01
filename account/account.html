@@ -32,7 +32,7 @@
   
    <main class="account-container">
     <section class="account-header">
-      <div class="avatar-placeholder">👤</div>
+      <img id="account-avatar" src="/SephyLeaks/assets/default-avatar.png" alt="Avatar" class="account-avatar" />
       <div class="account-info">
  <div class="user-main">
         <h2 id="user-pseudo">Pseudo</h2>
@@ -87,7 +87,8 @@
     <form id="profile-form">
 	  <label for="edit-avatar">Lien de l’avatar :</label>
 	  <input type="text" id="edit-avatar" name="avatar" placeholder="https://..." />
-      
+      <small class="input-hint">Image carrée (100–400px), format PNG/JPG recommandé</small>
+
       <label for="edit-bio">Bio :</label>
       <textarea id="edit-bio" name="bio" rows="4" placeholder="Décris-toi..."></textarea>
 

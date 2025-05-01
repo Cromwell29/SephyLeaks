@@ -60,6 +60,13 @@ document.querySelectorAll('.tab-link').forEach((btn) => {
     if (targetTab) targetTab.classList.remove('hidden');
   });
 });
+const avatarImg = document.getElementById("account-avatar");
+
+// après récupération des données Supabase :
+avatarImg.src = users.avatar_url || "/SephyLeaks/assets/default-avatar.png";
+
+// et dans le formulaire :
+document.getElementById("edit-avatar").value = users.avatar_url || "";
 
 // 👉 Afficher le premier onglet (Profil) par défaut
 document.getElementById("tab-profile").classList.remove("hidden");
@@ -83,10 +90,13 @@ closeEdit.addEventListener("click", () => {
     e.preventDefault();
     const newBio = bioField.value.trim();
 
-    const { error: updateError } = await supabase
-      .from("users")
-      .update({ bio: newBio })
-      .eq("id", userId);
+	const { error: updateError } = await supabase
+	  .from("users")
+	  .update({ 
+		bio: newBio,
+		avatar_url: newAvatarUrl
+	  })
+	  .eq("id", userId);
 
     if (updateError) {
       msg.textContent = "❌ Échec de la mise à jour.";
