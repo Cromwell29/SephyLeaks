@@ -1,12 +1,128 @@
 /* account.css – Style du panneau personnel SephyLeaks */
 
+/* === Compte Utilisateur – Style === */
 body {
-  background: linear-gradient(to bottom, #2d2443, #1a162f);
-  color: #fff;
-  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #1c1a2a, #120f1d);
+  font-family: 'EB Garamond', serif;
+  color: #ddd;
   margin: 0;
   padding: 0;
 }
+
+.account-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #2d2443;
+  border-radius: 12px;
+  box-shadow: 0 0 12px #00000066;
+}
+
+.account-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-bottom: 1px solid #444;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.account-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #1c1a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  border: 2px solid #9c83ff;
+}
+
+.account-info h2 {
+  font-size: 1.6rem;
+  color: #e0d6ff;
+  margin: 0;
+}
+
+.account-info p {
+  margin: 0.2rem 0;
+  font-size: 0.95rem;
+  color: #bbb;
+}
+
+.edit-profile-btn {
+  margin-left: auto;
+  background: #9c83ff;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.account-tabs {
+  display: flex;
+  border-bottom: 1px solid #555;
+  margin-bottom: 1rem;
+}
+
+.account-tab {
+  padding: 0.6rem 1rem;
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.account-tab.active {
+  border-bottom: 3px solid #9c83ff;
+  color: #fff;
+  font-weight: bold;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.account-section {
+  margin-bottom: 2rem;
+  background-color: #1c1a2a;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+}
+
+.account-section h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #c9b3ff;
+}
+
+.disconnect-btn {
+  background: none;
+  border: 1px solid #c573f5;
+  color: #c573f5;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.disconnect-btn:hover {
+  background: #c573f511;
+}
+
+
+///// V1//
 
 .account-dashboard {
   max-width: 800px;
