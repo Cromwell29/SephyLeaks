@@ -28,6 +28,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 	let isEditing = false;
  	const inputs = ['title', 'tag', 'date', 'image', 'resume', 'content'];
 
+if (proposition && proposition.author_id === userId) {
+  document.getElementById("delete-proposal").classList.remove("hidden");
+}
+
 
   // 🧠 Récupérer un brouillon si présent
   inputs.forEach(id => {
@@ -72,6 +76,13 @@ if (proposition && !propErr) {
   publishBtn.textContent = "💾 Mettre à jour";
   document.getElementById("edit-info")?.classList.remove("hidden");
   showToast("✏️ Brouillon chargé depuis Supabase");
+  
+ if (proposition.author_id !== userId) {
+  populateFields(proposition, true); // lecture seule
+  showToast("⛔ Ce brouillon ne vous appartient pas");
+  return;
+}
+
 }
 
 	else {
@@ -409,6 +420,22 @@ document.getElementById("clear-preview").addEventListener("click", () => {
     document.getElementById("edit-info")?.classList.add("hidden");
 
     showToast("Prévisualisation réinitialisée.");
+  });
+});
+document.getElementById("delete-proposal").addEventListener("click", () => {
+  showCustomConfirm("❌ Supprimer ce brouillon ? Cette action est définitive.", async () => {
+    const { error } = await supabase
+      .from("propositions")
+      .delete()
+      .eq("id", editId)
+      .eq("author_id", userId); // sécurité double
+
+    if (error) {
+      showToast("❌ Erreur lors de la suppression.");
+    } else {
+      showToast("🗑 Brouillon supprimé.");
+      window.location.href = "/SephyLeaks/editor.html"; // ou rediriger où tu veux
+    }
   });
 });
 
