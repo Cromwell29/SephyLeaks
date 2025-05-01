@@ -135,8 +135,9 @@ body {
 /* === ZONE CENTRALE === */
 .editor-main {
   flex: 1;
-  min-width: 0;
-  width: 75%;
+  width: 70%;         /* Réduit pour libérer de l’espace à droite */
+  min-width: 0;       /* Évite le débordement sur petits écrans */
+  flex-shrink: 1;     
   max-width: calc(100% - 420px);
   display: flex;
   flex-direction: column;
@@ -212,9 +213,8 @@ body {
   background-color: #2d2443;
   padding: 1.5rem;
   overflow-y: auto;
-  width: 420px;
-  width: 25%;
-  min-width: 280px;
+  width: 30%;
+  min-width: 320px;
 }
    
 .editor-preview h2 {
