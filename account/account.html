@@ -40,7 +40,7 @@
         <p id="user-email">Email</p>
       </div>
       </div>
-      <button class="edit-profile-btn">Modifier le profil</button>
+      <button id="edit-profile-btn">Modifier le profil</button>
     </section>
 
 <div class="account-tabs">
@@ -52,8 +52,10 @@
 
 
     <section class="tab-content" id="tab-profile">
-      <h3>Biographie</h3>
-      <p>Description succincte de soi-même, intérêts, etc.</p>
+      <div class="profile-bio">
+	  <h3>Biographie</h3>
+      <p id="user-bio">Chargement de la bio...</p>
+	  </div>
       <h3>Informations</h3>
       <p>Inscription : 24 avril 2024</p>
       <p>Articles publiés : 0</p>
@@ -72,25 +74,9 @@
 
     <section class="tab-content hidden" id="tab-settings">
       <h3>Paramètres du compte</h3>
-      <button class="logout-btn">Se déconnecter</button>
-    </section>
-  </main>
- 
- 
-
-    <section class="profile-bio">
-      <h3>Bio</h3>
-      <p id="user-bio">Chargement de la bio...</p>
-    </section>
-
-    <section class="profile-actions">
-      <button id="edit-profile-btn">✏️ Modifier mon profil</button>
       <button id="logout-btn">🔓 Se déconnecter</button>
     </section>
-
-    <section id="conditional-links"></section>
-
-    <section id="edit-form-section" class="hidden">
+	    <section id="edit-form-section" class="hidden">
       <h3>Modifier mes informations</h3>
       <form id="profile-form">
         <label for="edit-bio">Bio :</label>
@@ -101,5 +87,7 @@
       </form>
     </section>
   </main>
+
+
 </body>
 </html>
