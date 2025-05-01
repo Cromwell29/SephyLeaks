@@ -29,8 +29,53 @@
       </div>
     </div>
   </header>
+  
+   <main class="account-container">
+    <section class="account-header">
+      <img src="/SephyLeaks/assets/placeholder-avatar.png" alt="Avatar" class="account-avatar" />
+      <div class="account-info">
+        <h2>Sephy</h2>
+        <p>sephy@email.com</p>
+        <p class="account-role">Rôle : membre</p>
+      </div>
+      <button class="edit-profile-btn">Modifier le profil</button>
+    </section>
 
-  <main class="account-dashboard">
+    <nav class="account-tabs">
+      <button class="tab-btn active" data-tab="profile">Profil</button>
+      <button class="tab-btn" data-tab="articles">Articles</button>
+      <button class="tab-btn" data-tab="comments">Commentaires</button>
+      <button class="tab-btn" data-tab="settings">Paramètres</button>
+    </nav>
+
+    <section class="tab-content" id="tab-profile">
+      <h3>Biographie</h3>
+      <p>Description succincte de soi-même, intérêts, etc.</p>
+      <h3>Informations</h3>
+      <p>Inscription : 24 avril 2024</p>
+      <p>Articles publiés : 0</p>
+      <p>Commentaires : 0</p>
+    </section>
+
+    <section class="tab-content hidden" id="tab-articles">
+      <h3>Mes articles</h3>
+      <p>Liste de vos articles publiés...</p>
+    </section>
+
+    <section class="tab-content hidden" id="tab-comments">
+      <h3>Mes commentaires</h3>
+      <p>Liste de vos commentaires...</p>
+    </section>
+
+    <section class="tab-content hidden" id="tab-settings">
+      <h3>Paramètres du compte</h3>
+      <button class="logout-btn">Se déconnecter</button>
+    </section>
+  </main>
+ 
+ 
+
+  <div  class="account-dashboard">
     <section class="profile-header">
       <div class="avatar-placeholder">👤</div>
       <div class="user-main">
