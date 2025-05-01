@@ -294,3 +294,6 @@ body {
 #profile-form button:hover {
   background: #a55fd0;
 }
+.hidden {
+  display: none !important;
+}
