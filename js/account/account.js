@@ -1,7 +1,7 @@
 import { supabase } from '/SephyLeaks/js/supabaseClient.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const logoutBtn = document.querySelector(".logout-btn");
+  const logoutBtn = document.getElementById("logout-btn");
   const popup = document.getElementById("welcome-popup");
   const popupUser = document.getElementById("popup-user");
   const editBtn = document.getElementById("edit-profile-btn");
