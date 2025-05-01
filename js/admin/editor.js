@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   const userId = session.user.id;
+  document.getElementById("delete-proposal").disabled = true;
 
   const { data: userData, error } = await supabase
     .from("users")
@@ -27,10 +28,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 	let loadedFromDb = false;
 	let isEditing = false;
  	const inputs = ['title', 'tag', 'date', 'image', 'resume', 'content'];
-
-if (proposition && proposition.author_id === userId) {
-  document.getElementById("delete-proposal").classList.remove("hidden");
-}
 
 
   // 🧠 Récupérer un brouillon si présent
@@ -82,7 +79,10 @@ if (proposition && !propErr) {
   showToast("⛔ Ce brouillon ne vous appartient pas");
   return;
 }
-
+if (proposition && proposition.author_id === userId) {
+  document.getElementById("delete-proposal").disabled = false;
+  document.getElementById("delete-proposal").classList.remove("hidden");
+}
 }
 
 	else {
