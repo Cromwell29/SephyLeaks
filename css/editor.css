@@ -222,15 +222,15 @@ body {
 }
 
 .editor-preview {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+  width: 440px;           /* avant : ~320-360px */
+  max-width: 480px;
+  flex-shrink: 0;
   background-color: #2d2443;
   padding: 1.5rem;
   overflow-y: auto;
-  width: 30%;
-  min-width: 320px;
+  border-left: 1px solid #444;
 }
+
    
 .editor-preview h2 {
   font-family: 'Cinzel', serif;
@@ -239,7 +239,9 @@ body {
 }
 .preview-content {
   background-color: #1c1a2a;
-  padding: 1rem;
+  padding: 1.2rem;
+  font-size: 1rem;
+  line-height: 1.6;
   color: #ddd;
   border-radius: 8px;
   border: 1px solid #555;
