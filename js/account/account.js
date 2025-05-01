@@ -1,7 +1,7 @@
 import { supabase } from '/SephyLeaks/js/supabaseClient.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const logoutBtn = document.getElementById("logout-btn");
+  const logoutBtn = document.querySelector(".logout-btn");
   const popup = document.getElementById("welcome-popup");
   const popupUser = document.getElementById("popup-user");
   const editBtn = document.getElementById("edit-profile-btn");
@@ -60,6 +60,8 @@ document.querySelectorAll('.tab-link').forEach((btn) => {
     if (targetTab) targetTab.classList.remove('hidden');
   });
 });
+// 👉 Afficher le premier onglet (Profil) par défaut
+document.getElementById("tab-profile").classList.remove("hidden");
 
 
   // 📝 Édition de la bio
