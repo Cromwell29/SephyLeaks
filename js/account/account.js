@@ -35,7 +35,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  const { email, pseudo, role, bio } = users;
+  const { email, pseudo, role, bio, avatar_url } = users;
+
 
   // ✅ Remplir les champs
   document.getElementById("user-pseudo").textContent = pseudo;
@@ -61,7 +62,7 @@ document.querySelectorAll('.tab-link').forEach((btn) => {
   });
 });
 const avatar = document.getElementById("account-avatar");
-avatar.src = users.avatar_url || "/SephyLeaks/assets/default-avatar.png";
+avatar.src = users.avatar_url || "/SephyLeaks/assets/default-avatar.webp";
 
 
 // et dans le formulaire :
