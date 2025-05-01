@@ -134,17 +134,14 @@ body {
 
 /* === ZONE CENTRALE === */
 .editor-main {
-  flex: 1;
-  width: 70%;         /* Réduit pour libérer de l’espace à droite */
-  min-width: 0;       /* Évite le débordement sur petits écrans */
-  flex-shrink: 1;     
-  max-width: calc(100% - 420px);
+  flex: 0 0 65%;
+  max-width: 65%;
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
   overflow-y: auto;
-  background-color: #1f1b2f;
-    }
+  background-color: #1f1b2f; 
+}
 .editor-bar {
   display: flex;
   gap: 1rem;
@@ -206,6 +203,11 @@ body {
 }
 
 /* === PREVIEW DROITE === */
+.editor-sidebar:last-of-type {
+  flex: 0 0 35%;
+  max-width: 35%;
+}
+
 .editor-preview {
   display: flex;
   flex-direction: column;
