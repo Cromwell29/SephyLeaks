@@ -394,3 +394,18 @@ body {
   color: #aaa;
   font-style: italic;
 }
+#edit-bio {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  background: #1c1a2a;
+  border: 1px solid #444;
+  color: #eee;
+  font-size: 1rem;
+  min-height: 100px;
+}
+
+#edit-bio::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
