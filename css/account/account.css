@@ -77,7 +77,24 @@ body {
   color: #aaa;
   font-style: italic;
 }
+.format-btn {
+  background: #6c59a0;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+  margin: 0.2rem 0;
+  display: inline-block;
+  white-space: nowrap;
+}
 
+.format-btn:hover {
+  background: #8a6bd1;
+}
 
 .account-tabs {
   display: flex;
