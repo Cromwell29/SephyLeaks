@@ -108,6 +108,32 @@ closeEdit.addEventListener("click", () => {
       msg.style.color = "#7fffd4";
     }
   });
+// 📄 Charger les propositions personnelles
+const propList = document.getElementById("proposition-list");
+if (propList) {
+  const { data: propositions, error: propError } = await supabase
+    .from("propositions")
+    .select("id,titre,resume,date")
+    .eq("author_id", userId)
+    .order("date", { ascending: false });
+
+  if (propError || !propositions || propositions.length === 0) {
+    propList.innerHTML = "<p>Aucune proposition pour le moment.</p>";
+  } else {
+    propList.innerHTML = ""; // Clear
+    propositions.forEach((prop) => {
+      const card = document.createElement("div");
+      card.className = "proposition-card";
+      card.innerHTML = `
+        <h4>${prop.titre || "Sans titre"}</h4>
+        <p>${prop.resume || "Pas de résumé."}</p>
+        <small>📅 ${prop.date || "Date inconnue"}</small>
+        <button onclick="window.location.href='/SephyLeaks/editor.html?id=${prop.id}'">✏️ Modifier</button>
+      `;
+      propList.appendChild(card);
+    });
+  }
+}
 
   // 🎉 Popup de bienvenue
   if (popup && popupUser) {

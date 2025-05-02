@@ -423,3 +423,46 @@ body {
   color: #aaa;
   font-style: italic;
 }
+
+.card-scroll-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+.card-scroll-row::-webkit-scrollbar {
+  height: 8px;
+}
+.card-scroll-row::-webkit-scrollbar-thumb {
+  background: #c573f5;
+  border-radius: 10px;
+}
+.proposition-card {
+  min-width: 250px;
+  background: #1c1a2a;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  box-shadow: 0 0 5px #0005;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.proposition-card h4 {
+  margin: 0 0 0.5rem;
+  color: #fff;
+}
+.proposition-card p {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+.proposition-card button {
+  margin-top: 0.5rem;
+  background: #c573f5;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
