@@ -113,7 +113,7 @@ const propList = document.getElementById("proposition-list");
 if (propList) {
   const { data: propositions, error: propError } = await supabase
     .from("propositions")
-    .select("id,titre,resume,date")
+    .select("id,titre,resume,date,image")
     .eq("author_id", userId)
     .order("date", { ascending: false });
 
@@ -125,6 +125,7 @@ if (propList) {
       const card = document.createElement("div");
       card.className = "proposition-card";
       card.innerHTML = `
+	    <img src="${prop.image || '/SephyLeaks/assets/placeholder.webp'}" alt="Image de l’article" style="width:100%; height:140px; object-fit:cover; border-radius:6px; margin-bottom:0.5rem;">
         <h4>${prop.titre || "Sans titre"}</h4>
         <p>${prop.resume || "Pas de résumé."}</p>
         <small>📅 ${prop.date || "Date inconnue"}</small>

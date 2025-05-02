@@ -52,7 +52,7 @@ document.getElementById("my-proposals-toggle").addEventListener("click", () => {
     const card = document.createElement("div");
     card.className = "article-card";
     card.innerHTML = `
-      <img src="${p.image}" alt="cover">
+      <img src="${p.image || '/SephyLeaks/assets/placeholder.webp'}" alt="cover">
       <p>${p.titre}</p>
     `;
     card.addEventListener("click", () => {

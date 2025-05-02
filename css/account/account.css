@@ -236,14 +236,18 @@ body {
 
 .profile-actions button,
 #conditional-links a {
-  background: #c573f5;
-  color: #fff;
-  padding: 0.6rem 1.2rem;
+  background: #6c59a0;
+  color: white;
   border: none;
-  border-radius: 6px;
-  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background 0.3s;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+  margin: 0.2rem 0;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .profile-actions button:hover,
