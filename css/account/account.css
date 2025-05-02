@@ -228,10 +228,6 @@ body {
 
 .profile-actions,
 #conditional-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
 }
 
 .profile-actions button,
