@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const bioField = document.getElementById("edit-bio");
   const displayBio = document.getElementById("user-bio");
   const msg = document.getElementById("profile-msg");
-  const conditionalLinks = document.getElementById("conditional-links");
 
   // 🔐 Vérifier la session active
   const { data: sessionData } = await supabase.auth.getSession();
@@ -46,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   bioField.value = bio || "";
 
   if (role === "admin") {
-    conditionalLinks.innerHTML = `<a href="/SephyLeaks/admin.html" class="admin-link">🛠️ Panneau admin</a>`;
+  conditionalLinks.innerHTML = `<a href="/SephyLeaks/admin.html" class="format-btn">🛠️ Panneau admin</a>`;
   }
   
 document.querySelectorAll('.tab-link').forEach((btn) => {
