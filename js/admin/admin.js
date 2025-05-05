@@ -4,9 +4,9 @@ import { supabase } from '/SephyLeaks/js/supabaseClient.js';
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("propositions-container");
 
-  const { data: propositions, error } = await supabase
-    .from("propositions")
-    .select("id, titre, resume, image, contenu, date")
+	const { data: propositions, error } = await supabase
+	.from("propositions")
+	.select("id, titre, resume, image, contenu, date, author_id")
     .order("date", { ascending: false });
 
   if (error || !propositions || propositions.length === 0) {
