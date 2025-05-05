@@ -96,9 +96,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 	}, commentForm);
 
 	input.value = "";
-
-	  // 🧱 Ajouter après tous les commentaires, avant le formulaire
-	  commentSection.insertBefore(newDiv, commentForm);
 	}
     });
   }

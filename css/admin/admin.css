@@ -1,0 +1,48 @@
+body {
+  background: #1c1a2a;
+  color: #ddd;
+  font-family: 'EB Garamond', serif;
+  padding: 2rem;
+}
+
+.main-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.admin-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.proposition-card {
+  background: #2d2443;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.proposition-card h3 {
+  margin-top: 0;
+  color: #fff;
+}
+
+.proposition-card p {
+  color: #ccc;
+  margin: 0.5rem 0;
+}
+
+.proposition-card button {
+  background: #6c59a0;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.proposition-card button:hover {
+  background: #8a6bd1;
+}

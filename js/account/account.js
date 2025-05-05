@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   bioField.value = bio || "";
 
 if (role === "admin" && adminActions) {
-  adminActions.innerHTML = `<a href="/SephyLeaks/admin.html" class="format-btn">🛠️ Panneau admin</a>`;
+  adminActions.innerHTML = `<a href="/SephyLeaks/admin/admin.html" class="format-btn">🛠️ Panneau admin</a>`;
 }
   
 document.querySelectorAll('.tab-link').forEach((btn) => {
