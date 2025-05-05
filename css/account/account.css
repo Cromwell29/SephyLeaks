@@ -441,3 +441,34 @@ body {
   border-radius: 6px;
   cursor: pointer;
 }
+#comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.comment-item {
+  background: #1c1a2a;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  box-shadow: 0 0 5px #0005;
+}
+.comment-item h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: #c573f5;
+}
+.comment-item p {
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+.comment-item button {
+  background: #6c59a0;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
