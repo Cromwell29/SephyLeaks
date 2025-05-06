@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const filtered = articles.filter(a => {
   const tag = (a.tag || "").trim().toLowerCase();  // ✔ fallback vide
-  const title = (a.title || "").toLowerCase();
+  const title = (a.titre || "").toLowerCase();
   const resume = (a.resume || "").toLowerCase();
   const matchTag = currentTag === "tous" || tag === currentTag;
   const matchSearch = title.includes(query) || resume.includes(query);
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <div class="card-image" style="background-image: url('${article.image}')"></div>
         <div class="card-content">
           <div class="tag">${article.tag}</div>
-          <h2>${article.title}</h2>
+          <h2>${article.titre}</h2>
           <p>${article.resume}</p>
           <div class="date">${article.date}</div>
           <a href="article.html?id=${article.id}" class="read-more">→ Lire l’article</a>
