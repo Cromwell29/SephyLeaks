@@ -56,43 +56,49 @@ document.addEventListener('DOMContentLoaded', async () => {
       const deleteBtn = div.querySelector('.delete-comment');
       const contentEl = div.querySelector('.comment-content');
 
-      // ✏️ Modifier
-      editBtn.addEventListener('click', () => {
-        const current = contentEl.textContent;
-        contentEl.outerHTML = `
-          <textarea class="edit-area">${current}</textarea>
-          <button class="save-edit">💾</button>
-        `;
-        const saveBtn = div.querySelector('.save-edit');
-        const textarea = div.querySelector('.edit-area');
+// ✏️ Modifier
+editBtn.addEventListener('click', () => {
+  const current = contentEl.textContent;
+  const editBox = document.createElement('div');
+  editBox.className = 'edit-box';
+  editBox.innerHTML = `
+    <textarea class="edit-area">${current}</textarea>
+    <button class="save-edit">💾 Enregistrer</button>
+  `;
+  contentEl.replaceWith(editBox);
 
-        saveBtn.addEventListener('click', async () => {
-          const newContent = textarea.value.trim();
-          if (!newContent) return;
+  const saveBtn = editBox.querySelector('.save-edit');
+  const textarea = editBox.querySelector('.edit-area');
 
-          const { error } = await supabase
-            .from('commentaires')
-            .update({ contenu: newContent })
-            .eq('id', id);
+  saveBtn.addEventListener('click', async () => {
+    const newContent = textarea.value.trim();
+    if (!newContent) return;
 
-          if (!error) {
-            textarea.outerHTML = `<p class="comment-content">${newContent}</p>`;
-            saveBtn.remove();
-          } else {
-            alert("❌ Échec de la modification.");
-          }
-        });
-      });
+    const { error } = await supabase
+      .from('commentaires')
+      .update({ contenu: newContent })
+      .eq('id', id);
 
-      // 🗑️ Supprimer
-      deleteBtn.addEventListener('click', async () => {
-        if (!confirm("Supprimer ce commentaire ?")) return;
-        const { error } = await supabase.from('commentaires').delete().eq('id', id);
-        if (!error) div.remove();
-        else alert("❌ Échec de la suppression.");
-      });
+    if (!error) {
+      const newPara = document.createElement('p');
+      newPara.className = 'comment-content';
+      newPara.textContent = newContent;
+      editBox.replaceWith(newPara);
+    } else {
+      alert("❌ Échec de la modification.");
     }
-  }
+  });
+});
+
+// 🗑️ Supprimer avec popup custom
+deleteBtn.addEventListener('click', () => {
+  showConfirmDialog("Supprimer ce commentaire ?", async () => {
+    const { error } = await supabase.from('commentaires').delete().eq('id', id);
+    if (!error) div.remove();
+    else alert("❌ Échec de la suppression.");
+  });
+});
+
 
   // 🖋️ Affichage des commentaires
   if (commentaires.length === 0) {
@@ -111,6 +117,26 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     });
   }
+function showConfirmDialog(message, onConfirm) {
+  const overlay = document.createElement('div');
+  overlay.className = 'custom-dialog';
+  overlay.innerHTML = `
+    <div class="dialog-box">
+      <p>${message}</p>
+      <div class="dialog-buttons">
+        <button class="cancel-btn">Annuler</button>
+        <button class="confirm-btn">Supprimer</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  overlay.querySelector('.cancel-btn').addEventListener('click', () => overlay.remove());
+  overlay.querySelector('.confirm-btn').addEventListener('click', () => {
+    overlay.remove();
+    onConfirm();
+  });
+}
 
   // 🧾 Formulaire si connecté
   const commentForm = document.querySelector('.comment-form');

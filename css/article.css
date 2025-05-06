@@ -774,3 +774,65 @@ button#submit-comment.active-button {
 button#submit-comment.active-button:hover {
   background-color: #8a6bd1;
 }
+/* Style de la popup de confirmation */
+.custom-dialog {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+}
+.dialog-box {
+  background: #2c203d;
+  color: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #000;
+  text-align: center;
+}
+.dialog-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.dialog-buttons button {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.cancel-btn {
+  background: #555;
+}
+.confirm-btn {
+  background: #c0392b;
+  color: white;
+}
+
+/* Zone de modification */
+.edit-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.edit-area {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #888;
+  background: #1e162b;
+  color: #eee;
+}
+.save-edit {
+  align-self: flex-end;
+  background: #7d3cff;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
