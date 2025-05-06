@@ -597,3 +597,63 @@
   pointer-events: none;
 }
 
+.text-tools,
+.image-insert-box,
+.carrousel-inserter,
+.quick-format,
+.resize-controls,
+.editor-buttons {
+  margin-bottom: 1rem;
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.carousel-track img {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+
+.carousel-buttons {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.carousel-buttons button {
+  background-color: #6c59a0;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  margin: 0 0.2rem;
+  color: white;
+  font-family: 'EB Garamond', serif;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.carousel-buttons button:hover {
+  background-color: #8a6bd1;
+}
+.carousel {
+  overflow: hidden;
+  position: relative;
+  margin: 1rem 0;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+.carousel.small {
+  max-width: 300px;
+}
+.carousel.medium {
+  max-width: 500px;
+}
+.carousel.large {
+  max-width: 800px;
+}
