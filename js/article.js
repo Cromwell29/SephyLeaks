@@ -96,28 +96,31 @@ function parseDate(dateStr) {
 
 
   // === Articles récents dans la sidebar ===
-fetch("data/articles.json")
-  .then(res => res.json())
-  .then(articles => {
-    const recentContainer = document.getElementById("recent-articles-list");
-    if (!recentContainer) return;
+const { data: recentArticles, error: recentError } = await supabase
+  .from("articles")
+  .select("id, titre, image, date")
+  .order("date", { ascending: false })
+  .limit(3);
 
-    articles
-      .sort((a, b) => parseDate(b.date) - parseDate(a.date))
-      .slice(0, 3)
-      .forEach(article => {
-        const li = document.createElement("li");
-        li.className = "recent-article-item";
+if (recentError) {
+  console.error("❌ Erreur Supabase – articles récents :", recentError);
+} else {
+  const recentContainer = document.getElementById("recent-articles-list");
+  if (recentContainer) {
+    recentArticles.forEach(article => {
+      const li = document.createElement("li");
+      li.className = "recent-article-item";
 
-        li.innerHTML = `
-          <a href="article.html?id=${article.id}" class="recent-article-link" title="${article.title}">
-            <img src="${article.image}" alt="${article.title}">
-            <span class="recent-article-title">${article.title}</span>
-          </a>
-        `;
+      li.innerHTML = `
+        <a href="article.html?id=${article.id}" class="recent-article-link" title="${article.titre}">
+          <img src="${article.image}" alt="${article.titre}">
+          <span class="recent-article-title">${article.titre}</span>
+        </a>
+      `;
 
-        recentContainer.appendChild(li);
-      });
-  })
+      recentContainer.appendChild(li);
+    });
+  }
+}
   .catch(err => console.error("❌ Erreur lors du chargement des articles récents :", err));
 
