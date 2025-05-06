@@ -35,14 +35,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       const prop = propositions.find((p) => p.id == id);
 
       // 1. Copier dans la table articles
-      const { error: insertError } = await supabase.from("articles").insert({
-        titre: prop.titre,
-        resume: prop.resume,
-        contenu: prop.contenu,
-        image: prop.image,
-        date: prop.date,
-        auteur_id: prop.author_id || null // à ajouter dans select si nécessaire
-      });
+	const { error: insertError } = await supabase.from("articles").insert({
+	  titre: prop.titre,
+	  resume: prop.resume,
+	  contenu: prop.contenu,
+	  image: prop.image,
+	  date: prop.date,
+	  auteur_id: prop.author_id
+	});
+	if (!prop.author_id) {
+	  alert("❌ Cette proposition n'a pas d'auteur valide.");
+	  return;
+	}
 
       if (insertError) {
         alert("❌ Erreur lors de la validation.");
