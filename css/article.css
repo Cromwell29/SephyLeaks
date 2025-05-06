@@ -682,3 +682,17 @@
   border-radius: 4px;
   border: 1px solid #9c83ff;
 }
+h2 {
+  font-family: 'Cinzel', serif;
+  margin-bottom: 1rem;
+  color: #c9b3ff;
+}
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: #e4d0ff;
+}
+p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
