@@ -120,4 +120,4 @@ fetch("data/articles.json")
       });
   })
   .catch(err => console.error("❌ Erreur lors du chargement des articles récents :", err));
-});
+
