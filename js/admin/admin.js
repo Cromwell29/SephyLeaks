@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 	const { data: propositions, error } = await supabase
 	.from("propositions")
-	.select("id, titre, resume, image, contenu, date, author_id")
+	.select("id, titre, resume, image, contenu, publication_date, author_id")
     .order("date", { ascending: false });
 
   if (error || !propositions || propositions.length === 0) {
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 	  resume: prop.resume,
 	  contenu: prop.contenu,
 	  image: prop.image,
-	  date: prop.date,
+	  publication_date: prop.date,
 	  author_id: prop.author_id
 	});
 
