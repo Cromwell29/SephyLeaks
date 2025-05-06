@@ -45,9 +45,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         const authorBlock = document.createElement("div");
         authorBlock.className = "article-author";
 		authorBlock.innerHTML = `
-		  <img src="${author.avatar_url || 'assets/avatar-placeholder.png'}" alt="${author.pseudo}" class="author-avatar">
+		  <a href="profile.html?id=${author.id}" class="author-link">
+			<img src="${author.avatar_url || 'assets/avatar-placeholder.png'}" alt="${author.pseudo}" class="author-avatar">
+		  </a>
 		  <div class="author-info">
-			<h3>${author.pseudo}</h3>
+			<h3><a href="profile.html?id=${author.id}" class="author-link">${author.pseudo}</a></h3>
 			<p>${author.bio || "Cet auteur n'a pas encore de bio."}</p>
 		  </div>
 		`;
