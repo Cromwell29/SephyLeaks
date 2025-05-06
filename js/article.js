@@ -55,9 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         </div>
       `;
       container.appendChild(authorBlock);
-    }
-     document.getElementById("article-container").appendChild(authorBlock);
-    })
+   }
     .catch(err => {
       document.getElementById("article-content").innerHTML = "<p>❌ Erreur de chargement de l’article ou de l’auteur.</p>";
       console.error(err);
