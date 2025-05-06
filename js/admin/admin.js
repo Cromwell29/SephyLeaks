@@ -28,30 +28,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     container.appendChild(card);
   });
 
-  // Gestion de la validation
-  container.addEventListener("click", async (e) => {
-    if (e.target.classList.contains("validate-btn")) {
-      const id = e.target.dataset.id;
-      const prop = propositions.find((p) => p.id == id);
+	  // Gestion de la validation
+	  container.addEventListener("click", async (e) => {
+		if (e.target.classList.contains("validate-btn")) {
+		  const id = e.target.dataset.id;
+	const prop = propositions.find((p) => p.id == id);
 
-      // 1. Copier dans la table articles
+	if (!prop.author_id) {
+	  alert("❌ Cette proposition n'a pas d'auteur valide.");
+	  return;
+	}
+
+	// 1. Copier dans la table articles
 	const { error: insertError } = await supabase.from("articles").insert({
 	  titre: prop.titre,
 	  resume: prop.resume,
 	  contenu: prop.contenu,
 	  image: prop.image,
 	  date: prop.date,
-	  auteur_id: prop.author_id
+	  author_id: prop.author_id
 	});
-	if (!prop.author_id) {
-	  alert("❌ Cette proposition n'a pas d'auteur valide.");
+
+	if (insertError) {
+	  alert("❌ Erreur lors de la validation.");
 	  return;
 	}
 
-      if (insertError) {
-        alert("❌ Erreur lors de la validation.");
-        return;
-      }
 
       // 2. Supprimer de propositions
       const { error: deleteError } = await supabase
