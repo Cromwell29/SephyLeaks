@@ -1,36 +1,38 @@
-document.addEventListener("DOMContentLoaded", () => {
+import { supabase } from '/SephyLeaks/js/supabaseClient.js';
+
+document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const articleId = params.get("id");
 
-  if (!articleId) {
-    document.getElementById("article-content").innerHTML = "<p>❌ Aucun identifiant d’article fourni.</p>";
+  const content = document.getElementById("article-content");
+  const container = document.getElementById("article-container");
+
+  if (!articleId || !content || !container) {
+    content.innerHTML = "<p>❌ Aucun identifiant d’article ou conteneur manquant.</p>";
     return;
   }
 
-  let article = null;
+  const { data: article, error } = await supabase
+    .from("articles")
+    .select("*")
+    .eq("id", articleId)
+    .single();
 
-  fetch("data/articles.json")
-    .then(res => res.json())
-    .then(articles => {
-      article = articles.find(a => a.id === articleId);
+  if (error || !article) {
+    content.innerHTML = "<p>❌ Article introuvable.</p>";
+    return;
+  }
 
-      if (!article) {
-        document.getElementById("article-content").innerHTML = "<p>❌ Article introuvable.</p>";
-        return;
-      }
+  const bannerUrl = article.banner || article.image;
+  if (bannerUrl) {
+    document.getElementById("cover-image").style.backgroundImage = `url(${bannerUrl})`;
+  }
 
-      const bannerUrl = article.banner || article.image;
-      if (bannerUrl) {
-        document.getElementById("cover-image").style.backgroundImage = `url(${bannerUrl})`;
-      }
-
-      document.getElementById("tag").textContent = article.tag;
-      document.getElementById("date").textContent = article.date;
-      document.getElementById("title").textContent = article.title;
-      document.getElementById("article-content").innerHTML = article.content;
-
-      return fetch("data/authors.json");
-    })
+  document.getElementById("tag").textContent = article.tag || "Sans tag";
+  document.getElementById("date").textContent = article.date || "";
+  document.getElementById("title").textContent = article.titre || "Sans titre";
+  content.innerHTML = article.contenu || "<p>(Pas de contenu)</p>";
+});
     .then(res => res.json())
     .then(authors => {
       if (!article) return;
