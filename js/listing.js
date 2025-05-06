@@ -1,3 +1,4 @@
+import { supabase } from '/SephyLeaks/js/supabaseClient.js';
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("listing-container");
   const tagFiltersContainer = document.getElementById("tag-filters");
@@ -91,21 +92,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  fetch("data/articles.json")
-    .then(res => res.json())
-    .then(data => {
-      articles = data.sort((a, b) => new Date(b.date) - new Date(a.date));
-      const tags = new Set(articles.map(a => a.tag.trim().toLowerCase()));
+// 🔁 Chargement depuis Supabase
+  const { data, error } = await supabase
+    .from("articles")
+    .select("id, titre, resume, image, publication_date, tag")
+    .order("publication_date", { ascending: false });
 
-      createFilterButton("tous", "Tous", true);
-      [...tags].forEach(tag => createFilterButton(tag, formatLabel(tag)));
+  if (error) {
+    console.error("❌ Erreur Supabase :", error);
+    return;
+  }
 
-      searchInput.addEventListener("input", () => {
-        currentPage = 1;
-        renderArticles();
-      });
+  articles = data;
+  const tags = new Set(articles.map(a => (a.tag || "").trim().toLowerCase()));
 
-      renderArticles();
+  createFilterButton("tous", "Tous", true);
+  [...tags].forEach(tag => createFilterButton(tag, formatLabel(tag)));
+
+  searchInput.addEventListener("input", () => {
+    currentPage = 1;
+    renderArticles();
+  });
+
+  renderArticles();
     })
     .catch(err => console.error("❌ Erreur de chargement des articles :", err));
 });
