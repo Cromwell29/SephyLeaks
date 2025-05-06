@@ -116,4 +116,4 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   renderArticles();
-    })
+    });
