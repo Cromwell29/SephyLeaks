@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 🔎 Récupérer les commentaires
   const { data: commentaires, error } = await supabase
     .from('commentaires')
-    .select('contenu, created_at, users ( pseudo, avatar_url )')
+    .select('id, contenu, created_at, auteur_id, users ( pseudo, avatar_url )')
     .eq('article_id', articleId)
     .order('created_at', { ascending: true });
 
@@ -22,39 +22,96 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  function appendComment({ auteur, avatar, date, contenu }, insertBefore = null) {
-    const div = document.createElement('div');
-    div.className = 'comment';
-    div.innerHTML = `
-      <img src="${avatar}" alt="avatar joueur" class="comment-avatar">
-      <div class="comment-body">
-        <div class="comment-meta">
-          <span class="comment-author">${auteur}</span>
-          <span class="comment-date">${date}</span>
-        </div>
-        <p>${contenu}</p>
-      </div>
-    `;
+function appendComment({ id, auteur, avatar, date, contenu, isOwner }, insertBefore = null) {
+  const div = document.createElement('div');
+  div.className = 'comment';
+  div.dataset.id = id;
 
-    const parent = document.querySelector('#comments');
-    const target = insertBefore || document.querySelector('.comment-form');
-    parent.insertBefore(div, target);
+  div.innerHTML = `
+    <img src="${avatar}" alt="avatar joueur" class="comment-avatar">
+    <div class="comment-body">
+      <div class="comment-meta">
+        <span class="comment-author">${auteur}</span>
+        <span class="comment-date">${date}</span>
+      </div>
+      <p class="comment-content">${contenu}</p>
+      ${isOwner ? `
+        <div class="comment-actions">
+          <button class="edit-comment">✏️</button>
+          <button class="delete-comment">🗑️</button>
+        </div>` : ``}
+    </div>
+  `;
+
+  const parent = document.querySelector('#comments');
+  const target = insertBefore || document.querySelector('.comment-form');
+  parent.insertBefore(div, target);
+
+  // ✏️ Modifier
+  if (isOwner) {
+    const editBtn = div.querySelector('.edit-comment');
+    const deleteBtn = div.querySelector('.delete-comment');
+    const contentEl = div.querySelector('.comment-content');
+
+    editBtn.addEventListener('click', () => {
+      const current = contentEl.textContent;
+      contentEl.outerHTML = `
+        <textarea class="edit-area">${current}</textarea>
+        <button class="save-edit">💾</button>
+      `;
+      const saveBtn = div.querySelector('.save-edit');
+      const textarea = div.querySelector('.edit-area');
+
+      saveBtn.addEventListener('click', async () => {
+        const newContent = textarea.value.trim();
+        if (!newContent) return;
+
+        const { error } = await supabase
+          .from('commentaires')
+          .update({ contenu: newContent })
+          .eq('id', id);
+
+        if (!error) {
+          textarea.outerHTML = `<p class="comment-content">${newContent}</p>`;
+          saveBtn.remove();
+        } else {
+          alert("❌ Échec de la modification.");
+        }
+      });
+    });
+
+    // 🗑️ Supprimer
+    deleteBtn.addEventListener('click', async () => {
+      if (!confirm("Supprimer ce commentaire ?")) return;
+      const { error } = await supabase.from('commentaires').delete().eq('id', id);
+      if (!error) {
+        div.remove();
+      } else {
+        alert("❌ Échec de la suppression.");
+      }
+    });
   }
+}
+
 
   if (commentaires.length === 0) {
     commentSection.innerHTML += `<p>Aucun commentaire pour le moment.</p>`;
   } else {
-    commentaires.forEach(c => {
-      appendComment({
-        auteur: c.users?.pseudo || 'Utilisateur inconnu',
-        avatar: c.users?.avatar_url || '/SephyLeaks/assets/default-avatar.webp',
-        date: new Date(c.created_at).toLocaleDateString('fr-FR', {
-          year: 'numeric', month: 'long', day: 'numeric'
-        }),
-        contenu: c.contenu
-      });
-    });
+commentaires.forEach(c => {
+  appendComment({
+    id: c.id,
+    auteur: c.users?.pseudo || 'Utilisateur inconnu',
+    avatar: c.users?.avatar_url || '/SephyLeaks/assets/default-avatar.webp',
+    date: new Date(c.created_at).toLocaleDateString('fr-FR', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    }),
+    contenu: c.contenu,
+    isOwner: session?.user?.id === c.auteur_id // ← comparaison sécurisée
+  });
+});
+
   }
+
 
   // 🧾 Formulaire si connecté
   const { data: sessionData } = await supabase.auth.getSession();
@@ -96,14 +153,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error("❌ Erreur d'insertion commentaire :", insertError);
         alert("❌ Échec de l'envoi du commentaire.");
       } else {
-        appendComment({
-          auteur: session.user.user_metadata?.pseudo || 'Vous',
-          avatar: session.user.user_metadata?.avatar_url || '/SephyLeaks/assets/default-avatar.webp',
-          date: new Date().toLocaleDateString('fr-FR', {
-            year: 'numeric', month: 'long', day: 'numeric'
-          }),
-          contenu
-        }, commentForm);
+appendComment({
+  id: data[0].id, // récupéré depuis supabase.insert
+  auteur: session.user.user_metadata?.pseudo || 'Vous',
+  avatar: session.user.user_metadata?.avatar_url || '/SephyLeaks/assets/default-avatar.webp',
+  date: new Date().toLocaleDateString('fr-FR', {
+    year: 'numeric', month: 'long', day: 'numeric'
+  }),
+  contenu,
+  isOwner: true
+}, commentForm);
+
 
         input.value = "";
         submitBtn.disabled = true;
