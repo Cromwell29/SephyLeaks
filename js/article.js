@@ -37,21 +37,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (article.author_id) {
       const { data: author, error: authorError } = await supabase
         .from("users")
-        .select("name, bio, avatar_url, website")
+        .select("pseudo, bio, avatar_url")
         .eq("id", article.author_id)
         .single();
 
       if (!authorError && author) {
         const authorBlock = document.createElement("div");
         authorBlock.className = "article-author";
-        authorBlock.innerHTML = `
-          <img src="${author.avatar_url || 'assets/avatar-placeholder.png'}" alt="${author.name}" class="author-avatar">
-          <div class="author-info">
-            <h3>${author.name}</h3>
-            <p>${author.bio || "Cet auteur n'a pas encore de bio."}</p>
-            ${author.website ? `<a href="${author.website}" target="_blank">🌐 Voir le profil</a>` : ""}
-          </div>
-        `;
+		authorBlock.innerHTML = `
+		  <img src="${author.avatar_url || 'assets/avatar-placeholder.png'}" alt="${author.pseudo}" class="author-avatar">
+		  <div class="author-info">
+			<h3>${author.pseudo}</h3>
+			<p>${author.bio || "Cet auteur n'a pas encore de bio."}</p>
+		  </div>
+		`;
         container.appendChild(authorBlock);
       }
     }
