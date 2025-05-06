@@ -752,3 +752,25 @@ p {
 .save-edit:hover {
   background-color: #6d58a1;
 }
+button#submit-comment {
+  background-color: #3b2a60;
+  color: #ccc;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: not-allowed; /* état par défaut */
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+/* état actif (quand la classe est ajoutée dynamiquement) */
+button#submit-comment.active-button {
+  cursor: pointer;
+  opacity: 1;
+  background-color: #6d58a1;
+  color: white;
+}
+
+button#submit-comment.active-button:hover {
+  background-color: #8a6bd1;
+}
