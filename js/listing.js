@@ -96,8 +96,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 // 🔁 Chargement depuis Supabase
   const { data, error } = await supabase
     .from("articles")
-    .select("id, titre, resume, image, publication_date, tag")
-    .order("publication_date", { ascending: false });
+    .select("id, titre, resume, image, date, tag")
+    .order("date", { ascending: false });
 
   if (error) {
     console.error("❌ Erreur Supabase :", error);
