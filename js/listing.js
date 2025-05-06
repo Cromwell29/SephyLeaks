@@ -1,5 +1,6 @@
 import { supabase } from '/SephyLeaks/js/supabaseClient.js';
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+
   const container = document.getElementById("listing-container");
   const tagFiltersContainer = document.getElementById("tag-filters");
   const searchInput = document.getElementById("search-input");
@@ -116,5 +117,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderArticles();
     })
-    .catch(err => console.error("❌ Erreur de chargement des articles :", err));
 });
