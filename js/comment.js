@@ -3,16 +3,14 @@ import { supabase } from '/SephyLeaks/js/supabaseClient.js';
 document.addEventListener('DOMContentLoaded', async () => {
   const articleId = new URLSearchParams(window.location.search).get('id');
   const commentSection = document.querySelector('#comments');
-  const commentForm = document.querySelector('.comment-form');
-
   if (!articleId || !commentSection) return;
-
-  // 🔄 Nettoyer les anciens commentaires fictifs
-  commentSection.querySelectorAll('.comment').forEach(el => el.remove());
 
   // 🔐 Session utilisateur
   const { data: sessionData } = await supabase.auth.getSession();
   const session = sessionData?.session;
+
+  // 🔄 Nettoyer les anciens commentaires
+  commentSection.querySelectorAll('.comment').forEach(el => el.remove());
 
   // 🔎 Récupérer les commentaires
   const { data: commentaires, error } = await supabase
@@ -27,6 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
+  // 💬 Fonction d'ajout visuel
   function appendComment({ id, auteur, avatar, date, contenu, isOwner }, insertBefore = null) {
     const div = document.createElement('div');
     div.className = 'comment';
@@ -89,16 +88,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       deleteBtn.addEventListener('click', async () => {
         if (!confirm("Supprimer ce commentaire ?")) return;
         const { error } = await supabase.from('commentaires').delete().eq('id', id);
-        if (!error) {
-          div.remove();
-        } else {
-          alert("❌ Échec de la suppression.");
-        }
+        if (!error) div.remove();
+        else alert("❌ Échec de la suppression.");
       });
     }
   }
 
-  // 📝 Affichage des commentaires
+  // 🖋️ Affichage des commentaires
   if (commentaires.length === 0) {
     commentSection.innerHTML += `<p>Aucun commentaire pour le moment.</p>`;
   } else {
@@ -116,8 +112,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // ✅ Formulaire si connecté
-  if (session && session.user && commentForm) {
+  // 🧾 Formulaire si connecté
+  const commentForm = document.querySelector('.comment-form');
+
+  if (session?.user && commentForm) {
     commentForm.classList.remove('disabled');
     commentForm.innerHTML = `
       <textarea id="comment-input" placeholder="Votre commentaire..."></textarea>
@@ -141,24 +139,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         auteur_id: session.user.id
       }).select();
 
-      if (insertError || !data) {
+      if (insertError) {
         console.error("❌ Erreur d'insertion commentaire :", insertError);
         alert("❌ Échec de l'envoi du commentaire.");
-      } else {
-        appendComment({
-          id: data[0].id,
-          auteur: session.user.user_metadata?.pseudo || 'Vous',
-          avatar: session.user.user_metadata?.avatar_url || '/SephyLeaks/assets/default-avatar.webp',
-          date: new Date().toLocaleDateString('fr-FR', {
-            year: 'numeric', month: 'long', day: 'numeric'
-          }),
-          contenu,
-          isOwner: true
-        }, commentForm);
-
-        input.value = "";
-        submitBtn.disabled = true;
+        return;
       }
+
+      appendComment({
+        id: data[0].id,
+        auteur: session.user.user_metadata?.pseudo || 'Vous',
+        avatar: session.user.user_metadata?.avatar_url || '/SephyLeaks/assets/default-avatar.webp',
+        date: new Date().toLocaleDateString('fr-FR', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        }),
+        contenu,
+        isOwner: true
+      }, commentForm);
+
+      input.value = "";
+      submitBtn.disabled = true;
     });
   }
 });
