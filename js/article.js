@@ -1,65 +1,67 @@
 import { supabase } from '/SephyLeaks/js/supabaseClient.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const params = new URLSearchParams(window.location.search);
-  const articleId = params.get("id");
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const articleId = params.get("id");
 
-  const content = document.getElementById("article-content");
-  const container = document.getElementById("article-container");
+    const content = document.getElementById("article-content");
+    const container = document.getElementById("article-container");
 
-  if (!articleId || !content || !container) {
-    content.innerHTML = "<p>❌ Aucun identifiant d’article ou conteneur manquant.</p>";
-    return;
-  }
+    if (!articleId || !content || !container) {
+      content.innerHTML = "<p>❌ Aucun identifiant d’article ou conteneur manquant.</p>";
+      return;
+    }
 
-  // 🔄 Charger l’article
-  const { data: article, error } = await supabase
-    .from("articles")
-    .select("*")
-    .eq("id", articleId)
-    .single();
-
-  if (error || !article) {
-    content.innerHTML = "<p>❌ Article introuvable.</p>";
-    return;
-  }
-
-  // 🖼️ Image de couverture
-  const bannerUrl = article.banner || article.image;
-  if (bannerUrl) {
-    document.getElementById("cover-image").style.backgroundImage = `url(${bannerUrl})`;
-  }
-
-  document.getElementById("tag").textContent = article.tag || "Sans tag";
-  document.getElementById("date").textContent = article.date || "";
-  document.getElementById("title").textContent = article.titre || "Sans titre";
-  content.innerHTML = article.contenu || "<p>(Pas de contenu)</p>";
-
-  // 👤 Charger l’auteur
-  if (article.author_id) {
-    const { data: author, error: authorError } = await supabase
-      .from("users")
-      .select("name, bio, avatar_url, website")
-      .eq("id", article.author_id)
+    const { data: article, error } = await supabase
+      .from("articles")
+      .select("*")
+      .eq("id", articleId)
       .single();
 
-    if (!authorError && author) {
-      const authorBlock = document.createElement("div");
-      authorBlock.className = "article-author";
-      authorBlock.innerHTML = `
-        <img src="${author.avatar_url || 'assets/avatar-placeholder.png'}" alt="${author.name}" class="author-avatar">
-        <div class="author-info">
-          <h3>${author.name}</h3>
-          <p>${author.bio || "Cet auteur n'a pas encore de bio."}</p>
-          ${author.website ? `<a href="${author.website}" target="_blank">🌐 Voir le profil</a>` : ""}
-        </div>
-      `;
-      container.appendChild(authorBlock);
-   }
-    .catch(err => {
-      document.getElementById("article-content").innerHTML = "<p>❌ Erreur de chargement de l’article ou de l’auteur.</p>";
-      console.error(err);
-    });
+    if (error || !article) {
+      content.innerHTML = "<p>❌ Article introuvable.</p>";
+      return;
+    }
+
+    const bannerUrl = article.banner || article.image;
+    if (bannerUrl) {
+      document.getElementById("cover-image").style.backgroundImage = `url(${bannerUrl})`;
+    }
+
+    document.getElementById("tag").textContent = article.tag || "Sans tag";
+    document.getElementById("date").textContent = article.date || "";
+    document.getElementById("title").textContent = article.titre || "Sans titre";
+    content.innerHTML = article.contenu || "<p>(Pas de contenu)</p>";
+
+    if (article.author_id) {
+      const { data: author, error: authorError } = await supabase
+        .from("users")
+        .select("name, bio, avatar_url, website")
+        .eq("id", article.author_id)
+        .single();
+
+      if (!authorError && author) {
+        const authorBlock = document.createElement("div");
+        authorBlock.className = "article-author";
+        authorBlock.innerHTML = `
+          <img src="${author.avatar_url || 'assets/avatar-placeholder.png'}" alt="${author.name}" class="author-avatar">
+          <div class="author-info">
+            <h3>${author.name}</h3>
+            <p>${author.bio || "Cet auteur n'a pas encore de bio."}</p>
+            ${author.website ? `<a href="${author.website}" target="_blank">🌐 Voir le profil</a>` : ""}
+          </div>
+        `;
+        container.appendChild(authorBlock);
+      }
+    }
+
+  } catch (err) {
+    document.getElementById("article-content").innerHTML = "<p>❌ Erreur de chargement de l’article ou de l’auteur.</p>";
+    console.error(err);
+  }
+});
+
 window.nextSlide = function(button) {
   const container = button.closest(".carousel-buttons").previousElementSibling;
   if (!container || !container.classList.contains("carousel")) return;
