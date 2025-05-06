@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 	const { data: propositions, error } = await supabase
 	.from("propositions")
-	.select("id, titre, resume, image, contenu, date, author_id")
+	.select("id, titre, resume, image, contenu, date, author_id, tag")
     .order("date", { ascending: false });
 
   if (error || !propositions || propositions.length === 0) {
@@ -47,7 +47,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 	  image: prop.image,
 	  date: prop.date,
 	  author_id: prop.author_id
+	  tag: prop.tag
 	});
+console.log("Données à insérer dans articles :", prop);
 
 if (insertError) {
   console.error("Erreur Supabase :", insertError);
