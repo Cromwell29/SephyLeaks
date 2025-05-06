@@ -111,35 +111,32 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     });
   }
-const input = document.getElementById('comment-input');
-const submitBtn = document.getElementById('submit-comment');
 
-input.addEventListener("input", () => {
-  const isEmpty = input.value.trim().length === 0;
-  submitBtn.disabled = isEmpty;
-
-  if (isEmpty) {
-    submitBtn.classList.remove("active-button");
-  } else {
-    submitBtn.classList.add("active-button");
-  }
-});
   // 🧾 Formulaire si connecté
   const commentForm = document.querySelector('.comment-form');
 
   if (session?.user && commentForm) {
-    commentForm.classList.remove('disabled');
-	commentForm.innerHTML = `
-	  <textarea id="comment-input" placeholder="Votre commentaire..."></textarea>
-	  <button id="submit-comment" class="active-button" disabled>Envoyer</button>
-	`;
+  commentForm.classList.remove('disabled');
+  commentForm.innerHTML = `
+    <textarea id="comment-input" placeholder="Votre commentaire..."></textarea>
+    <button id="submit-comment" class="active-button" disabled>Envoyer</button>
+  `;
 
-    const input = document.getElementById('comment-input');
-    const submitBtn = document.getElementById('submit-comment');
+  // ✅ Ici seulement que tu récupères les éléments nouvellement injectés :
+  const input = document.getElementById('comment-input');
+  const submitBtn = document.getElementById('submit-comment');
 
-    input.addEventListener("input", () => {
-      submitBtn.disabled = input.value.trim().length === 0;
-    });
+  // ✅ Gestion active/désactive proprement :
+  input.addEventListener("input", () => {
+    const isEmpty = input.value.trim().length === 0;
+    submitBtn.disabled = isEmpty;
+
+    if (isEmpty) {
+      submitBtn.classList.remove("active-button");
+    } else {
+      submitBtn.classList.add("active-button");
+    }
+  });
 
     submitBtn.addEventListener('click', async () => {
       const contenu = input.value.trim();
