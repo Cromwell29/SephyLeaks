@@ -696,3 +696,59 @@ p {
   margin-bottom: 1rem;
   line-height: 1.6;
 }
+/* 💬 Bloc d'action caché sauf au survol */
+.comment-actions {
+  display: none;
+  margin-top: 6px;
+  text-align: right;
+}
+
+/* 👁️ Affichage au survol du bloc commentaire */
+.comment:hover .comment-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* ✏️/🗑️ Boutons */
+.comment-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1em;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  color: #c7bfff;
+}
+
+.comment-actions button:hover {
+  background-color: rgba(199, 191, 255, 0.1);
+}
+
+/* ✍️ Zone d'édition de commentaire */
+.edit-area {
+  width: 100%;
+  padding: 8px;
+  background: #1a1329;
+  color: #fff;
+  border: 1px solid #4f3d7a;
+  border-radius: 6px;
+  margin-top: 6px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.save-edit {
+  margin-top: 6px;
+  background-color: #4f3d7a;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.save-edit:hover {
+  background-color: #6d58a1;
+}
