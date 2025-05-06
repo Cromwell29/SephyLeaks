@@ -49,10 +49,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 	  author_id: prop.author_id
 	});
 
-	if (insertError) {
-	  alert("❌ Erreur lors de la validation.");
-	  return;
-	}
+if (insertError) {
+  console.error("Erreur Supabase :", insertError);
+  alert("❌ Erreur lors de la validation.");
+  return;
+}
+
 
 
       // 2. Supprimer de propositions
