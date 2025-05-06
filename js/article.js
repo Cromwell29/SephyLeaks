@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // 🔄 Charger l’article
   const { data: article, error } = await supabase
     .from("articles")
     .select("*")
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // 🖼️ Image de couverture
   const bannerUrl = article.banner || article.image;
   if (bannerUrl) {
     document.getElementById("cover-image").style.backgroundImage = `url(${bannerUrl})`;
@@ -32,26 +34,29 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("date").textContent = article.date || "";
   document.getElementById("title").textContent = article.titre || "Sans titre";
   content.innerHTML = article.contenu || "<p>(Pas de contenu)</p>";
-});
-    .then(res => res.json())
-    .then(authors => {
-      if (!article) return;
 
-      const authorData = authors.find(a => a.id === article.author);
-      if (!authorData) return;
+  // 👤 Charger l’auteur
+  if (article.author_id) {
+    const { data: author, error: authorError } = await supabase
+      .from("users")
+      .select("name, bio, avatar_url, website")
+      .eq("id", article.author_id)
+      .single();
 
+    if (!authorError && author) {
       const authorBlock = document.createElement("div");
       authorBlock.className = "article-author";
       authorBlock.innerHTML = `
-        <img src="${authorData.avatar}" alt="${authorData.name}" class="author-avatar">
+        <img src="${author.avatar_url || 'assets/avatar-placeholder.png'}" alt="${author.name}" class="author-avatar">
         <div class="author-info">
-          <h3>${authorData.name}</h3>
-          <p>${authorData.bio}</p>
-          ${authorData.website ? `<a href="${authorData.website}" target="_blank">🌐 Voir le profil</a>` : ""}
+          <h3>${author.name}</h3>
+          <p>${author.bio || "Cet auteur n'a pas encore de bio."}</p>
+          ${author.website ? `<a href="${author.website}" target="_blank">🌐 Voir le profil</a>` : ""}
         </div>
       `;
-
-      document.getElementById("article-container").appendChild(authorBlock);
+      container.appendChild(authorBlock);
+    }
+     document.getElementById("article-container").appendChild(authorBlock);
     })
     .catch(err => {
       document.getElementById("article-content").innerHTML = "<p>❌ Erreur de chargement de l’article ou de l’auteur.</p>";
