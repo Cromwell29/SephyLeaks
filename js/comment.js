@@ -5,6 +5,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const commentSection = document.querySelector('#comments');
 
   if (!articleId || !commentSection) return;
+  
+input.addEventListener("input", () => {
+  submitBtn.disabled = input.value.trim().length === 0;
+});
+submitBtn.disabled = true;
 
   // 🔄 Nettoyer les anciens commentaires fictifs
   commentSection.querySelectorAll('.comment').forEach(el => el.remove());
@@ -71,32 +76,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     const input = document.getElementById('comment-input');
     const submitBtn = document.getElementById('submit-comment');
 
-    submitBtn.addEventListener('click', async () => {
-      const contenu = input.value.trim();
-      if (!contenu) return;
+submitBtn.addEventListener('click', async () => {
+  const contenu = input.value.trim();
+  if (!contenu) return;
 
-      const { error: insertError } = await supabase.from('commentaires').insert({
-        contenu,
-        article_id: articleId,
-        auteur_id: session.user.id
-      });
+  const { error: insertError } = await supabase.from('commentaires').insert({
+    contenu,
+    article_id: articleId,
+    auteur_id: session.user.id // ⚠️ adapte selon le vrai nom en base
+  });
 
-	if (insertError) {
-	  alert("❌ Échec de l'envoi du commentaire.");
-	} else {
-	  input.value = "";
+  console.log("💬 Tentative d'insertion :", {
+    contenu,
+    article_id: articleId,
+    auteur_id: session.user.id
+  });
 
-	appendComment({
-	  auteur: session.user.user_metadata?.pseudo || 'Vous',
-	  avatar: session.user.user_metadata?.avatar_url || '/SephyLeaks/assets/default-avatar.webp',
-	  date: new Date().toLocaleDateString('fr-FR', {
-		year: 'numeric', month: 'long', day: 'numeric'
-	  }),
-	  contenu
-	}, commentForm);
+  if (insertError) {
+    console.error("❌ Erreur d'insertion commentaire :", insertError);
+    alert("❌ Échec de l'envoi du commentaire.");
+  } else {
+    appendComment({
+      auteur: session.user.user_metadata?.pseudo || 'Vous',
+      avatar: session.user.user_metadata?.avatar_url || '/SephyLeaks/assets/default-avatar.webp',
+      date: new Date().toLocaleDateString('fr-FR', {
+        year: 'numeric', month: 'long', day: 'numeric'
+      }),
+      contenu
+    }, commentForm);
 
-	input.value = "";
-	}
-    });
+    input.value = "";
   }
 });

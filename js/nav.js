@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (user.role === "admin") {
       const adminLi = document.createElement("li");
       adminLi.setAttribute("data-auth", "true");
-      adminLi.innerHTML = `<a href="/SephyLeaks/account/admin.html">🛠️ Admin</a>`;
+      adminLi.innerHTML = `<a href="/SephyLeaks/admin/admin.html">🛠️ Admin</a>`;
       navLinks.appendChild(adminLi);
     }
 
