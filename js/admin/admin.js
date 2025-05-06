@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 	  contenu: prop.contenu,
 	  image: prop.image,
 	  date: prop.date,
-	  author_id: prop.author_id
+	  author_id: prop.author_id,
 	  tag: prop.tag
 	});
 console.log("Données à insérer dans articles :", prop);
