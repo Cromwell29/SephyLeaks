@@ -38,13 +38,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const query = searchInput.value.trim().toLowerCase();
     container.innerHTML = "";
 
-    const filtered = articles.filter(a => {
-      const tag = a.tag.trim().toLowerCase();
-      const title = a.title.toLowerCase();
-      const resume = a.resume.toLowerCase();
-      const matchTag = currentTag === "tous" || tag === currentTag;
-      const matchSearch = title.includes(query) || resume.includes(query);
-      return matchTag && matchSearch;
+  const filtered = articles.filter(a => {
+  const tag = (a.tag || "").trim().toLowerCase();  // ✔ fallback vide
+  const title = (a.title || "").toLowerCase();
+  const resume = (a.resume || "").toLowerCase();
+  const matchTag = currentTag === "tous" || tag === currentTag;
+  const matchSearch = title.includes(query) || resume.includes(query);
+  return matchTag && matchSearch;
     });
 
     const total = filtered.length;
