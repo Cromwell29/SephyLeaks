@@ -56,49 +56,50 @@ document.addEventListener('DOMContentLoaded', async () => {
       const deleteBtn = div.querySelector('.delete-comment');
       const contentEl = div.querySelector('.comment-content');
 
-// ✏️ Modifier
-editBtn.addEventListener('click', () => {
-  const current = contentEl.textContent;
-  const editBox = document.createElement('div');
-  editBox.className = 'edit-box';
-  editBox.innerHTML = `
-    <textarea class="edit-area">${current}</textarea>
-    <button class="save-edit">💾 Enregistrer</button>
-  `;
-  contentEl.replaceWith(editBox);
+      // ✏️ Modifier
+      editBtn.addEventListener('click', () => {
+        const current = contentEl.textContent;
+        const editBox = document.createElement('div');
+        editBox.className = 'edit-box';
+        editBox.innerHTML = `
+          <textarea class="edit-area">${current}</textarea>
+          <button class="save-edit">💾 Enregistrer</button>
+        `;
+        contentEl.replaceWith(editBox);
 
-  const saveBtn = editBox.querySelector('.save-edit');
-  const textarea = editBox.querySelector('.edit-area');
+        const saveBtn = editBox.querySelector('.save-edit');
+        const textarea = editBox.querySelector('.edit-area');
 
-  saveBtn.addEventListener('click', async () => {
-    const newContent = textarea.value.trim();
-    if (!newContent) return;
+        saveBtn.addEventListener('click', async () => {
+          const newContent = textarea.value.trim();
+          if (!newContent) return;
 
-    const { error } = await supabase
-      .from('commentaires')
-      .update({ contenu: newContent })
-      .eq('id', id);
+          const { error } = await supabase
+            .from('commentaires')
+            .update({ contenu: newContent })
+            .eq('id', id);
 
-    if (!error) {
-      const newPara = document.createElement('p');
-      newPara.className = 'comment-content';
-      newPara.textContent = newContent;
-      editBox.replaceWith(newPara);
-    } else {
-      alert("❌ Échec de la modification.");
+          if (!error) {
+            const newPara = document.createElement('p');
+            newPara.className = 'comment-content';
+            newPara.textContent = newContent;
+            editBox.replaceWith(newPara);
+          } else {
+            alert("❌ Échec de la modification.");
+          }
+        });
+      });
+
+      // 🗑️ Supprimer avec popup custom
+      deleteBtn.addEventListener('click', () => {
+        showConfirmDialog("Supprimer ce commentaire ?", async () => {
+          const { error } = await supabase.from('commentaires').delete().eq('id', id);
+          if (!error) div.remove();
+          else alert("❌ Échec de la suppression.");
+        });
+      });
     }
-  });
-});
-
-// 🗑️ Supprimer avec popup custom
-deleteBtn.addEventListener('click', () => {
-  showConfirmDialog("Supprimer ce commentaire ?", async () => {
-    const { error } = await supabase.from('commentaires').delete().eq('id', id);
-    if (!error) div.remove();
-    else alert("❌ Échec de la suppression.");
-  });
-});
-
+  } // <-- 🔴 FIN de appendComment !
 
   // 🖋️ Affichage des commentaires
   if (commentaires.length === 0) {
@@ -117,52 +118,51 @@ deleteBtn.addEventListener('click', () => {
       });
     });
   }
-function showConfirmDialog(message, onConfirm) {
-  const overlay = document.createElement('div');
-  overlay.className = 'custom-dialog';
-  overlay.innerHTML = `
-    <div class="dialog-box">
-      <p>${message}</p>
-      <div class="dialog-buttons">
-        <button class="cancel-btn">Annuler</button>
-        <button class="confirm-btn">Supprimer</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(overlay);
 
-  overlay.querySelector('.cancel-btn').addEventListener('click', () => overlay.remove());
-  overlay.querySelector('.confirm-btn').addEventListener('click', () => {
-    overlay.remove();
-    onConfirm();
-  });
-}
+  // 💬 Boîte de dialogue personnalisée
+  function showConfirmDialog(message, onConfirm) {
+    const overlay = document.createElement('div');
+    overlay.className = 'custom-dialog';
+    overlay.innerHTML = `
+      <div class="dialog-box">
+        <p>${message}</p>
+        <div class="dialog-buttons">
+          <button class="cancel-btn">Annuler</button>
+          <button class="confirm-btn">Supprimer</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    overlay.querySelector('.cancel-btn').addEventListener('click', () => overlay.remove());
+    overlay.querySelector('.confirm-btn').addEventListener('click', () => {
+      overlay.remove();
+      onConfirm();
+    });
+  }
 
   // 🧾 Formulaire si connecté
   const commentForm = document.querySelector('.comment-form');
-
   if (session?.user && commentForm) {
-  commentForm.classList.remove('disabled');
-  commentForm.innerHTML = `
-    <textarea id="comment-input" placeholder="Votre commentaire..."></textarea>
-    <button id="submit-comment" class="active-button" disabled>Envoyer</button>
-  `;
+    commentForm.classList.remove('disabled');
+    commentForm.innerHTML = `
+      <textarea id="comment-input" placeholder="Votre commentaire..."></textarea>
+      <button id="submit-comment" class="active-button" disabled>Envoyer</button>
+    `;
 
-  // ✅ Ici seulement que tu récupères les éléments nouvellement injectés :
-  const input = document.getElementById('comment-input');
-  const submitBtn = document.getElementById('submit-comment');
+    const input = document.getElementById('comment-input');
+    const submitBtn = document.getElementById('submit-comment');
 
-  // ✅ Gestion active/désactive proprement :
-  input.addEventListener("input", () => {
-    const isEmpty = input.value.trim().length === 0;
-    submitBtn.disabled = isEmpty;
+    input.addEventListener("input", () => {
+      const isEmpty = input.value.trim().length === 0;
+      submitBtn.disabled = isEmpty;
 
-    if (isEmpty) {
-      submitBtn.classList.remove("active-button");
-    } else {
-      submitBtn.classList.add("active-button");
-    }
-  });
+      if (isEmpty) {
+        submitBtn.classList.remove("active-button");
+      } else {
+        submitBtn.classList.add("active-button");
+      }
+    });
 
     submitBtn.addEventListener('click', async () => {
       const contenu = input.value.trim();
