@@ -807,7 +807,35 @@
    background-size: cover;
    background-position: center;
  }
- 
+ .search-info {
+  background: #1a1a2a;
+  border-left: 4px solid #c573f5;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  color: #ddd;
+}
+
+.search-info strong {
+  color: #fff;
+}
+
+.reset-button {
+  background: transparent;
+  border: 1px solid #c573f5;
+  color: #c573f5;
+  padding: 0.4rem 0.8rem;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reset-button:hover {
+  background: #c573f5;
+  color: #111;
+}
+
  .search-bar {
    flex: 1;
  }

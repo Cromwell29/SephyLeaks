@@ -117,6 +117,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 	// Récupérer le terme de recherche depuis l'URL
 	const params = new URLSearchParams(window.location.search);
 	const searchQuery = params.get("q");
+	const searchInfoBox = document.getElementById("search-result-info");
+	const searchLabel = document.getElementById("search-query-label");
+	const clearBtn = document.getElementById("clear-search-btn");
+
+	if (searchQuery && searchInfoBox && searchLabel) {
+	  searchLabel.textContent = searchQuery;
+	  searchInfoBox.style.display = "block";
+
+	  // Ajoute un comportement au bouton "Réinitialiser"
+	  clearBtn.addEventListener("click", () => {
+		// Redirige sans query param → listing normal
+		window.location.href = "listing.html";
+		searchInput.value = "";
+
+	  });
+	}
 
 	// Plus tard, lors de l'affichage des articles, appliquer le filtre si "searchQuery" n'est pas nul
 	if (searchQuery) {
@@ -127,5 +143,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 		article.tag.toLowerCase().includes(searchQuery.toLowerCase())
 	  );
 	}
+	if (searchQuery) {
+  currentTag = "tous"; // 🔄 Reset du filtre tag pour éviter un double-filtrage vide
+    }
+
   renderArticles();
     });
