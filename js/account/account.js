@@ -194,7 +194,7 @@ if (commentList) {
     });
   }
 }
-const commentList = document.getElementById("comment-list");
+
 if (commentList) {
   const { data: comments, error: commentError } = await supabase
     .from("commentaires")
