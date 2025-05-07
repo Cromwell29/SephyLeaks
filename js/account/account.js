@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const displayBio = document.getElementById("user-bio");
   const msg = document.getElementById("profile-msg");
   const adminActions = document.getElementById("admin-actions");
-  const inscriptionField = document.getElementById("join-date");
   const articleCountField = document.getElementById("article-count");
   const commentCountField = document.getElementById("comment-count");
 
@@ -42,12 +41,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   const { email, pseudo, role, bio, avatar_url, created_at } = users;
 
 // 🗓️ Afficher la date d'inscription formatée en français
-const inscriptionField = document.querySelector("#tab-profile p:nth-of-type(1)");
+const inscriptionField = document.getElementById("join-date");
 if (created_at && inscriptionField) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const dateFr = new Date(created_at).toLocaleDateString('fr-FR', options);
   inscriptionField.textContent = `Inscription : ${dateFr}`;
 }
+
 
 // 🧮 Compter les articles publiés
 const articleCountField = document.querySelector("#tab-profile p:nth-of-type(2)");
