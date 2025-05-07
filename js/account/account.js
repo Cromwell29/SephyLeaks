@@ -76,9 +76,20 @@ if (commentCountField) {
   displayBio.textContent = bio || "Aucune bio pour le moment.";
   bioField.value = bio || "";
 
-if (role === "admin" && adminActions) {
-  adminActions.innerHTML = `<a href="/SephyLeaks/admin/admin.html" class="format-btn">🛠️ Panneau admin</a>`;
+if (adminActions) {
+  let html = "";
+
+  if (role === "admin") {
+    html += `<a href="/SephyLeaks/admin/admin.html" class="format-btn">🛠️ Panneau admin</a>`;
+  }
+
+  if (["admin", "auteur"].includes(role)) {
+    html += `<a href="/SephyLeaks/editor.html" class="format-btn">🖋️ Nouvel article</a>`;
+  }
+
+  adminActions.innerHTML = html;
 }
+
   
 document.querySelectorAll('.tab-link').forEach((btn) => {
   btn.addEventListener('click', () => {

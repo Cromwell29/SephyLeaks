@@ -472,3 +472,9 @@ body {
   border-radius: 6px;
   cursor: pointer;
 }
+#admin-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
