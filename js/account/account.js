@@ -168,7 +168,8 @@ if (pubList) {
 
 	  pubList.appendChild(card);
 	});
-
+  }
+}
 const commentList = document.getElementById("comment-list");
 if (commentList) {
   const { data: comments, error: commentError } = await supabase
