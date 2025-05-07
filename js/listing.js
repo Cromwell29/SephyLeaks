@@ -114,6 +114,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     currentPage = 1;
     renderArticles();
   });
+	// Récupérer le terme de recherche depuis l'URL
+	const params = new URLSearchParams(window.location.search);
+	const searchQuery = params.get("q");
 
+	// Plus tard, lors de l'affichage des articles, appliquer le filtre si "searchQuery" n'est pas nul
+	if (searchQuery) {
+	  // Exemple de filtrage en JS (si tu as déjà récupéré les articles via Supabase)
+	  articles = articles.filter(article =>
+		article.titre.toLowerCase().includes(searchQuery.toLowerCase()) ||
+		article.resume.toLowerCase().includes(searchQuery.toLowerCase()) ||
+		article.tag.toLowerCase().includes(searchQuery.toLowerCase())
+	  );
+	}
   renderArticles();
     });
