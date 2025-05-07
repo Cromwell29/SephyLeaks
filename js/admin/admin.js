@@ -4,10 +4,12 @@ import { supabase } from '/SephyLeaks/js/supabaseClient.js';
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("propositions-container");
 
-	const { data: propositions, error } = await supabase
-	.from("propositions")
-	.select("id, titre, resume, image, contenu, date, author_id, tag")
-    .order("date", { ascending: false });
+const { data: propositions, error } = await supabase
+  .from("propositions")
+  .select("id, titre, resume, image, contenu, date, author_id, tag")
+  .eq("status", "en_attente") // 🆕 On filtre
+  .order("date", { ascending: false });
+
 
   if (error || !propositions || propositions.length === 0) {
     container.innerHTML = "<p>Aucune proposition en attente.</p>";
@@ -94,16 +96,16 @@ document.getElementById("confirm-reject").addEventListener("click", async () => 
     user_id: currentRejectAuthor,
     type: "refus",
     contenu: reason,
-    article_id: currentRejectId // ou null si tu ne veux pas lier à un ID article inexistant
+    article_id: currentRejectId
   });
 
-  // 2. Supprimer la proposition
-  const { error: deleteError } = await supabase
+  // 2. Marquer la proposition comme refusée
+  const { error: updateError } = await supabase
     .from("propositions")
-    .delete()
+    .update({ status: "refusee" })
     .eq("id", currentRejectId);
 
-  if (!notifError && !deleteError) {
+  if (!notifError && !updateError) {
     document.querySelector(`[data-id='${currentRejectId}']`)?.closest(".proposition-card")?.remove();
     document.getElementById("reject-modal").classList.add("hidden");
     document.getElementById("reject-reason").value = "";
@@ -113,5 +115,6 @@ document.getElementById("confirm-reject").addEventListener("click", async () => 
     alert("❌ Erreur lors du refus.");
   }
 });
+
 
 });
