@@ -757,3 +757,25 @@ blockquote {
   background-color: #93c47d;
   color: white;
 }
+.refusal-box {
+  background-color: #ffe6e6;
+  border-left: 4px solid #e74c3c;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  color: #900;
+  font-size: 0.9rem;
+  border-radius: 6px;
+}
+.hidden {
+  display: none;
+}
+#toggle-refusal {
+  margin-top: 0.5rem;
+  background: transparent;
+  border: none;
+  color: #900;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0;
+  text-decoration: underline;
+}

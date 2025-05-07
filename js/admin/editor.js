@@ -83,6 +83,45 @@ if (proposition && proposition.author_id === userId) {
   document.getElementById("delete-proposal").disabled = false;
   document.getElementById("delete-proposal").classList.remove("hidden");
 }
+const badgeContainer = document.getElementById("status-badge-container");
+const refusalBox = document.getElementById("refusal-message");
+const status = proposition.status;
+let badgeHTML = "";
+
+if (status === "refusee") {
+  badgeHTML = `<span class="badge badge-red">Refusée</span>`;
+  const { data: notifications, error: notifError } = await supabase
+    .from("notifications")
+    .select("message, created_at")
+    .eq("user_id", userId)
+    .eq("proposition_id", proposition.id)
+    .order("created_at", { ascending: false })
+    .limit(1);
+
+  if (notifications && notifications.length > 0) {
+    const refusalBox = document.getElementById("refusal-message");
+    const refusalText = document.getElementById("refusal-text");
+    const toggleBtn = document.getElementById("toggle-refusal");
+
+    refusalText.textContent = notifications[0].message || "Raison non précisée.";
+    refusalBox.classList.remove("hidden");
+
+    // Fonction de repli/affichage
+    let isVisible = true;
+    toggleBtn.addEventListener("click", () => {
+      isVisible = !isVisible;
+      refusalText.style.display = isVisible ? "block" : "none";
+      toggleBtn.textContent = isVisible ? "🔽 Masquer" : "▶️ Afficher la raison";
+    });
+  }
+} else if (status === "en attente") {
+  badgeHTML = `<span class="badge badge-yellow">En attente</span>`;
+  document.getElementById("refusal-message").classList.add("hidden");
+}
+
+badgeContainer.innerHTML = badgeHTML;
+
+
 }
 
 	else {
