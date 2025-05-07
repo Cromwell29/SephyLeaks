@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 const { data: propositions, error } = await supabase
   .from("propositions")
   .select("id, titre, resume, image, contenu, date, author_id, tag")
-  .eq("status", "en_attente") // 🆕 On filtre
+  .eq("status", "en attente") // 🆕 On filtre
   .order("date", { ascending: false });
 
 
