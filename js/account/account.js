@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   const displayBio = document.getElementById("user-bio");
   const msg = document.getElementById("profile-msg");
   const adminActions = document.getElementById("admin-actions");
+  const inscriptionField = document.getElementById("join-date");
+  const articleCountField = document.getElementById("article-count");
+  const commentCountField = document.getElementById("comment-count");
+
 
   // 🔐 Vérifier la session active
   const { data: sessionData } = await supabase.auth.getSession();
@@ -26,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 🔎 Charger les infos utilisateur
   const { data: users, error: userError } = await supabase
     .from("users")
-    .select("email,pseudo,role,bio,avatar_url")
+    .select("email,pseudo,role,bio,avatar_url,created_at")
     .eq("id", userId)
     .single();
 
@@ -35,8 +39,37 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  const { email, pseudo, role, bio, avatar_url } = users;
+  const { email, pseudo, role, bio, avatar_url, created_at } = users;
 
+// 🗓️ Afficher la date d'inscription formatée en français
+const inscriptionField = document.querySelector("#tab-profile p:nth-of-type(1)");
+if (created_at && inscriptionField) {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const dateFr = new Date(created_at).toLocaleDateString('fr-FR', options);
+  inscriptionField.textContent = `Inscription : ${dateFr}`;
+}
+
+// 🧮 Compter les articles publiés
+const articleCountField = document.querySelector("#tab-profile p:nth-of-type(2)");
+const { count: articleCount } = await supabase
+  .from("articles")
+  .select("*", { count: "exact", head: true })
+  .eq("author_id", userId);
+
+if (articleCountField) {
+  articleCountField.textContent = `Articles publiés : ${articleCount}`;
+}
+
+// 🧮 Compter les commentaires
+const commentCountField = document.querySelector("#tab-profile p:nth-of-type(3)");
+const { count: commentCount } = await supabase
+  .from("commentaires")
+  .select("*", { count: "exact", head: true })
+  .eq("auteur_id", userId);
+
+if (commentCountField) {
+  commentCountField.textContent = `Commentaires : ${commentCount}`;
+}
 
   // ✅ Remplir les champs
   document.getElementById("user-pseudo").textContent = pseudo;
@@ -171,30 +204,6 @@ if (pubList) {
   }
 }
 const commentList = document.getElementById("comment-list");
-if (commentList) {
-  const { data: comments, error: commentError } = await supabase
-    .from("commentaires")
-    .select("id, contenu, article_id, articles(titre)")
-    .eq("auteur_id", userId)
-    .order("created_at", { ascending: false });
-
-  if (commentError || !comments || comments.length === 0) {
-    commentList.innerHTML = "<p>Aucun commentaire pour le moment.</p>";
-  } else {
-    commentList.innerHTML = ""; // Clear
-    comments.forEach((c) => {
-      const item = document.createElement("div");
-      item.className = "comment-item";
-      item.innerHTML = `
-        <h4>${c.articles?.titre || "Article inconnu"}</h4>
-        <p>${c.contenu.slice(0, 100)}...</p>
-        <button onclick="window.location.href='/SephyLeaks/article.html?id=${c.article_id}'">🔍 Voir</button>
-      `;
-      commentList.appendChild(item);
-    });
-  }
-}
-
 if (commentList) {
   const { data: comments, error: commentError } = await supabase
     .from("commentaires")
