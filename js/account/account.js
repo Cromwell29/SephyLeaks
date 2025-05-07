@@ -135,6 +135,40 @@ if (propList) {
     });
   }
 }
+// 📚 Charger les articles publiés
+const pubList = document.getElementById("published-articles-list");
+
+if (pubList) {
+  const { data: published, error: pubError } = await supabase
+    .from("articles")
+    .select("id, titre, date, image")
+    .eq("author_id", userId)
+    .order("date", { ascending: false });
+
+  if (pubError || !published || published.length === 0) {
+    pubList.innerHTML = "<p>Aucun article publié pour le moment.</p>";
+  } else {
+    pubList.innerHTML = ""; // Clear
+	published.forEach((article) => {
+	  const card = document.createElement("div");
+	  card.className = "proposition-card"; // même style visuel
+
+	  card.innerHTML = `
+		<img src="${article.image || '/SephyLeaks/assets/placeholder.webp'}" alt="Image de l’article"
+		  style="width:100%; height:140px; object-fit:cover; border-radius:6px; margin-bottom:0.5rem;">
+		<h4>${article.titre || "Sans titre"}</h4>
+		<small>📅 ${article.date || "Date inconnue"}</small>
+		<div style="margin-top: 0.5rem;">
+		  <button onclick="window.location.href='/SephyLeaks/article.html?id=${article.id}'">🔍 Lire</button>
+		  ${role === "admin" 
+			? `<button onclick="window.location.href='/SephyLeaks/editor.html?id=${article.id}'">✏️ Éditer</button>` 
+			: ""}
+		</div>
+	  `;
+
+	  pubList.appendChild(card);
+	});
+
 const commentList = document.getElementById("comment-list");
 if (commentList) {
   const { data: comments, error: commentError } = await supabase
