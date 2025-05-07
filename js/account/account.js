@@ -194,6 +194,34 @@ if (commentList) {
     });
   }
 }
+const commentList = document.getElementById("comment-list");
+if (commentList) {
+  const { data: comments, error: commentError } = await supabase
+    .from("commentaires")
+    .select("id, contenu, article_id, articles(titre)")
+    .eq("auteur_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (commentError || !comments || comments.length === 0) {
+    commentList.innerHTML = "<p>Aucun commentaire pour le moment.</p>";
+  } else {
+    commentList.innerHTML = ""; // Clear
+    comments.forEach((c) => {
+      const item = document.createElement("div");
+      item.className = "comment-item";
+      const preview = c.contenu.length > 100 ? c.contenu.slice(0, 100) + "..." : c.contenu;
+      item.innerHTML = `
+        <div class="comment-block">
+          <h4>${c.articles?.titre || "Article inconnu"}</h4>
+          <p>${preview}</p>
+          <button onclick="window.location.href='/SephyLeaks/article.html?id=${c.article_id}#comment-${c.id}'">🔍 Voir</button>
+        </div>
+      `;
+      commentList.appendChild(item);
+    });
+  }
+}
+
 
   // 🎉 Popup de bienvenue
   if (popup && popupUser) {

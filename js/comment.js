@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const div = document.createElement('div');
     div.className = 'comment';
     div.dataset.id = id;
+	div.id = `comment-${id}`;
 
     div.innerHTML = `
       <img src="${avatar}" alt="avatar joueur" class="comment-avatar">
