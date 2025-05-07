@@ -23,51 +23,95 @@ document.addEventListener("DOMContentLoaded", async () => {
       <p><strong>Résumé :</strong> ${prop.resume || "Non fourni."}</p>
       ${prop.image ? `<img src="${prop.image}" style="max-width:100%; border-radius:6px; margin:0.5rem 0">` : ""}
       <button data-id="${prop.id}" class="validate-btn">✅ Valider</button>
+	  <button class="reject-btn" data-id="${prop.id}" data-author="${prop.author_id}">❌ Refuser</button>
+
     `;
 
     container.appendChild(card);
   });
 
 	  // Gestion de la validation
-	  container.addEventListener("click", async (e) => {
-		if (e.target.classList.contains("validate-btn")) {
-		  const id = e.target.dataset.id;
-	const prop = propositions.find((p) => p.id == id);
+container.addEventListener("click", async (e) => {
+  // ✅ Validation
+  if (e.target.classList.contains("validate-btn")) {
+    const id = e.target.dataset.id;
+    const prop = propositions.find((p) => p.id == id);
 
-	if (!prop.author_id) {
-	  alert("❌ Cette proposition n'a pas d'auteur valide.");
-	  return;
-	}
-
-	// 1. Copier dans la table articles
-	const { error: insertError } = await supabase.from("articles").insert({
-	  titre: prop.titre,
-	  resume: prop.resume,
-	  contenu: prop.contenu,
-	  image: prop.image,
-	  date: prop.date,
-	  author_id: prop.author_id,
-	  tag: prop.tag
-	});
-console.log("Données à insérer dans articles :", prop);
-
-if (insertError) {
-  console.error("Erreur Supabase :", insertError);
-  alert("❌ Erreur lors de la validation.");
-  return;
-}
-
-
-
-      // 2. Supprimer de propositions
-      const { error: deleteError } = await supabase
-        .from("propositions")
-        .delete()
-        .eq("id", id);
-
-      if (!deleteError) {
-        e.target.closest(".proposition-card").remove();
-      }
+    if (!prop.author_id) {
+      alert("❌ Cette proposition n'a pas d'auteur valide.");
+      return;
     }
+
+    const { error: insertError } = await supabase.from("articles").insert({
+      titre: prop.titre,
+      resume: prop.resume,
+      contenu: prop.contenu,
+      image: prop.image,
+      date: prop.date,
+      author_id: prop.author_id,
+      tag: prop.tag
+    });
+
+    if (insertError) {
+      console.error("Erreur Supabase :", insertError);
+      alert("❌ Erreur lors de la validation.");
+      return;
+    }
+
+    const { error: deleteError } = await supabase
+      .from("propositions")
+      .delete()
+      .eq("id", id);
+
+    if (!deleteError) {
+      e.target.closest(".proposition-card").remove();
+    }
+  }
+
+  // ❌ Refus
+  if (e.target.classList.contains("reject-btn")) {
+    currentRejectId = e.target.dataset.id;
+    currentRejectAuthor = e.target.dataset.author;
+    document.getElementById("reject-modal").classList.remove("hidden");
+  }
+});
+
+let currentRejectId = null;
+let currentRejectAuthor = null;
+
+document.getElementById("cancel-reject").addEventListener("click", () => {
+  document.getElementById("reject-modal").classList.add("hidden");
+  currentRejectId = null;
+  currentRejectAuthor = null;
+});
+
+document.getElementById("confirm-reject").addEventListener("click", async () => {
+  const reason = document.getElementById("reject-reason").value.trim();
+  if (!reason || !currentRejectId || !currentRejectAuthor) return;
+
+  // 1. Créer une notification
+  const { error: notifError } = await supabase.from("notifications").insert({
+    user_id: currentRejectAuthor,
+    type: "refus",
+    contenu: reason,
+    article_id: currentRejectId // ou null si tu ne veux pas lier à un ID article inexistant
   });
+
+  // 2. Supprimer la proposition
+  const { error: deleteError } = await supabase
+    .from("propositions")
+    .delete()
+    .eq("id", currentRejectId);
+
+  if (!notifError && !deleteError) {
+    document.querySelector(`[data-id='${currentRejectId}']`)?.closest(".proposition-card")?.remove();
+    document.getElementById("reject-modal").classList.add("hidden");
+    document.getElementById("reject-reason").value = "";
+    currentRejectId = null;
+    currentRejectAuthor = null;
+  } else {
+    alert("❌ Erreur lors du refus.");
+  }
+});
+
 });
