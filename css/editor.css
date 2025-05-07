@@ -734,3 +734,26 @@ blockquote {
   color: #c9b3ff;
   margin: 1rem 0;
 }
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.badge-yellow {
+  background-color: #ffd966;
+  color: #333;
+}
+
+.badge-red {
+  background-color: #e06666;
+  color: white;
+}
+
+.badge-green {
+  background-color: #93c47d;
+  color: white;
+}

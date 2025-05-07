@@ -164,15 +164,24 @@ if (propList) {
   } else {
     propList.innerHTML = ""; // Clear
     propositions.forEach((prop) => {
+	const statusBadge = (() => {
+	  switch (prop.status) {
+		case "validee": return `<span class="badge badge-green">Validée</span>`;
+		case "refusee": return `<span class="badge badge-red">Refusée</span>`;
+		default: return `<span class="badge badge-yellow">En attente</span>`;
+	  }
+	})();		
       const card = document.createElement("div");
       card.className = "proposition-card";
-      card.innerHTML = `
-	    <img src="${prop.image || '/SephyLeaks/assets/placeholder.webp'}" alt="Image de l’article" style="width:100%; height:140px; object-fit:cover; border-radius:6px; margin-bottom:0.5rem;">
-        <h4>${prop.titre || "Sans titre"}</h4>
-        <p>${prop.resume || "Pas de résumé."}</p>
-        <small>📅 ${prop.date || "Date inconnue"}</small>
-        <button onclick="window.location.href='/SephyLeaks/editor.html?id=${prop.id}'">✏️ Modifier</button>
-      `;
+	card.innerHTML = `
+	  ${statusBadge}
+	  <img src="${prop.image || '/SephyLeaks/assets/placeholder.webp'}" alt="Image de l’article" style="width:100%; height:140px; object-fit:cover; border-radius:6px; margin-bottom:0.5rem;">
+	  <h4>${prop.titre || "Sans titre"}</h4>
+	  <p>${prop.resume || "Pas de résumé."}</p>
+	  <small>📅 ${prop.date || "Date inconnue"}</small>
+	  <button onclick="window.location.href='/SephyLeaks/editor.html?id=${prop.id}'">✏️ Modifier</button>
+	`;
+
       propList.appendChild(card);
     });
   }
