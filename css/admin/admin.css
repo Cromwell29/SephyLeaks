@@ -1,14 +1,21 @@
 body {
-  background: #1c1a2a;
-  color: #ddd;
-  font-family: 'EB Garamond', serif;
-  padding: 2rem;
-}
-
+   background: linear-gradient(to bottom right, var(--color-bg-main), var(--color-bg-alt));
+   color: var(--color-text);
+   font-family: 'EB Garamond', serif;
+   font-size: 18px;
+   line-height: 1.6;
+   position: relative;
+   overflow-x: hidden;
+ }
+ html {
+   scroll-behavior: smooth;
+ }
 .main-header {
-  margin-bottom: 2rem;
-  text-align: center;
-}
+   background-color: var(--color-header);
+   padding: 2rem 1rem;
+   text-align: left;
+   border-bottom: 2px solid #6c59a0;
+ }
 
 .admin-container {
   max-width: 900px;
