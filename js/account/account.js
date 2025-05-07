@@ -155,7 +155,7 @@ const propList = document.getElementById("proposition-list");
 if (propList) {
   const { data: propositions, error: propError } = await supabase
     .from("propositions")
-    .select("id,titre,resume,date,image")
+    .select("id,titre,resume,date,image,status")
     .eq("author_id", userId)
     .order("date", { ascending: false });
 
@@ -163,14 +163,14 @@ if (propList) {
     propList.innerHTML = "<p>Aucune proposition pour le moment.</p>";
   } else {
     propList.innerHTML = ""; // Clear
-    propositions.forEach((prop) => {
-	const statusBadge = (() => {
-	  switch (prop.status) {
-		case "validee": return `<span class="badge badge-green">Validée</span>`;
-		case "refusee": return `<span class="badge badge-red">Refusée</span>`;
-		default: return `<span class="badge badge-yellow">En attente</span>`;
-	  }
-	})();		
+	propositions.forEach((prop) => {
+	  const statusBadge = (() => {
+		switch (prop.status) {
+		  case "validee": return `<span class="badge badge-green">Validée</span>`;
+		  case "refusee": return `<span class="badge badge-red">Refusée</span>`;
+		  default: return `<span class="badge badge-yellow">En attente</span>`;
+		}
+  })();	
       const card = document.createElement("div");
       card.className = "proposition-card";
 	card.innerHTML = `
