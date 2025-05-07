@@ -50,7 +50,6 @@ if (created_at && inscriptionField) {
 
 
 // 🧮 Compter les articles publiés
-const articleCountField = document.querySelector("#tab-profile p:nth-of-type(2)");
 const { count: articleCount } = await supabase
   .from("articles")
   .select("*", { count: "exact", head: true })
@@ -61,7 +60,6 @@ if (articleCountField) {
 }
 
 // 🧮 Compter les commentaires
-const commentCountField = document.querySelector("#tab-profile p:nth-of-type(3)");
 const { count: commentCount } = await supabase
   .from("commentaires")
   .select("*", { count: "exact", head: true })
