@@ -19,16 +19,37 @@
   <link rel="icon" type="image/png" sizes="512x512" href="/SephyLeaks/assets/icons/android-chrome-512x512.png">
 </head>
 
-<body>
   <header class="main-header">
-    <h1>🛠️ Panneau d’administration</h1>
-    <p>Validation des propositions en attente</p>
+    <div class="header-content">
+      <h1>🛠️ Panneau d’administration</h1>
+      <nav class="admin-nav">
+        <a href="/SephyLeaks/index.html">Accueil</a>
+        <a href="/SephyLeaks/articles.html">Articles</a>
+        <a href="/SephyLeaks/account.html">Mon Compte</a>
+        <a href="/SephyLeaks/admin/admin.html" class="active">Admin</a>
+      </nav>
+    </div>
+    <p class="subtitle">Validation des propositions en attente</p>
   </header>
-
+  
+<body>
   <main class="admin-container">
     <section id="propositions-container">
       <p>Chargement des propositions…</p>
     </section>
+  </main>
+  
+    <!-- Modal de refus -->
+    <div id="reject-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>❌ Refuser la proposition</h2>
+        <textarea id="reject-reason" placeholder="Indiquez la raison du refus..."></textarea>
+        <div class="modal-buttons">
+          <button id="cancel-reject">Annuler</button>
+          <button id="confirm-reject">Refuser</button>
+        </div>
+      </div>
+    </div>
   </main>
 </body>
 </html>
