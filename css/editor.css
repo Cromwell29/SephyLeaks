@@ -663,6 +663,7 @@ body {
 
 /* === SLIDER CARDS === */
 .article-card {
+	position: relative;
   min-width: 180px;
   background-color: #2d2443;
   border: 1px solid #555;
@@ -742,7 +743,12 @@ blockquote {
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
-
+.status-badge-container {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+}
 .badge-yellow {
   background-color: #ffd966;
   color: #333;

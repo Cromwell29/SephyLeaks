@@ -48,16 +48,29 @@ document.getElementById("my-proposals-toggle").addEventListener("click", () => {
     .eq("author_id", userId);
 
   const proposalTrack = document.getElementById("proposal-track");
-  proposals?.forEach(p => {
-    const card = document.createElement("div");
-    card.className = "article-card";
-    card.innerHTML = `
-      <img src="${p.image || '/SephyLeaks/assets/placeholder.webp'}" alt="cover">
-      <p>${p.titre}</p>
-    `;
-    card.addEventListener("click", () => {
-      window.location.href = `/SephyLeaks/editor.html?id=${p.id}`;
-    });
-    proposalTrack.appendChild(card);
+ proposals?.forEach(p => {
+  const card = document.createElement("div");
+  card.className = "article-card";
+
+  // 💬 Badge selon le statut
+  let badgeHTML = "";
+  if (p.status === "refusee") {
+    badgeHTML = `<span class="badge badge-red">Refusée</span>`;
+  } else if (p.status === "en attente") {
+    badgeHTML = `<span class="badge badge-yellow">En attente</span>`;
+  }
+
+  card.innerHTML = `
+    <div class="status-badge-container">${badgeHTML}</div>
+    <img src="${p.image || '/SephyLeaks/assets/placeholder.webp'}" alt="cover">
+    <p>${p.titre}</p>
+  `;
+
+  card.addEventListener("click", () => {
+    window.location.href = `/SephyLeaks/editor.html?id=${p.id}`;
   });
+
+  proposalTrack.appendChild(card);
+});
+
 });
