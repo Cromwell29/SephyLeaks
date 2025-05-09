@@ -86,7 +86,6 @@ if (proposition && proposition.author_id === userId) {
 const badgeContainer = document.getElementById("status-badge-container");
 const refusalBox = document.getElementById("refusal-message");
 const status = proposition.status;
-console.log(status)
 let badgeHTML = "";
 
 if (status === "refusee") {
@@ -98,19 +97,12 @@ if (status === "refusee") {
 	  .eq("proposition_id", proposition.id.toString())
 	  .order("created_at", { ascending: false })
 	  .limit(1);
-	  console.log("Notif récupérée", notifications, "Erreur ?", notifError);
-		console.log("→ Fetch notif with", {
-		  recipient_id: userId,
-		  proposition_id: proposition.id
-		});
   if (notifications && notifications.length > 0) {
     const refusalBox = document.getElementById("refusal-message");
     const refusalText = document.getElementById("refusal-text");
     const toggleBtn = document.getElementById("toggle-refusal");
 
     refusalText.textContent = notifications[0].message || "Raison non précisée.";
-		
-	console.log("→ Affichage du message de refus");
 	refusalBox.classList.remove("hidden");
 
     // Fonction de repli/affichage
@@ -125,12 +117,8 @@ toggleBtn.addEventListener("click", () => {
   badgeHTML = `<span class="badge badge-yellow">En attente</span>`;
   document.getElementById("refusal-message").classList.add("hidden");
 }
-
 badgeContainer.innerHTML = badgeHTML;
-
-
 }
-
 	else {
       const { data: article, error: artErr } = await supabase
         .from("articles")
@@ -603,6 +591,13 @@ document.getElementById("publish-article").addEventListener("click", () => {
         .from("propositions")
         .update(article)
         .eq("id", editId);
+		
+		// 🧹 Supprimer la notif de refus si elle existe
+	  await supabase
+	    .from("notifications")
+	    .delete()
+	    .eq("proposition_id", editId)
+	    .eq("recipient_id", userId);
 
       if (error) {
         showToast("❌ Erreur lors de la mise à jour : " + error.message);
