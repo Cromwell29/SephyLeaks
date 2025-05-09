@@ -845,6 +845,23 @@ button#submit-comment.active-button:hover {
   color: #4a3900;
   border-radius: 4px;
 }
+.preview-content img.align-left {
+  display: block;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.preview-content img.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.preview-content img.align-right {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
 
 .align-left {
   display: block;
