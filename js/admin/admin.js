@@ -20,16 +20,23 @@ const { data: propositions, error } = await supabase
   propositions.forEach((prop) => {
     const card = document.createElement("div");
     card.className = "proposition-card";
-    card.innerHTML = `
-      <h3>${prop.titre || "Sans titre"}</h3>
-      <p><strong>Résumé :</strong> ${prop.resume || "Non fourni."}</p>
-      ${prop.image ? `<img src="${prop.image}" style="max-width:100%; border-radius:6px; margin:0.5rem 0">` : ""}
-      <button data-id="${prop.id}" class="validate-btn">✅ Valider</button>
-	  <button class="reject-btn" data-id="${prop.id}" data-author="${prop.author_id}">❌ Refuser</button>
+	card.innerHTML = `
+	  <h3>${prop.titre || "Sans titre"}</h3>
+	  <p><strong>Résumé :</strong> ${prop.resume || "Non fourni."}</p>
+	  ${prop.image ? `<img src="${prop.image}" style="max-width:100%; border-radius:6px; margin:0.5rem 0">` : ""}
+	  <div class="admin-buttons">
+		<button data-id="${prop.id}" class="validate-btn">✅ Valider</button>
+		<button class="reject-btn" data-id="${prop.id}" data-author="${prop.author_id}">❌ Refuser</button>
+		<button class="preview-btn" data-id="${prop.id}">👁️ Prévisualiser</button>
+	  </div>
+	`;
 
-    `;
+	container.appendChild(card);
 
-    container.appendChild(card);
+	const previewBtn = card.querySelector(".preview-btn");
+	previewBtn.addEventListener("click", () => {
+	  window.open(`/SephyLeaks/article.html?preview=true&id=${prop.id}`, "_blank");
+	});
   });
 
 	  // Gestion de la validation
