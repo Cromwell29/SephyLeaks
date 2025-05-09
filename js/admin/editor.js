@@ -94,10 +94,13 @@ if (status === "refusee") {
 	  .from("notifications")
 	  .select("message, created_at")
 	  .eq("recipient_id", userId)
-	  .eq("proposition_id", proposition.id)
+	  .eq("proposition_id", proposition.id.toString())
 	  .order("created_at", { ascending: false })
 	  .limit(1);
-
+		console.log("→ Fetch notif with", {
+		  recipient_id: userId,
+		  proposition_id: proposition.id
+		});
   if (notifications && notifications.length > 0) {
     const refusalBox = document.getElementById("refusal-message");
     const refusalText = document.getElementById("refusal-text");
@@ -110,8 +113,9 @@ if (status === "refusee") {
     let isVisible = true;
     toggleBtn.addEventListener("click", () => {
       isVisible = !isVisible;
-      refusalText.style.display = isVisible ? "block" : "none";
-      toggleBtn.textContent = isVisible ? "🔽 Masquer" : "▶️ Afficher la raison";
+		refusalText.style.display = "block";
+		toggleBtn.textContent = "🔽 Masquer";
+
     });
   }
 } else if (status === "en attente") {
