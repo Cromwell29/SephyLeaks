@@ -593,11 +593,12 @@ document.getElementById("publish-article").addEventListener("click", () => {
         .eq("id", editId);
 		
 		// 🧹 Supprimer la notif de refus si elle existe
-	  await supabase
-	    .from("notifications")
-	    .delete()
-	    .eq("proposition_id", editId)
-	    .eq("recipient_id", userId);
+	await supabase
+	  .from("notifications")
+	  .delete()
+	  .eq("proposition_id", editId.toString())
+	  .eq("recipient_id", userId);
+
 
       if (error) {
         showToast("❌ Erreur lors de la mise à jour : " + error.message);
