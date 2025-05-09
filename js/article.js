@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const params = new URLSearchParams(window.location.search);
     const articleId = params.get("id");
+    const isPreview = params.get("preview") === "true";
 
     const content = document.getElementById("article-content");
     const container = document.getElementById("article-container");
@@ -13,17 +14,61 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    const { data: article, error } = await supabase
-      .from("articles")
-      .select("*")
-      .eq("id", articleId)
-      .single();
+    let article;
 
-    if (error || !article) {
-      content.innerHTML = "<p>❌ Article introuvable.</p>";
-      return;
+    if (isPreview) {
+      // 🔐 Check session et rôle
+      const { data: sessionData } = await supabase.auth.getSession();
+      const session = sessionData?.session;
+      if (!session) {
+        content.innerHTML = "<p>⛔ Prévisualisation réservée aux administrateurs.</p>";
+        return;
+      }
+
+      const { data: userData } = await supabase
+        .from("users")
+        .select("role")
+        .eq("id", session.user.id)
+        .single();
+
+      if (!userData || userData.role !== "admin") {
+        content.innerHTML = "<p>⛔ Prévisualisation réservée aux administrateurs.</p>";
+        return;
+      }
+
+      const { data: draft, error: draftErr } = await supabase
+        .from("propositions")
+        .select("*")
+        .eq("id", articleId)
+        .single();
+
+      if (draftErr || !draft) {
+        content.innerHTML = "<p>❌ Brouillon introuvable.</p>";
+        return;
+      }
+
+      article = draft;
+
+      const previewNotice = document.createElement("div");
+      previewNotice.className = "preview-banner";
+      previewNotice.innerHTML = "⚠️ <strong>Aperçu d’un article en attente</strong> – visible uniquement par un administrateur";
+      container.prepend(previewNotice);
+    } else {
+      const { data: finalArticle, error } = await supabase
+        .from("articles")
+        .select("*")
+        .eq("id", articleId)
+        .single();
+
+      if (error || !finalArticle) {
+        content.innerHTML = "<p>❌ Article introuvable.</p>";
+        return;
+      }
+
+      article = finalArticle;
     }
 
+    // 🎯 Remplir le contenu de l’article
     const bannerUrl = article.banner || article.image;
     if (bannerUrl) {
       document.getElementById("cover-image").style.backgroundImage = `url(${bannerUrl})`;
@@ -37,26 +82,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (article.author_id) {
       const { data: author, error: authorError } = await supabase
         .from("users")
-        .select("pseudo, bio, avatar_url")
+        .select("id, pseudo, bio, avatar_url")
         .eq("id", article.author_id)
         .single();
 
       if (!authorError && author) {
         const authorBlock = document.createElement("div");
         authorBlock.className = "article-author";
-		authorBlock.innerHTML = `
-		  <a href="profile.html?id=${author.id}" class="author-link">
-			<img src="${author.avatar_url || 'assets/avatar-placeholder.png'}" alt="${author.pseudo}" class="author-avatar">
-		  </a>
-		  <div class="author-info">
-			<h3><a href="profile.html?id=${author.id}" class="author-link">${author.pseudo}</a></h3>
-			<p>${author.bio || "Cet auteur n'a pas encore de bio."}</p>
-		  </div>
-		`;
+        authorBlock.innerHTML = `
+          <a href="profile.html?id=${author.id}" class="author-link">
+            <img src="${author.avatar_url || 'assets/avatar-placeholder.png'}" alt="${author.pseudo}" class="author-avatar">
+          </a>
+          <div class="author-info">
+            <h3><a href="profile.html?id=${author.id}" class="author-link">${author.pseudo}</a></h3>
+            <p>${author.bio || "Cet auteur n'a pas encore de bio."}</p>
+          </div>
+        `;
         container.appendChild(authorBlock);
       }
     }
-
   } catch (err) {
     document.getElementById("article-content").innerHTML = "<p>❌ Erreur de chargement de l’article ou de l’auteur.</p>";
     console.error(err);
