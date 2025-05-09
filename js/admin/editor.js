@@ -90,13 +90,13 @@ let badgeHTML = "";
 
 if (status === "refusee") {
   badgeHTML = `<span class="badge badge-red">Refusée</span>`;
-  const { data: notifications, error: notifError } = await supabase
-    .from("notifications")
-    .select("message, created_at")
-    .eq("user_id", userId)
-    .eq("proposition_id", proposition.id)
-    .order("created_at", { ascending: false })
-    .limit(1);
+	const { data: notifications, error: notifError } = await supabase
+	  .from("notifications")
+	  .select("message, created_at")
+	  .eq("recipient_id", userId)
+	  .eq("proposition_id", proposition.id)
+	  .order("created_at", { ascending: false })
+	  .limit(1);
 
   if (notifications && notifications.length > 0) {
     const refusalBox = document.getElementById("refusal-message");

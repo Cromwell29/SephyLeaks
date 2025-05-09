@@ -94,6 +94,7 @@ document.getElementById("confirm-reject").addEventListener("click", async () => 
   // 1. Créer une notification
 	const { error: notifError } = await supabase.from("notifications").insert({
 	  recipient_id: currentRejectAuthor,
+      proposition_id: currentRejectId,	  
 	  type: "refus",
 	  message: reason
 	});
