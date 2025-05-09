@@ -86,6 +86,7 @@ if (proposition && proposition.author_id === userId) {
 const badgeContainer = document.getElementById("status-badge-container");
 const refusalBox = document.getElementById("refusal-message");
 const status = proposition.status;
+console.log(status)
 let badgeHTML = "";
 
 if (status === "refusee") {
@@ -97,6 +98,7 @@ if (status === "refusee") {
 	  .eq("proposition_id", proposition.id.toString())
 	  .order("created_at", { ascending: false })
 	  .limit(1);
+	  console.log("Notif récupérée", notifications, "Erreur ?", notifError);
 		console.log("→ Fetch notif with", {
 		  recipient_id: userId,
 		  proposition_id: proposition.id

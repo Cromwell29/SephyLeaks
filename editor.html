@@ -154,10 +154,6 @@
 
 <main class="editor-main">
       <div class="editor-bar">
-		<div id="refusal-message" class="refusal-box hidden">
-		  <span id="refusal-text">...</span>
-		  <button id="toggle-refusal" class="format-btn small">🔽 Masquer</button>
-		</div>
         <input type="text" id="title" placeholder="Titre...">
         <select id="tag">
 		  <option value="">-- Choisir un tag --</option>
@@ -180,6 +176,10 @@
 <aside class="editor-sidebar">
   <h2>🛠 Preview de l'article</h2> 
   <section class="editor-preview">
+  		<div id="refusal-message" class="refusal-box hidden">
+		  <span id="refusal-text">...</span>
+		  <button id="toggle-refusal" class="format-btn small">🔽 Masquer</button>
+		</div>
     <div id="status-badge-container" style="margin-bottom: 0.5rem;"></div>
     <div id="preview-content" class="preview-content">...</div>
   </section>
