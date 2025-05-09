@@ -800,3 +800,20 @@ blockquote {
   font-style: italic;
 }
 
+.align-left {
+  display: block;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-right {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
