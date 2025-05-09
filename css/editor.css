@@ -785,3 +785,8 @@ blockquote {
   padding: 0;
   text-decoration: underline;
 }
+#refusal-text {
+  display: block;
+  margin-top: 0.5rem;
+  font-style: italic;
+}

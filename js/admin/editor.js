@@ -112,13 +112,13 @@ if (status === "refusee") {
     refusalBox.classList.remove("hidden");
 
     // Fonction de repli/affichage
-    let isVisible = true;
-    toggleBtn.addEventListener("click", () => {
-      isVisible = !isVisible;
-		refusalText.style.display = "block";
-		toggleBtn.textContent = "🔽 Masquer";
-
-    });
+let isVisible = true;
+toggleBtn.addEventListener("click", () => {
+  isVisible = !isVisible;
+  refusalText.style.display = isVisible ? "block" : "none";
+  toggleBtn.textContent = isVisible ? "🔽 Masquer" : "▶ Afficher";
+});
+console.log(notifications[0].message)
   }
 } else if (status === "en attente") {
   badgeHTML = `<span class="badge badge-yellow">En attente</span>`;
