@@ -44,7 +44,7 @@ document.getElementById("my-proposals-toggle").addEventListener("click", () => {
   // Chargement des propositions
   const { data: proposals } = await supabase
     .from("propositions")
-    .select("id,titre,image")
+    .select("id,titre,image,status")
     .eq("author_id", userId);
 
   const proposalTrack = document.getElementById("proposal-track");
