@@ -61,48 +61,69 @@ notifLi.innerHTML = `
 
 navLinks.appendChild(notifLi);
 
-// 📬 Charger les notifications
-const { data: notifs, error } = await supabase
+// 📬 Charger les notifications récentes
+const { data: notifsRaw, error } = await supabase
   .from("notifications")
   .select("id, lu, message, type, created_at, proposition_id, propositions (titre, image)")
   .eq("recipient_id", userId)
   .order("created_at", { ascending: false })
-  .limit(10);
+  .limit(30); // On récupère un peu plus pour compenser les filtres
 
 const dropdown = notifLi.querySelector("#notif-dropdown");
 dropdown.innerHTML = "";
 
-if (error || !notifs || notifs.length === 0) {
+if (error || !notifsRaw || notifsRaw.length === 0) {
   dropdown.innerHTML = `<p class="notif-empty">Aucune notification.</p>`;
 } else {
-  notifs.forEach((notif) => {
-  const p = notif.propositions;
+  // 🕓 Filtrer les notifications de moins de 30 jours
+  const today = new Date();
+  const notifsRecentes = notifsRaw.filter(n => {
+    const dateNotif = new Date(n.created_at);
+    const diffDays = (today - dateNotif) / (1000 * 60 * 60 * 24);
+    return diffDays <= 30;
+  });
 
-  const notifItem = document.createElement("div");
-  notifItem.className = "notif-card";
+  // 🧠 Trier : non lues d'abord
+  const unread = notifsRecentes.filter(n => !n.lu);
+  const read = notifsRecentes.filter(n => n.lu);
+  const sortedNotifs = [...unread, ...read];
 
-  notifItem.innerHTML = `
-    <div class="notif-card-img">
-      <img src="${p?.image || '/SephyLeaks/img/default.jpg'}" alt="Image de couverture">
-    </div>
-    <div class="notif-card-body">
-      <h4 class="notif-card-title">${p?.titre || "Proposition inconnue"}</h4>
-      <p class="notif-card-message">${notif.message}</p>
-      <div class="notif-card-date">${new Date(notif.created_at).toLocaleDateString()}</div>
-    </div>
-  `;
-  dropdown.appendChild(notifItem);
-});
+  // 🔄 Affichage des cartes
+  if (sortedNotifs.length === 0) {
+    dropdown.innerHTML = `<p class="notif-empty">Aucune notification récente.</p>`;
+  } else {
+    sortedNotifs.forEach((notif) => {
+      const p = notif.propositions;
+
+      const notifItem = document.createElement("div");
+      notifItem.className = "notif-card";
+
+		notifItem.innerHTML = `
+		  <a href="/SephyLeaks/editor/editor.html?id=${idProposition}" class="notif-card-link">
+			<div class="notif-card-img">
+			  <img src="${p?.image || '/SephyLeaks/img/default.jpg'}" alt="Image de couverture">
+			</div>
+			<div class="notif-card-body">
+			  <h4 class="notif-card-title">${p?.titre || "Proposition inconnue"}</h4>
+			  <p class="notif-card-message">${notif.message}</p>
+			  <div class="notif-card-date">${new Date(notif.created_at).toLocaleDateString()}</div>
+			</div>
+		  </a>
+		`;
+      dropdown.appendChild(notifItem);
+    });
+  }
+
+  // 🔴 Badge uniquement si des non-lues
+  const badge = notifLi.querySelector("#notif-badge");
+  if (unread.length > 0) {
+    badge.textContent = unread.length;
+    badge.style.display = "inline-block";
+  } else {
+    badge.style.display = "none";
+  }
 }
-// 🔴 Affichage du badge si non lues
-const unreadCount = notifs.filter(n => !n.lu).length;
-const badge = notifLi.querySelector("#notif-badge");
-if (unreadCount > 0) {
-  badge.textContent = unreadCount;
-  badge.style.display = "inline-block";
-} else {
-  badge.style.display = "none";
-}
+
 
 // 🎯 Toggle menu au clic
 const notifBtn = notifLi.querySelector("#notif-button");
