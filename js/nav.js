@@ -64,7 +64,7 @@ navLinks.appendChild(notifLi);
 // 📬 Charger les notifications
 const { data: notifs, error } = await supabase
   .from("notifications")
-  .select("*")
+  .select("id, lu, message, type, created_at, proposition_id, propositions (titre, image)")
   .eq("recipient_id", userId)
   .order("created_at", { ascending: false })
   .limit(10);
@@ -76,14 +76,23 @@ if (error || !notifs || notifs.length === 0) {
   dropdown.innerHTML = `<p class="notif-empty">Aucune notification.</p>`;
 } else {
   notifs.forEach((notif) => {
-    const notifItem = document.createElement("div");
-    notifItem.className = "notif-item";
-    notifItem.innerHTML = `
-      <div class="notif-message">${notif.message}</div>
-      <div class="notif-date">${new Date(notif.created_at).toLocaleDateString()}</div>
-    `;
-    dropdown.appendChild(notifItem);
-  });
+  const p = notif.propositions;
+
+  const notifItem = document.createElement("div");
+  notifItem.className = "notif-card";
+
+  notifItem.innerHTML = `
+    <div class="notif-card-img">
+      <img src="${p?.image || '/SephyLeaks/img/default.jpg'}" alt="Image de couverture">
+    </div>
+    <div class="notif-card-body">
+      <h4 class="notif-card-title">${p?.titre || "Proposition inconnue"}</h4>
+      <p class="notif-card-message">${notif.message}</p>
+      <div class="notif-card-date">${new Date(notif.created_at).toLocaleDateString()}</div>
+    </div>
+  `;
+  dropdown.appendChild(notifItem);
+});
 }
 // 🔴 Affichage du badge si non lues
 const unreadCount = notifs.filter(n => !n.lu).length;
