@@ -99,7 +99,7 @@ if (error || !notifsRaw || notifsRaw.length === 0) {
       notifItem.className = "notif-card";
 
 		notifItem.innerHTML = `
-		  <a href="/SephyLeaks/editor/editor.html?id=${idProposition}" class="notif-card-link">
+		  <a href="/SephyLeaks/editor/editor.html?id=${notif.proposition_id}" class="notif-card-link">
 			<div class="notif-card-img">
 			  <img src="${p?.image || '/SephyLeaks/img/default.jpg'}" alt="Image de couverture">
 			</div>
