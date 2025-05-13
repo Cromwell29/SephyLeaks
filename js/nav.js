@@ -44,6 +44,58 @@ document.addEventListener("DOMContentLoaded", async () => {
     accountLi.innerHTML = `<a href="/SephyLeaks/account/account.html">👤 Mon compte</a>`;
     navLinks.appendChild(accountLi);
 
+// 🔔 Cloche de notifications
+const notifLi = document.createElement("li");
+notifLi.setAttribute("data-auth", "true");
+
+notifLi.innerHTML = `
+  <div class="notif-wrapper">
+    <button class="notif-icon" id="notif-button" title="Notifications">🔔</button>
+    <div class="notif-dropdown hidden" id="notif-dropdown">
+      <p class="notif-empty">Chargement...</p>
+    </div>
+  </div>
+`;
+navLinks.appendChild(notifLi);
+
+// 📬 Charger les notifications
+const { data: notifs, error } = await supabase
+  .from("notifications")
+  .select("*")
+  .eq("recipient_id", userId)
+  .order("created_at", { ascending: false })
+  .limit(10);
+
+const dropdown = notifLi.querySelector("#notif-dropdown");
+dropdown.innerHTML = "";
+
+if (error || !notifs || notifs.length === 0) {
+  dropdown.innerHTML = `<p class="notif-empty">Aucune notification.</p>`;
+} else {
+  notifs.forEach((notif) => {
+    const notifItem = document.createElement("div");
+    notifItem.className = "notif-item";
+    notifItem.innerHTML = `
+      <div class="notif-message">${notif.message}</div>
+      <div class="notif-date">${new Date(notif.created_at).toLocaleDateString()}</div>
+    `;
+    dropdown.appendChild(notifItem);
+  });
+}
+
+// 🎯 Toggle menu au clic
+const notifBtn = notifLi.querySelector("#notif-button");
+notifBtn.addEventListener("click", () => {
+  dropdown.classList.toggle("hidden");
+});
+
+// ❌ Fermer si clic ailleurs
+document.addEventListener("click", (e) => {
+  if (!notifLi.contains(e.target)) {
+    dropdown.classList.add("hidden");
+  }
+});
+
     // 🛠️ Si admin ➔ lien vers panneau admin
     if (user.role === "admin") {
       const adminLi = document.createElement("li");
