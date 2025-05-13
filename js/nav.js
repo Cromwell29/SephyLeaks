@@ -49,13 +49,16 @@ const notifLi = document.createElement("li");
 notifLi.setAttribute("data-auth", "true");
 
 notifLi.innerHTML = `
-  <div class="notif-wrapper">
-    <button class="notif-icon" id="notif-button" title="Notifications">🔔</button>
+  <div class="notif-wrapper" id="notif-wrapper">
+    <button class="notif-icon" id="notif-button" title="Notifications">
+      🔔<span id="notif-badge" class="notif-badge"></span>
+    </button>
     <div class="notif-dropdown hidden" id="notif-dropdown">
       <p class="notif-empty">Chargement...</p>
     </div>
   </div>
 `;
+
 navLinks.appendChild(notifLi);
 
 // 📬 Charger les notifications
@@ -82,12 +85,39 @@ if (error || !notifs || notifs.length === 0) {
     dropdown.appendChild(notifItem);
   });
 }
+// 🔴 Affichage du badge si non lues
+const unreadCount = notifs.filter(n => !n.lu).length;
+const badge = notifLi.querySelector("#notif-badge");
+if (unreadCount > 0) {
+  badge.textContent = unreadCount;
+  badge.style.display = "inline-block";
+} else {
+  badge.style.display = "none";
+}
 
 // 🎯 Toggle menu au clic
 const notifBtn = notifLi.querySelector("#notif-button");
-notifBtn.addEventListener("click", () => {
+notifBtn.addEventListener("click", async () => {
   dropdown.classList.toggle("hidden");
+
+  // Si ouverture du menu ➜ marquer toutes comme lues
+  if (!dropdown.classList.contains("hidden")) {
+    const { error } = await supabase
+      .from("notifications")
+      .update({ lu: true })
+      .eq("recipient_id", userId)
+      .eq("lu", false);
+
+    if (error) {
+      console.error("Erreur marquage notifications :", error);
+    } else {
+      console.log("Notifications marquées comme lues");
+      badge.style.display = "none"; // Retirer badge
+    }
+  }
 });
+
+
 
 // ❌ Fermer si clic ailleurs
 document.addEventListener("click", (e) => {
